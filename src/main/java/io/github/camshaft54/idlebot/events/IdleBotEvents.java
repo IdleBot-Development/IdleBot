@@ -15,8 +15,8 @@ public class IdleBotEvents implements Listener {
     public void onDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
         if (IdleChecker.idlePlayers.contains(player)) {
-            player.sendMessage("[IdleBot]: You are idle and dead!");
-            Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and dead!");
+            player.sendMessage("[IdleBot]: You were idle and died!");
+            Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " was idle and died!");
             IdleBot.channel.sendMessage(player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").");
         }
         else {
