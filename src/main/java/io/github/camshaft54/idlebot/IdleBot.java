@@ -1,8 +1,10 @@
 package io.github.camshaft54.idlebot;
 
 import io.github.camshaft54.idlebot.commands.MainCommandDispatcher;
+import io.github.camshaft54.idlebot.events.DiscordEvents;
 import io.github.camshaft54.idlebot.events.IdleBotEvents;
 import io.github.camshaft54.idlebot.events.IdleChecker;
+
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -12,6 +14,9 @@ import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.channel.ServerTextChannel;
 
 import java.util.HashMap;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class IdleBot extends JavaPlugin {
     public static ServerTextChannel channel;
@@ -19,6 +24,9 @@ public class IdleBot extends JavaPlugin {
     private static String botToken;
     private static String channelId;
     public static HashMap<Player, Integer> linkTokens = new HashMap<>();
+    public static ArrayList<User> users = new ArrayList<>();
+    public static File playerLinks = new File("plugins/IdleBot/playerLinks.txt");
+
 
     @Override
     public void onEnable() {
@@ -30,6 +38,7 @@ public class IdleBot extends JavaPlugin {
                 .join(); // Call #onConnectToDiscord(...) after a successful login
         getLogger().info("Connected to Discord as " + api.getYourself().getDiscriminatedName());
         getLogger().info("Open the following url to invite the bot: " + api.createBotInvite());
+        api.addListener(new DiscordEvents());
 
         if (api.getServerTextChannelById(channelId).isPresent()) {
             channel = api.getServerTextChannelById(channelId).get();
@@ -50,5 +59,15 @@ public class IdleBot extends JavaPlugin {
         saveConfig();
         botToken = config.getString("botToken");
         channelId = config.getString("channelId");
+        if (!playerLinks.exists()) {
+            try {
+                playerLinks.createNewFile();
+            }
+            catch (IOException e) {
+                getLogger().warning("Error creating playerLinks.yml file!");
+                e.printStackTrace();
+            }
+        }
     }
 }
+
