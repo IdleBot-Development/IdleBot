@@ -1,23 +1,17 @@
 package io.github.camshaft54.idlebot;
 
 public class User {
-    private String uuid;
-    private String MCName;
-    private Integer code;
+    private final String MCName;
+    private final Integer code;
     private String discordId;
 
-    User(String uuid, String MCName, Integer code) {
-        this.uuid = uuid;
+    User(String MCName, Integer code) {
         this.MCName = MCName;
         this.code = code;
     }
 
     public void setDiscordId(String discordId) {
         this.discordId = discordId;
-    }
-
-    public String getUUID() {
-        return uuid;
     }
 
     public String getMCName() {

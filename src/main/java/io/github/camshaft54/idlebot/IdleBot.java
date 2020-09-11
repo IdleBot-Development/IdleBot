@@ -4,7 +4,6 @@ import io.github.camshaft54.idlebot.commands.MainCommandDispatcher;
 import io.github.camshaft54.idlebot.events.DiscordEvents;
 import io.github.camshaft54.idlebot.events.IdleBotEvents;
 import io.github.camshaft54.idlebot.events.IdleChecker;
-
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -14,9 +13,7 @@ import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.channel.ServerTextChannel;
 
 import java.util.HashMap;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Objects;
 
 public class IdleBot extends JavaPlugin {
     public static ServerTextChannel channel;
@@ -24,8 +21,7 @@ public class IdleBot extends JavaPlugin {
     private static String botToken;
     private static String channelId;
     public static HashMap<Player, Integer> linkTokens = new HashMap<>();
-    public static ArrayList<User> users = new ArrayList<>();
-    public static File playerLinks = new File("plugins/IdleBot/playerLinks.txt");
+    public static HashMap<String, User> users = new HashMap<>();
 
 
     @Override
@@ -46,7 +42,7 @@ public class IdleBot extends JavaPlugin {
         else {
             getLogger().info("Channel not present");
         }
-        getCommand("idlebot").setExecutor(new MainCommandDispatcher());
+        Objects.requireNonNull(getCommand("idlebot")).setExecutor(new MainCommandDispatcher());
         getServer().getScheduler().runTaskTimer(this, new IdleChecker(), 20L, 20L); // Code in task should execute every 20 ticks (1 second)
         getServer().getPluginManager().registerEvents(new IdleBotEvents(), this);
         getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] Plugin successfully loaded!");
@@ -59,15 +55,6 @@ public class IdleBot extends JavaPlugin {
         saveConfig();
         botToken = config.getString("botToken");
         channelId = config.getString("channelId");
-        if (!playerLinks.exists()) {
-            try {
-                playerLinks.createNewFile();
-            }
-            catch (IOException e) {
-                getLogger().warning("Error creating playerLinks.yml file!");
-                e.printStackTrace();
-            }
-        }
     }
 }
 

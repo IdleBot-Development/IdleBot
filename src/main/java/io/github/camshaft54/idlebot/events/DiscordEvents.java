@@ -1,16 +1,13 @@
 package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
+import io.github.camshaft54.idlebot.User;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.message.Message;
 import org.javacord.api.event.message.MessageCreateEvent;
 import org.javacord.api.listener.message.MessageCreateListener;
-
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class DiscordEvents implements MessageCreateListener {
     @Override
@@ -21,17 +18,12 @@ public class DiscordEvents implements MessageCreateListener {
             try {
                 int code = Integer.parseInt(message.getContent());
                 Bukkit.getLogger().info("Someone entered a code: " + code);
-                if (IdleBot.MCtoCode.containsKey(code)) {
-                    try {
-                        FileWriter writer = new FileWriter(IdleBot.playerLinks);
-                        writer.write(IdleBot.MCtoCode.get(code) + " : " + message.getAuthor().getIdAsString());
-                        writer.flush();
-                        writer.close();
-                        channel.sendMessage("Successfully linked your Discord username to Minecraft UUID " + IdleBot.MCtoCode.get(code));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    IdleBot.MCtoCode.remove(code);
+                String playerId = getUserFromCode(code);
+                User user = IdleBot.users.get(playerId);
+                if (user != null) {
+                    user.setDiscordId(event.getMessageAuthor().getIdAsString());
+                    IdleBot.users.replace(playerId, user);
+                    channel.sendMessage("Successfully linked your Discord username to Minecraft username " + user.getMCName());
                 } else {
                     channel.sendMessage("Invalid Code. To get code type /idlebot link in Minecraft");
                 }
@@ -39,5 +31,15 @@ public class DiscordEvents implements MessageCreateListener {
                 channel.sendMessage("Invalid Code. To get code type /idlebot link in Minecraft");
             }
         }
+    }
+
+    private String getUserFromCode(int code) {
+        for (String key : IdleBot.users.keySet()) {
+            User value = IdleBot.users.get(key);
+            if (value.getCode() == code) {
+                return key;
+            }
+        }
+        return null;
     }
 }
