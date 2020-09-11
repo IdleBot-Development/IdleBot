@@ -5,7 +5,7 @@ public class User {
     private final Integer code;
     private String discordId;
 
-    User(String MCName, Integer code) {
+    public User(String MCName, Integer code) {
         this.MCName = MCName;
         this.code = code;
     }

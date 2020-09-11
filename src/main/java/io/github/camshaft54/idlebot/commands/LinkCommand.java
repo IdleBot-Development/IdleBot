@@ -1,6 +1,7 @@
 package io.github.camshaft54.idlebot.commands;
 
 import io.github.camshaft54.idlebot.IdleBot;
+import io.github.camshaft54.idlebot.User;
 import org.bukkit.entity.Player;
 
 import java.util.Random;
@@ -8,10 +9,19 @@ import java.util.Random;
 public class LinkCommand {
     public void generateLinkToken(Player player) {
         Random rng = new Random();
-        int token = rng.nextInt(999); // Generate a random token
-        while (IdleBot.linkTokens.containsValue(token)) { // Keep getting new codes until it is unique (very unlikely to ever run)
-            token = rng.nextInt(999);
+        String botName = IdleBot.bot.getDiscriminatedName();
+        int code = rng.nextInt(999); // Generate a random token
+        while (checkForDuplicateToken(code)) { // Keep getting new codes until it is unique (very unlikely to ever run)
+            code = rng.nextInt(999);
         }
-        IdleBot.linkTokens.put(player, token); // Put the generated token on the HashMap
+        player.sendMessage("Your link code is " + code + ". Send this code in a private message to " + botName + " to link your account.");
+        IdleBot.users.put(player.getUniqueId().toString(), new User(player.getDisplayName(), code));
+    }
+
+    private boolean checkForDuplicateToken(int code) {
+        for (User eachUser : IdleBot.users.values()) {
+            if (eachUser.getCode() == code) return true;
+        }
+        return false;
     }
 }

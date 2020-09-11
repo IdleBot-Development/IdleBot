@@ -20,8 +20,9 @@ public class IdleBot extends JavaPlugin {
     FileConfiguration config = this.getConfig();
     private static String botToken;
     private static String channelId;
-    public static HashMap<Player, Integer> linkTokens = new HashMap<>();
+    //public static HashMap<Player, Integer> linkTokens = new HashMap<>();
     public static HashMap<String, User> users = new HashMap<>();
+    public static org.javacord.api.entity.user.User bot;
 
 
     @Override
@@ -35,6 +36,7 @@ public class IdleBot extends JavaPlugin {
         getLogger().info("Connected to Discord as " + api.getYourself().getDiscriminatedName());
         getLogger().info("Open the following url to invite the bot: " + api.createBotInvite());
         api.addListener(new DiscordEvents());
+        bot = api.getYourself();
 
         if (api.getServerTextChannelById(channelId).isPresent()) {
             channel = api.getServerTextChannelById(channelId).get();
