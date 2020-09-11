@@ -24,15 +24,10 @@ public class DiscordEvents implements MessageCreateListener {
                 if (IdleBot.MCtoCode.containsKey(code)) {
                     try {
                         FileWriter writer = new FileWriter(IdleBot.playerLinks);
-                        Player p = IdleBot.MCtoCode.get(code);
-                        assert p != null;
-                        String str = p.getDisplayName();
-                        str += " : ";
-                        str += message.getAuthor().getIdAsString();
-                        writer.write(str);
+                        writer.write(IdleBot.MCtoCode.get(code) + " : " + message.getAuthor().getIdAsString());
                         writer.flush();
                         writer.close();
-                        channel.sendMessage("Successfully linked your Discord user to " + IdleBot.MCtoCode.get(code).getDisplayName());
+                        channel.sendMessage("Successfully linked your Discord username to Minecraft UUID " + IdleBot.MCtoCode.get(code));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -41,7 +36,7 @@ public class DiscordEvents implements MessageCreateListener {
                     channel.sendMessage("Invalid Code. To get code type /idlebot link in Minecraft");
                 }
             } catch (NumberFormatException e) {
-            channel.sendMessage("Invalid Code. To get code type /idlebot link in Minecraft");
+                channel.sendMessage("Invalid Code. To get code type /idlebot link in Minecraft");
             }
         }
     }

@@ -30,8 +30,7 @@ public class IdleBotEvents implements Listener {
         if (IdleChecker.idlePlayers.contains(player) && MCtoDiscord.containsKey(player)) {
             Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and dead!");
             IdleBot.channel.sendMessage("<@!" + MCtoDiscord.get(player) + "> " + player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").");
-        }
-        else {
+        } else {
             Bukkit.getLogger().info("some player died.");
         }
     }
@@ -52,7 +51,7 @@ public class IdleBotEvents implements Listener {
     public static void onMovement(PlayerMoveEvent e) {
         Player player = e.getPlayer();
         Bukkit.getLogger().info(player.getDisplayName() + " stopped being idle.");
-        IdleChecker.playersIdling.put(player,0);
+        IdleChecker.playersIdling.put(player, 0);
         isDamaged.put(player, false);
     }
 
@@ -66,13 +65,16 @@ public class IdleBotEvents implements Listener {
             List<String> lines = Files.readAllLines(Paths.get("plugins/IdleBot/playerLinks.txt"), Charset.defaultCharset());
             for (String line : lines) {
                 String[] current_line = line.split(" : ");
-                MCtoDiscord.put(Bukkit.getPlayer(UUID.fromString(current_line[0])), current_line[1]);
+                Player player = Bukkit.getPlayer(UUID.fromString(current_line[0]));
+                assert player != null;
+                player.getDisplayName();
+                MCtoDiscord.put(player, current_line[1]);
             }
-            return MCtoDiscord;
         } catch (IOException e) {
             Bukkit.getLogger().warning("Unable to access playerLinks.yml");
+            return null;
         }
-        return null;
+        return MCtoDiscord;
     }
 }
 

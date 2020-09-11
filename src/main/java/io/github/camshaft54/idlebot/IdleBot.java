@@ -3,9 +3,7 @@ package io.github.camshaft54.idlebot;
 import io.github.camshaft54.idlebot.events.DiscordEvents;
 import io.github.camshaft54.idlebot.events.IdleBotEvents;
 import io.github.camshaft54.idlebot.events.IdleChecker;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
@@ -20,7 +18,7 @@ public class IdleBot extends JavaPlugin {
     FileConfiguration config = this.getConfig();
     private static String botToken;
     private static String channelId;
-    public static HashMap<Integer, Player> MCtoCode = new HashMap<>(); // Placeholder Hashmap
+    public static HashMap<Integer, String> MCtoCode = new HashMap<>(); // Placeholder Hashmap
     public static File playerLinks = new File("plugins/IdleBot/playerLinks.txt");
 
 
@@ -62,6 +60,6 @@ public class IdleBot extends JavaPlugin {
                 e.printStackTrace();
             }
         }
-        MCtoCode.put(1234, Bukkit.getPlayer("8df17d3f18dd4ce2a41b1a5c3cc3cd40"));
+        MCtoCode.put(1234, "8df17d3f18dd4ce2a41b1a5c3cc3cd40");
     }
 }
