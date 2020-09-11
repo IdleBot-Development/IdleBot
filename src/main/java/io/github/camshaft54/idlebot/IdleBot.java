@@ -11,14 +11,14 @@ import org.javacord.api.entity.channel.ServerTextChannel;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class IdleBot extends JavaPlugin {
     public static ServerTextChannel channel;
     FileConfiguration config = this.getConfig();
     private static String botToken;
     private static String channelId;
-    public static HashMap<Integer, String> MCtoCode = new HashMap<>(); // Placeholder Hashmap
+    public static ArrayList<User> users = new ArrayList<>();
     public static File playerLinks = new File("plugins/IdleBot/playerLinks.txt");
 
 
@@ -60,6 +60,6 @@ public class IdleBot extends JavaPlugin {
                 e.printStackTrace();
             }
         }
-        MCtoCode.put(1234, "8df17d3f18dd4ce2a41b1a5c3cc3cd40");
     }
 }
+
