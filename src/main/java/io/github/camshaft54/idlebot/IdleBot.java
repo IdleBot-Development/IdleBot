@@ -28,7 +28,6 @@ public class IdleBot extends JavaPlugin {
     FileConfiguration config = this.getConfig();
     private static String botToken;
     private static String channelId;
-    //public static HashMap<Player, Integer> linkTokens = new HashMap<>();
     public static HashMap<String,User> users = new HashMap<>();
     public static org.javacord.api.entity.user.User bot;
     public static ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
