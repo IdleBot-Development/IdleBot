@@ -1,8 +1,13 @@
 package io.github.camshaft54.idlebot;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
-    private final String MCName;
-    private final Integer code;
+    private String MCName;
+    private Integer code;
     private String discordId;
 
     public User(String MCName, Integer code) {

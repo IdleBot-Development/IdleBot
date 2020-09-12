@@ -18,11 +18,13 @@ public class DiscordEvents implements MessageCreateListener {
             try {
                 int code = Integer.parseInt(message.getContent());
                 Bukkit.getLogger().info("Someone entered a code: " + code);
+                IdleBot.getUsers();
                 String playerId = getUserFromCode(code);
                 User user = IdleBot.users.get(playerId);
                 if (user != null) {
                     user.setDiscordId(event.getMessageAuthor().getIdAsString());
                     IdleBot.users.replace(playerId, user);
+                    IdleBot.saveUsers();
                     channel.sendMessage("Successfully linked your Discord username to Minecraft username " + user.getMCName());
                 } else {
                     channel.sendMessage("Invalid Code. To get code type /idlebot link in Minecraft");
