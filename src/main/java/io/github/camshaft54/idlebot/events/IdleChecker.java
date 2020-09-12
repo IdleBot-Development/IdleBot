@@ -13,6 +13,7 @@ public class IdleChecker implements Runnable {
     public static ArrayList<Player> idlePlayers = new ArrayList<>();
 
     public void run() {
+        IdleBot.getUsers();
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (!IdleBot.users.containsKey(player.getUniqueId().toString())) {
                 continue;
