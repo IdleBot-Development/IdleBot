@@ -75,6 +75,7 @@ public class IdleBot extends JavaPlugin {
 
         if (userFile.exists()) {
             try {
+                //noinspection ResultOfMethodCallIgnored
                 userFile.createNewFile();
             } catch (IOException e) {
                 getLogger().warning("Unable to create user file!");
