@@ -35,10 +35,14 @@ public class IdleBotEvents implements Listener {
     public void onDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
-            if (IdleChecker.idlePlayers.contains(player)) {
+            String playerId = player.getUniqueId().toString();
+            if (IdleChecker.idlePlayers.contains(player) && IdleBot.users.containsKey(playerId)) {
+                String discordId = IdleBot.users.get(playerId).getDiscordId();
                 isDamaged.put(player, true);
-                Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and taking damage!");
-                IdleBot.channel.sendMessage(player.getDisplayName() + " is taking damage " + " (" + e.getCause().name() + ").");
+                if (discordId != null) {
+                    Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and taking damage!");
+                    IdleBot.channel.sendMessage("<@!" + discordId + "> " + player.getDisplayName() + " is taking damage " + " (" + e.getCause().name() + ").");
+                }
             }
         }
     }
