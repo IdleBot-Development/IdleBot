@@ -1,9 +1,0 @@
-name: IdleBot
-version: 1.0.0
-main: io.github.camshaft54.idlebot.IdleBot
-api-version: "1.16"
-commands:
-  idlebot:
-    description: A
-    usage: /<command> <function>
-    aliases: ib
