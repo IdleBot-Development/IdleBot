@@ -55,6 +55,7 @@ public class IdleChecker implements Runnable {
         for (Player player : playersIdling.keySet()) {
             String playerId = player.getUniqueId().toString();
             String discordId = IdleBot.users.get(playerId).getDiscordId();
+            //TODO: Replace "10" in if statement with variable for desired Exp level set by player
             if (playersIdling.get(player) >= IdleBot.idleTime && player.getLevel() == 10 && discordId != null && !atExpLevel.get(player)) {
                 Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and at the desired XP level!");
                 IdleBot.channel.sendMessage("<@!" + discordId + "> " + player.getDisplayName() + " is at the desired XP level! ");
