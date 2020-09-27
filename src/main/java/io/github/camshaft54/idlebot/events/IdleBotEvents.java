@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.HashMap;
 
@@ -20,14 +21,12 @@ public class IdleBotEvents implements Listener {
     public void onDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
         String playerId = player.getUniqueId().toString();
-        if (IdleChecker.idlePlayers.contains(player) && IdleBot.users.containsKey(playerId)) {
+        if (IdleChecker.playersIdling.get(player) >= IdleBot.idleTime) {
             String discordId = IdleBot.users.get(playerId).getDiscordId();
             if (discordId != null) {
                 Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and dead!");
                 IdleBot.channel.sendMessage("<@!" + discordId + "> " + player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").");
             }
-        } else {
-            Bukkit.getLogger().info("some player died.");
         }
     }
 
@@ -36,12 +35,12 @@ public class IdleBotEvents implements Listener {
         if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
             String playerId = player.getUniqueId().toString();
-            if (IdleChecker.idlePlayers.contains(player) && IdleBot.users.containsKey(playerId)) {
+            if (IdleChecker.playersIdling.get(player) >= IdleBot.idleTime) {
                 String discordId = IdleBot.users.get(playerId).getDiscordId();
-                isDamaged.put(player, true);
-                if (discordId != null) {
+                if (discordId != null && !isDamaged.get(player)) {
                     Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and taking damage!");
                     IdleBot.channel.sendMessage("<@!" + discordId + "> " + player.getDisplayName() + " is taking damage " + " (" + e.getCause().name() + ").");
+                    isDamaged.put(player, true);
                 }
             }
         }
@@ -53,6 +52,17 @@ public class IdleBotEvents implements Listener {
         Bukkit.getLogger().info(player.getDisplayName() + " stopped being idle.");
         IdleChecker.playersIdling.put(player, 0);
         isDamaged.put(player, false);
+        IdleChecker.isFull.put(player, false);
+        IdleChecker.atExpLevel.put(player, false);
+    }
+
+    @EventHandler
+    public static void onPlayerQuit(PlayerQuitEvent e) {
+        Player player = e.getPlayer();
+        IdleChecker.playersIdling.remove(player);
+        IdleChecker.isFull.remove(player);
+        IdleChecker.atExpLevel.remove(player);
+        isDamaged.remove(player);
     }
 
     private static String locationCleanup(Location l) {

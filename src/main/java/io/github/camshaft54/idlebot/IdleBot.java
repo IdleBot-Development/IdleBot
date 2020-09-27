@@ -16,6 +16,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
+import org.javacord.api.entity.activity.ActivityType;
 import org.javacord.api.entity.channel.ServerTextChannel;
 
 import java.io.File;
@@ -28,7 +29,11 @@ public class IdleBot extends JavaPlugin {
     FileConfiguration config = this.getConfig();
     private static String botToken;
     private static String channelId;
+    private static String activityType;
+    private static String activityMessage;
+    public static int idleTime;
     public static HashMap<String,User> users = new HashMap<>();
+    public static DiscordApi api;
     public static org.javacord.api.entity.user.User bot;
     public static ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
     public static File userFile = new File("plugins/IdleBot/users.yml");
@@ -38,20 +43,30 @@ public class IdleBot extends JavaPlugin {
     public void onEnable() {
         configSetup();
         // Connect to Discord
-        DiscordApi api = new DiscordApiBuilder()
+        api = new DiscordApiBuilder()
                 .setToken(botToken) // Set the token of the bot here
                 .login() // Log the bot in
                 .join(); // Call #onConnectToDiscord(...) after a successful login
         getLogger().info("Connected to Discord as " + api.getYourself().getDiscriminatedName());
         getLogger().info("Open the following url to invite the bot: " + api.createBotInvite());
-        api.addListener(new DiscordEvents());
-        bot = api.getYourself();
-
         if (api.getServerTextChannelById(channelId).isPresent()) {
             channel = api.getServerTextChannelById(channelId).get();
         }
         else {
             getLogger().info("Channel not present");
+        }
+        api.addListener(new DiscordEvents());
+        bot = api.getYourself();
+        switch (activityType) {
+            case "PLAYING":
+                api.updateActivity(ActivityType.PLAYING, activityMessage);
+                break;
+            case "LISTENING":
+                api.updateActivity(ActivityType.LISTENING, activityMessage);
+                break;
+            case "WATCHING":
+                api.updateActivity(ActivityType.WATCHING, activityMessage);
+                break;
         }
         Objects.requireNonNull(getCommand("idlebot")).setExecutor(new MainCommandDispatcher());
         getServer().getScheduler().runTaskTimer(this, new IdleChecker(), 20L, 20L); // Code in task should execute every 20 ticks (1 second)
@@ -67,10 +82,17 @@ public class IdleBot extends JavaPlugin {
     private void configSetup() {
         config.addDefault("botToken", "<Bot Token Here>");
         config.addDefault("channelId", "<Channel Id Here>");
+        //config.addDefault("customBotActivity");
+        config.addDefault("customBotActivity.type", "WATCHING");
+        config.addDefault("customBotActivity.message", "idle players");
+        config.addDefault("idleTime", 120);
         config.options().copyDefaults(true);
         saveConfig();
         botToken = config.getString("botToken");
         channelId = config.getString("channelId");
+        activityType = config.getString("customBotActivity.type");
+        activityMessage = config.getString("customBotActivity.message");
+        idleTime = config.getInt("idleTime");
 
         if (userFile.exists()) {
             try {
@@ -81,8 +103,9 @@ public class IdleBot extends JavaPlugin {
                 e.printStackTrace();
             }
         }
-        mapper.findAndRegisterModules();
+
         mapper = new ObjectMapper(new YAMLFactory().disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER));
+        mapper.findAndRegisterModules();
         mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
         mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         mapper.setVisibility(PropertyAccessor.CREATOR, JsonAutoDetect.Visibility.ANY);
@@ -103,6 +126,7 @@ public class IdleBot extends JavaPlugin {
             users.clear();
             users = mapper.readValue(userFile, new TypeReference<HashMap<String, User>>(){});
         } catch (IOException e) {
+            Bukkit.getLogger().warning("Failed to get users from users.yml");
             e.printStackTrace();
         }
     }
