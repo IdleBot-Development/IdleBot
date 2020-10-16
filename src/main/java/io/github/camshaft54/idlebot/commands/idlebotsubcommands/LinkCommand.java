@@ -27,7 +27,7 @@ public class LinkCommand extends IdleBotCommand {
             code = rng.nextInt(999);
         }
         player.sendMessage("Your link code is " + code + ". Send this code in a private message to " + botName + " to link your account.");
-        IdleBot.users.put(player.getUniqueId().toString(), new User(player.getDisplayName(), code));
+        IdleBot.users.put(player.getUniqueId().toString(), new User(player.getDisplayName(), player.getUniqueId().toString(), code));
         IdleBot.saveUsers();
     }
 
