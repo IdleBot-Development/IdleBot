@@ -1,4 +1,4 @@
-package io.github.camshaft54.idlebot.commands;
+package io.github.camshaft54.idlebot.commands.idlebotcommands;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.User;
@@ -6,8 +6,15 @@ import org.bukkit.entity.Player;
 
 import java.util.Random;
 
-public class LinkCommand {
-    public void generateLinkToken(Player player) {
+public class LinkCommand extends IdleBotCommand {
+
+    @Override
+    public String getCommandName() {
+        return "link";
+    }
+
+    @Override
+    public void runCommand(Player player, String[] args) {
         Random rng = new Random();
         String botName = IdleBot.bot.getDiscriminatedName();
         int code = rng.nextInt(999); // Generate a random token

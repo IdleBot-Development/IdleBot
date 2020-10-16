@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
-import io.github.camshaft54.idlebot.commands.MainCommandDispatcher;
+import io.github.camshaft54.idlebot.commands.IdleBotCommandManager;
 import io.github.camshaft54.idlebot.events.DiscordEvents;
 import io.github.camshaft54.idlebot.events.IdleBotEvents;
 import io.github.camshaft54.idlebot.events.IdleChecker;
@@ -68,7 +68,7 @@ public class IdleBot extends JavaPlugin {
                 api.updateActivity(ActivityType.WATCHING, activityMessage);
                 break;
         }
-        Objects.requireNonNull(getCommand("idlebot")).setExecutor(new MainCommandDispatcher());
+        Objects.requireNonNull(getCommand("idlebot")).setExecutor(new IdleBotCommandManager());
         getServer().getScheduler().runTaskTimer(this, new IdleChecker(), 20L, 20L); // Code in task should execute every 20 ticks (1 second)
         getServer().getPluginManager().registerEvents(new IdleBotEvents(), this);
         getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] Plugin successfully loaded!");
