@@ -1,8 +1,6 @@
 package io.github.camshaft54.idlebot.commands;
 
-import io.github.camshaft54.idlebot.IdleBot;
-import io.github.camshaft54.idlebot.commands.idlebotcommands.IdleBotCommand;
-import io.github.camshaft54.idlebot.commands.idlebotcommands.LinkCommand;
+import io.github.camshaft54.idlebot.commands.idlebotsubcommands.LinkCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

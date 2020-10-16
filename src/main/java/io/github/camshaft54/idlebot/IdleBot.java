@@ -25,14 +25,18 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class IdleBot extends JavaPlugin {
-    public static ServerTextChannel channel;
+
     FileConfiguration config = this.getConfig();
+
     private static String botToken;
     private static String channelId;
     private static String activityType;
     private static String activityMessage;
+
+    // Declare global static variables
+    public static ServerTextChannel channel;
     public static int idleTime;
-    public static HashMap<String,User> users = new HashMap<>();
+    public static HashMap<String, User> users = new HashMap<>();
     public static DiscordApi api;
     public static org.javacord.api.entity.user.User bot;
     public static ObjectMapper mapper = new ObjectMapper(new YAMLFactory());

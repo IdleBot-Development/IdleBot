@@ -1,4 +1,4 @@
-package io.github.camshaft54.idlebot.commands.idlebotcommands;
+package io.github.camshaft54.idlebot.commands;
 
 import org.bukkit.entity.Player;
 

@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    private String MCName;
-    private Integer code;
+    private final String MCName;
+    private final Integer code;
     private String discordId;
 
     public User(String MCName, Integer code) {
