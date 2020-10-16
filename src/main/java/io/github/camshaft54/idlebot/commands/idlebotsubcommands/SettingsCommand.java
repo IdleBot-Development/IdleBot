@@ -5,7 +5,6 @@ import io.github.camshaft54.idlebot.commands.IdleBotCommand;
 import org.bukkit.entity.Player;
 
 public class SettingsCommand extends IdleBotCommand {
-    private int autoAFKTime;
 
     @Override
     public String getCommandName() {

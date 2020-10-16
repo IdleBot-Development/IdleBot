@@ -17,7 +17,7 @@ public class LinkCommand extends IdleBotCommand {
     @Override
     public void runCommand(Player player, String[] args) {
         if (playerIsLinked(player.getUniqueId().toString())) {
-            // Send a blurb about they are already linked and they need to /unilnk if they want to relink or something
+            // Send a blurb about they are already linked and they need to /unlink if they want to relink or something
             return;
         }
         Random rng = new Random();

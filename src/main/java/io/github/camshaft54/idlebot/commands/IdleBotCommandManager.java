@@ -1,6 +1,8 @@
 package io.github.camshaft54.idlebot.commands;
 
 import io.github.camshaft54.idlebot.commands.idlebotsubcommands.LinkCommand;
+import io.github.camshaft54.idlebot.commands.idlebotsubcommands.SettingsCommand;
+import io.github.camshaft54.idlebot.commands.idlebotsubcommands.UnlinkCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,6 +16,8 @@ public class IdleBotCommandManager implements CommandExecutor {
 
     public IdleBotCommandManager() {
         idleBotCommands.add(new LinkCommand());
+        idleBotCommands.add(new UnlinkCommand());
+        idleBotCommands.add(new SettingsCommand());
     }
 
     @Override
