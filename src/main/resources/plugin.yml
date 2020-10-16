@@ -4,6 +4,6 @@ main: io.github.camshaft54.idlebot.IdleBot
 api-version: "1.16"
 commands:
   idlebot:
-    description: A
-    usage: /<command> <function>
+    description: The main command to control and use this plugin
+    usage: /<command> <subcommand>
     aliases: ib
