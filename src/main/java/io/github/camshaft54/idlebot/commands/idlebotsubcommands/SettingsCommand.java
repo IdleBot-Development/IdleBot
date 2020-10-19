@@ -23,6 +23,7 @@ public class SettingsCommand extends IdleBotCommand {
                         if (Integer.parseInt(args[3]) >= 10 && Integer.parseInt(args[3]) <= 120) {
                             IdleBot.pluginUsers.get(player.getUniqueId().toString()).saveSetting("afkmode", "auto");
                             IdleBot.pluginUsers.get(player.getUniqueId().toString()).saveSetting("afktime", args[3]);
+                            IdleBot.saveUsers(); // saves settings to users.yml
                         }
                         else {
                             // Say it has to be 10 seconds to 2 minutes
