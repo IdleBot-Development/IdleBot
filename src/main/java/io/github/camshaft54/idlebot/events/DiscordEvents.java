@@ -1,7 +1,7 @@
 package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
-import io.github.camshaft54.idlebot.User;
+import io.github.camshaft54.idlebot.IdleBotPlayer;
 import org.bukkit.Bukkit;
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.entity.channel.TextChannel;
@@ -20,10 +20,10 @@ public class DiscordEvents implements MessageCreateListener {
                 Bukkit.getLogger().info("Someone entered a code: " + code);
                 IdleBot.getUsers();
                 String playerId = getUserFromCode(code);
-                User user = IdleBot.users.get(playerId);
+                IdleBotPlayer user = IdleBot.pluginUsers.get(playerId);
                 if (user != null) {
                     user.setDiscordId(event.getMessageAuthor().getIdAsString());
-                    IdleBot.users.replace(playerId, user);
+                    IdleBot.pluginUsers.replace(playerId, user);
                     IdleBot.saveUsers();
                     channel.sendMessage("Successfully linked your Discord username to Minecraft username " + user.getMCName());
                 } else {
@@ -36,8 +36,8 @@ public class DiscordEvents implements MessageCreateListener {
     }
 
     private String getUserFromCode(int code) {
-        for (String key : IdleBot.users.keySet()) {
-            User value = IdleBot.users.get(key);
+        for (String key : IdleBot.pluginUsers.keySet()) {
+            IdleBotPlayer value = IdleBot.pluginUsers.get(key);
             if (value.getCode() == code) {
                 return key;
             }

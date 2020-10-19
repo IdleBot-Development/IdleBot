@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class IdleBotPlayer {
     private String MCName;
     private String UUID;
     private Integer code;
@@ -15,7 +15,7 @@ public class User {
 
     private HashMap<String, String> settings = new HashMap<>();
 
-    public User(String MCName, String UUID, Integer code) {
+    public IdleBotPlayer(String MCName, String UUID, Integer code) {
         this.MCName = MCName;
         this.UUID = UUID;
         this.code = code;

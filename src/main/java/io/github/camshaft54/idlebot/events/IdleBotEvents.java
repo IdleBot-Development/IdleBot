@@ -50,7 +50,7 @@ public class IdleBotEvents implements Listener {
         Player player = e.getEntity();
         String playerId = player.getUniqueId().toString();
         if (IdleChecker.playersIdling.get(player) >= IdleBot.idleTime) {
-            String discordId = IdleBot.users.get(playerId).getDiscordId();
+            String discordId = IdleBot.pluginUsers.get(playerId).getDiscordId();
             if (discordId != null) {
                 Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and dead!");
                 IdleBot.channel.sendMessage("<@!" + discordId + "> " + player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").");
@@ -65,7 +65,7 @@ public class IdleBotEvents implements Listener {
             Player player = (Player) e.getEntity();
             String playerId = player.getUniqueId().toString();
             if (IdleChecker.playersIdling.get(player) >= IdleBot.idleTime) {
-                String discordId = IdleBot.users.get(playerId).getDiscordId();
+                String discordId = IdleBot.pluginUsers.get(playerId).getDiscordId();
                 if (discordId != null && !isDamaged.get(player)) {
                     Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and taking damage!");
                     IdleBot.channel.sendMessage("<@!" + discordId + "> " + player.getDisplayName() + " is taking damage " + " (" + e.getCause().name() + ").");

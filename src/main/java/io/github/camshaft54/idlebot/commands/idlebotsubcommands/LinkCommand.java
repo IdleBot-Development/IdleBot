@@ -1,7 +1,7 @@
 package io.github.camshaft54.idlebot.commands.idlebotsubcommands;
 
 import io.github.camshaft54.idlebot.IdleBot;
-import io.github.camshaft54.idlebot.User;
+import io.github.camshaft54.idlebot.IdleBotPlayer;
 import io.github.camshaft54.idlebot.commands.IdleBotCommand;
 import org.bukkit.entity.Player;
 
@@ -27,19 +27,19 @@ public class LinkCommand extends IdleBotCommand {
             code = rng.nextInt(999);
         }
         player.sendMessage("Your link code is " + code + ". Send this code in a private message to " + botName + " to link your account.");
-        IdleBot.users.put(player.getUniqueId().toString(), new User(player.getDisplayName(), player.getUniqueId().toString(), code));
+        IdleBot.pluginUsers.put(player.getUniqueId().toString(), new IdleBotPlayer(player.getDisplayName(), player.getUniqueId().toString(), code));
         IdleBot.saveUsers();
     }
 
     private boolean isDuplicateToken(int code) {
-        for (User eachUser : IdleBot.users.values()) {
-            if (eachUser.getCode() == code) return true;
+        for (IdleBotPlayer player : IdleBot.pluginUsers.values()) {
+            if (player.getCode() == code) return true;
         }
         return false;
     }
 
     private boolean playerIsLinked(String UUID) {
-        for (String eachUUID : IdleBot.users.keySet()) {
+        for (String eachUUID : IdleBot.pluginUsers.keySet()) {
             if (eachUUID.equalsIgnoreCase(UUID)) {
                 return true;
             }

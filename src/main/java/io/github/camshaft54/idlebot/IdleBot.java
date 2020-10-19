@@ -36,7 +36,7 @@ public class IdleBot extends JavaPlugin {
     // Declare global static variables
     public static ServerTextChannel channel;
     public static int idleTime;
-    public static HashMap<String, User> users = new HashMap<>();
+    public static HashMap<String, IdleBotPlayer> pluginUsers = new HashMap<>();
     public static DiscordApi api;
     public static org.javacord.api.entity.user.User bot;
     public static ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
@@ -81,6 +81,7 @@ public class IdleBot extends JavaPlugin {
     @Override
     public void onDisable() {
         saveUsers();
+        getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] All data saved. Plugin can safely close!");
     }
 
     private void configSetup() {
@@ -118,7 +119,7 @@ public class IdleBot extends JavaPlugin {
 
     public static void saveUsers() {
         try {
-            mapper.writeValue(userFile, users);
+            mapper.writeValue(userFile, pluginUsers);
         } catch (IOException e) {
             Bukkit.getLogger().warning("Error saving user data to users.yml");
             e.printStackTrace();
@@ -127,8 +128,8 @@ public class IdleBot extends JavaPlugin {
 
     public static void getUsers() {
         try {
-            users.clear();
-            users = mapper.readValue(userFile, new TypeReference<HashMap<String, User>>(){});
+            pluginUsers.clear();
+            pluginUsers = mapper.readValue(userFile, new TypeReference<HashMap<String, IdleBotPlayer>>(){});
         } catch (IOException e) {
             Bukkit.getLogger().warning("Failed to get users from users.yml");
             e.printStackTrace();

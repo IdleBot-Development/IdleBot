@@ -16,11 +16,11 @@ public class UnlinkCommand extends IdleBotCommand {
             // Send a blurb about how they aren't linked so they can't unlink
             return;
         }
-        IdleBot.users.remove(player.getUniqueId().toString());
+        IdleBot.pluginUsers.remove(player.getUniqueId().toString());
     }
 
     private boolean playerIsLinked(String UUID) {
-        for (String eachUUID : IdleBot.users.keySet()) {
+        for (String eachUUID : IdleBot.pluginUsers.keySet()) {
             if (eachUUID.equalsIgnoreCase(UUID)) {
                 return true;
             }
