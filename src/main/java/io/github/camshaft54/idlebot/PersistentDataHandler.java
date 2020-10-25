@@ -6,12 +6,12 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 public class PersistentDataHandler {
-    public static void loadData(Player player, String key, String value) {
+    public static void setData(Player player, String key, String value) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         data.set(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.STRING, value);
     }
 
-    public static void loadData(Player player, String key, int value) {
+    public static void setData(Player player, String key, int value) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         data.set(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.INTEGER, value);
     }
