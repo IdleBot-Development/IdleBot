@@ -32,6 +32,7 @@ public class IdleBot extends JavaPlugin {
     private static String channelId;
     private static String activityType;
     private static String activityMessage;
+    private static IdleBot plugin;
 
     // Declare global static variables
     public static ServerTextChannel channel;
@@ -42,40 +43,8 @@ public class IdleBot extends JavaPlugin {
     public static ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
     public static File userFile = new File("plugins/IdleBot/users.yml");
 
-
-    @Override
-    public void onEnable() {
-        configSetup();
-        // Connect to Discord
-        api = new DiscordApiBuilder()
-                .setToken(botToken) // Set the token of the bot here
-                .login() // Log the bot in
-                .join(); // Call #onConnectToDiscord(...) after a successful login
-        getLogger().info("Connected to Discord as " + api.getYourself().getDiscriminatedName());
-        getLogger().info("Open the following url to invite the bot: " + api.createBotInvite());
-        if (api.getServerTextChannelById(channelId).isPresent()) {
-            channel = api.getServerTextChannelById(channelId).get();
-        }
-        else {
-            getLogger().info("Channel not present");
-        }
-        api.addListener(new DiscordEvents());
-        bot = api.getYourself();
-        switch (activityType) {
-            case "PLAYING":
-                api.updateActivity(ActivityType.PLAYING, activityMessage);
-                break;
-            case "LISTENING":
-                api.updateActivity(ActivityType.LISTENING, activityMessage);
-                break;
-            case "WATCHING":
-                api.updateActivity(ActivityType.WATCHING, activityMessage);
-                break;
-        }
-        Objects.requireNonNull(getCommand("idlebot")).setExecutor(new IdleBotCommandManager());
-        getServer().getScheduler().runTaskTimer(this, new IdleChecker(), 20L, 20L); // Code in task should execute every 20 ticks (1 second)
-        getServer().getPluginManager().registerEvents(new IdleBotEvents(), this);
-        getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] Plugin successfully loaded!");
+    public static IdleBot getPlugin() {
+        return plugin;
     }
 
     @Override
@@ -129,11 +98,47 @@ public class IdleBot extends JavaPlugin {
     public static void getUsers() {
         try {
             pluginUsers.clear();
-            pluginUsers = mapper.readValue(userFile, new TypeReference<HashMap<String, IdleBotPlayer>>(){});
+            pluginUsers = mapper.readValue(userFile, new TypeReference<HashMap<String, IdleBotPlayer>>() {
+            });
         } catch (IOException e) {
             Bukkit.getLogger().warning("Failed to get users from users.yml");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onEnable() {
+        plugin = this;
+        configSetup();
+        // Connect to Discord
+        api = new DiscordApiBuilder()
+                .setToken(botToken) // Set the token of the bot here
+                .login() // Log the bot in
+                .join(); // Call #onConnectToDiscord(...) after a successful login
+        getLogger().info("Connected to Discord as " + api.getYourself().getDiscriminatedName());
+        getLogger().info("Open the following url to invite the bot: " + api.createBotInvite());
+        if (api.getServerTextChannelById(channelId).isPresent()) {
+            channel = api.getServerTextChannelById(channelId).get();
+        } else {
+            getLogger().info("Channel not present");
+        }
+        api.addListener(new DiscordEvents());
+        bot = api.getYourself();
+        switch (activityType) {
+            case "PLAYING":
+                api.updateActivity(ActivityType.PLAYING, activityMessage);
+                break;
+            case "LISTENING":
+                api.updateActivity(ActivityType.LISTENING, activityMessage);
+                break;
+            case "WATCHING":
+                api.updateActivity(ActivityType.WATCHING, activityMessage);
+                break;
+        }
+        Objects.requireNonNull(getCommand("idlebot")).setExecutor(new IdleBotCommandManager());
+        getServer().getScheduler().runTaskTimer(this, new IdleChecker(), 20L, 20L); // Code in task should execute every 20 ticks (1 second)
+        getServer().getPluginManager().registerEvents(new IdleBotEvents(), this);
+        getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] Plugin successfully loaded!");
     }
 }
 
