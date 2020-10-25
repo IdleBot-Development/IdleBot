@@ -1,7 +1,6 @@
 package io.github.camshaft54.idlebot.commands.idlebotsubcommands;
 
 import io.github.camshaft54.idlebot.IdleBot;
-import io.github.camshaft54.idlebot.IdleBotPlayer;
 import io.github.camshaft54.idlebot.commands.IdleBotCommand;
 import org.bukkit.entity.Player;
 
