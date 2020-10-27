@@ -25,10 +25,10 @@ public class DiscordEvents implements MessageCreateListener {
                     channel.sendMessage("Successfully linked your Discord username to Minecraft username " + player.getDisplayName());
                     IdleBot.linkCodes.remove(code);
                 } else {
-                    channel.sendMessage("Invalid Code. To get code type /idlebot link in Minecraft");
+                    channel.sendMessage("Invalid Code. To get code type `/idlebot link` in Minecraft");
                 }
             } catch (NumberFormatException e) {
-                channel.sendMessage("Invalid Code. To get code type /idlebot link in Minecraft");
+                channel.sendMessage("Invalid Code. To get code type `/idlebot link` in Minecraft");
             }
         }
     }
