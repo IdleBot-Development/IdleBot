@@ -8,8 +8,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 import org.javacord.api.DiscordApi;
-import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.activity.ActivityType;
 import org.javacord.api.entity.channel.ServerTextChannel;
 
@@ -19,15 +19,14 @@ import java.util.Objects;
 public class IdleBot extends JavaPlugin {
 
     FileConfiguration config = this.getConfig();
-
-    private static String botToken;
-    private static String channelId;
-    private static String activityType;
-    private static String activityMessage;
     private static IdleBot plugin;
 
     // Declare global static variables
+    public static String botToken;
     public static ServerTextChannel channel;
+    public static String activityMessage;
+    public static String channelId;
+    public static String activityType;
     public static int idleTime;
     public static HashMap<Integer, Player> linkCodes = new HashMap<>();
     public static DiscordApi api;
@@ -63,16 +62,19 @@ public class IdleBot extends JavaPlugin {
         plugin = this;
         configSetup();
         // Connect to Discord
-        api = new DiscordApiBuilder()
-                .setToken(botToken) // Set the token of the bot here
-                .login() // Log the bot in
-                .join(); // Call #onConnectToDiscord(...) after a successful login
-        getLogger().info("Connected to Discord as " + api.getYourself().getDiscriminatedName());
-        getLogger().info("Open the following url to invite the bot: " + api.createBotInvite());
+        BukkitScheduler scheduler = getServer().getScheduler();
+        scheduler.runTaskAsynchronously(plugin, new DiscordApiRunnable(plugin));
+        getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] Plugin successfully loaded");
+        getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] Note: Plugin has not finished initializing Discord API");
+    }
+
+    public static void startPlugin() {
+        plugin.getLogger().info("[IdleBot] Success! Connected to Discord as " + api.getYourself().getDiscriminatedName());
+        plugin.getLogger().info("[IdleBot] Open the following url to invite the bot: " + api.createBotInvite());
         if (api.getServerTextChannelById(channelId).isPresent()) {
             channel = api.getServerTextChannelById(channelId).get();
         } else {
-            getLogger().info("Channel not present");
+            plugin.getLogger().warning("[IdleBot] Invalid Discord channel specified in config");
         }
         api.addListener(new DiscordEvents());
         bot = api.getYourself();
@@ -87,10 +89,9 @@ public class IdleBot extends JavaPlugin {
                 api.updateActivity(ActivityType.WATCHING, activityMessage);
                 break;
         }
-        Objects.requireNonNull(getCommand("idlebot")).setExecutor(new IdleBotCommandManager());
-        getServer().getScheduler().runTaskTimer(this, new IdleChecker(), 20L, 20L); // Code in task should execute every 20 ticks (1 second)
-        getServer().getPluginManager().registerEvents(new IdleBotEvents(), this);
-        getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] Plugin successfully loaded!");
+        Objects.requireNonNull(plugin.getCommand("idlebot")).setExecutor(new IdleBotCommandManager());
+        plugin.getServer().getScheduler().runTaskTimer(plugin, new IdleChecker(), 20L, 20L); // Code in task should execute every 20 ticks (1 second)
+        plugin.getServer().getPluginManager().registerEvents(new IdleBotEvents(), plugin);
     }
 }
 
