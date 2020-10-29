@@ -63,7 +63,7 @@ public class IdleBot extends JavaPlugin {
         configSetup();
         // Connect to Discord
         BukkitScheduler scheduler = getServer().getScheduler();
-        scheduler.runTaskAsynchronously(plugin, new DiscordApiRunnable(plugin));
+        scheduler.runTaskAsynchronously(plugin, new DiscordAPIRunnable(plugin));
         getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] Plugin successfully loaded");
         getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] Note: Plugin has not finished initializing Discord API");
     }

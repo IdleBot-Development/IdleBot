@@ -3,10 +3,10 @@ package io.github.camshaft54.idlebot;
 import org.bukkit.plugin.Plugin;
 import org.javacord.api.DiscordApiBuilder;
 
-public class DiscordApiRunnable implements Runnable {
+public class DiscordAPIRunnable implements Runnable {
     private final Plugin plugin;
 
-    public DiscordApiRunnable(Plugin plugin) {
+    public DiscordAPIRunnable(Plugin plugin) {
         this.plugin = plugin;
     }
 
