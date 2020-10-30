@@ -1,6 +1,7 @@
 package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
+import io.github.camshaft54.idlebot.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -44,17 +45,20 @@ public class IdleBotEvents implements Listener {
         return "(" + Math.round(l.getX()) + ", " + Math.round(l.getY()) + ", " + Math.round(l.getZ()) + ")";
     }
 
+    // sends player a message on Discord, if player has linked account
+    public static void sendPlayerMessage(Player player, String message) {
+        String discordId = PersistentDataHandler.getStringData(player, "discordId");
+        if (discordId != null)
+            IdleBot.channel.sendMessage("<@!" + discordId + "> " + message);
+    }
+
     // If player has died, send them a message
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
-        String playerId = player.getUniqueId().toString();
         if (IdleChecker.playersIdling.get(player) >= IdleBot.idleTime) {
-            String discordId = IdleBot.pluginUsers.get(playerId).getDiscordId();
-            if (discordId != null) {
-                Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and dead!");
-                IdleBot.channel.sendMessage("<@!" + discordId + "> " + player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").");
-            }
+            Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and dead!");
+            sendPlayerMessage(player, player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").");
         }
     }
 
@@ -63,14 +67,10 @@ public class IdleBotEvents implements Listener {
     public void onDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
-            String playerId = player.getUniqueId().toString();
-            if (IdleChecker.playersIdling.get(player) >= IdleBot.idleTime) {
-                String discordId = IdleBot.pluginUsers.get(playerId).getDiscordId();
-                if (discordId != null && !isDamaged.get(player)) {
-                    Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and taking damage!");
-                    IdleBot.channel.sendMessage("<@!" + discordId + "> " + player.getDisplayName() + " is taking damage " + " (" + e.getCause().name() + ").");
-                    isDamaged.put(player, true);
-                }
+            if (IdleChecker.playersIdling.get(player) >= IdleBot.idleTime && !isDamaged.get(player)) {
+                Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and taking damage!");
+                sendPlayerMessage(player, player.getDisplayName() + " is taking damage " + " (" + e.getCause().name() + ").");
+                isDamaged.put(player, true);
             }
         }
     }
