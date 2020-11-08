@@ -38,7 +38,7 @@ public class ConfigManager {
         return botToken;
     }
 
-    public String getchannelID() {
+    public String getChannelID() {
         return channelID;
     }
 

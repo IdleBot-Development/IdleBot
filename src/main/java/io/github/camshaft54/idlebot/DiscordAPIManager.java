@@ -23,8 +23,8 @@ public class DiscordAPIManager {
     }
 
     public void connectToChannel() {
-        if (api.getServerTextChannelById(IdleBot.getConfigManager().getchannelID()).isPresent()) {
-            channel = api.getServerTextChannelById(IdleBot.getConfigManager().getchannelID()).get();
+        if (api.getServerTextChannelById(IdleBot.getConfigManager().getChannelID()).isPresent()) {
+            channel = api.getServerTextChannelById(IdleBot.getConfigManager().getChannelID()).get();
         } else {
             plugin.getLogger().warning("[IdleBot] Invalid Discord channel specified in config");
         }
