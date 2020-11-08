@@ -1,5 +1,6 @@
 package io.github.camshaft54.idlebot.events;
 
+import io.github.camshaft54.idlebot.DiscordAPIManager;
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.PersistentDataHandler;
 import org.bukkit.Bukkit;
@@ -49,7 +50,7 @@ public class IdleBotEvents implements Listener {
     public static void sendPlayerMessage(Player player, String message) {
         String discordId = PersistentDataHandler.getStringData(player, "discordId");
         if (discordId != null)
-            IdleBot.channel.sendMessage("<@!" + discordId + "> " + message);
+            DiscordAPIManager.channel.sendMessage("<@!" + discordId + "> " + message);
     }
 
     // If player has died, send them a message
