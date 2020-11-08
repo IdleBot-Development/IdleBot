@@ -13,6 +13,7 @@ import org.bukkit.scheduler.BukkitScheduler;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.activity.ActivityType;
 import org.javacord.api.entity.channel.ServerTextChannel;
+import sun.security.krb5.Config;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -26,14 +27,20 @@ public class IdleBot extends JavaPlugin {
     public static int idleTime;
     public static HashMap<Integer, Player> linkCodes = new HashMap<>();
     public static org.javacord.api.entity.user.User bot;
+    public static ConfigManager configManager;
 
     public static IdleBot getPlugin() {
         return plugin;
     }
 
+    public static ConfigManager getConfigManager() {
+        return configManager;
+    }
+
     @Override
     public void onEnable() {
         plugin = this;
+        configManager = new ConfigManager();
         BukkitScheduler scheduler = getServer().getScheduler();
         Objects.requireNonNull(plugin.getCommand("idlebot")).setExecutor(new IdleBotCommandManager());
         plugin.getServer().getScheduler().runTaskTimer(plugin, new IdleChecker(), 20L, 20L); // Code in task should execute every 20 ticks (1 second)
