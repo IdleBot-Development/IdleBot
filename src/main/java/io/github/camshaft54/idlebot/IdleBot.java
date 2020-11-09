@@ -3,6 +3,8 @@ package io.github.camshaft54.idlebot;
 import io.github.camshaft54.idlebot.commands.IdleBotCommandManager;
 import io.github.camshaft54.idlebot.events.IdleBotEvents;
 import io.github.camshaft54.idlebot.events.IdleChecker;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -14,21 +16,13 @@ import java.util.Objects;
 
 public class IdleBot extends JavaPlugin {
 
-    private static IdleBot plugin;
+    @Getter private static IdleBot plugin;
+    @Getter private static ConfigManager configManager;
+    @Getter @Setter private static boolean discordAPIIsReady;
 
-    public static boolean discordAPIIsReady;
     public static int idleTime;
     public static HashMap<Integer, Player> linkCodes = new HashMap<>();
     public static org.javacord.api.entity.user.User bot;
-    public static ConfigManager configManager;
-
-    public static IdleBot getPlugin() {
-        return plugin;
-    }
-
-    public static ConfigManager getConfigManager() {
-        return configManager;
-    }
 
     @Override
     public void onEnable() {

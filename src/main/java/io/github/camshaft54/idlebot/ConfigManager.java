@@ -1,5 +1,6 @@
 package io.github.camshaft54.idlebot;
 
+import lombok.Getter;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -11,16 +12,20 @@ public class ConfigManager {
     IdleBot plugin = IdleBot.getPlugin();
 
     // Private variables for config values
-    private String botToken;
-    private String activityType;
-    private String activityMessage;
-    private String channelID;
+    @Getter private final String botToken;
+    @Getter private final String activityType;
+    @Getter private final String activityMessage;
+    @Getter private final String channelID;
 
     // Private variables for config files
     private final File configFile = new File(plugin.getDataFolder(), "config.yml");
     private final FileConfiguration config = plugin.getConfig();
 
     public ConfigManager() {
+        if (!plugin.getDataFolder().exists()) {
+            plugin.getDataFolder().mkdir();
+        }
+
         try {
             config.load(configFile);
             config.save(configFile);
@@ -33,21 +38,4 @@ public class ConfigManager {
         this.activityType = config.getString("customBotActivity.type");
         this.activityMessage = config.getString("customBotActivity.message");
     }
-
-    public String getBotToken() {
-        return botToken;
-    }
-
-    public String getChannelID() {
-        return channelID;
-    }
-
-    public String getActivityType() {
-        return activityType;
-    }
-
-    public String getActivityMessage() {
-        return activityMessage;
-    }
-
 }

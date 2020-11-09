@@ -45,7 +45,7 @@ public class DiscordAPIManager {
     }
 
     public void setDiscordIsReady() {
-        IdleBot.discordAPIIsReady = true;
+        IdleBot.setDiscordAPIIsReady(true);
     }
 
 }

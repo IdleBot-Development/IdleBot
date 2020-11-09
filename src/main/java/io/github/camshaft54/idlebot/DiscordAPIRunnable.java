@@ -10,11 +10,9 @@ import org.javacord.api.entity.channel.ServerTextChannel;
 import java.io.IOException;
 
 public class DiscordAPIRunnable implements Runnable {
-    private final Plugin plugin;
     private final DiscordAPIManager manager;
 
     public DiscordAPIRunnable(Plugin plugin) {
-        this.plugin = plugin;
         this.manager = new DiscordAPIManager(plugin);
     }
 
