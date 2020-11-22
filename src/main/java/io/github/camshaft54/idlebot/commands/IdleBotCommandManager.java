@@ -1,8 +1,10 @@
 package io.github.camshaft54.idlebot.commands;
 
+import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.commands.idlebotsubcommands.LinkCommand;
 import io.github.camshaft54.idlebot.commands.idlebotsubcommands.SettingsCommand;
 import io.github.camshaft54.idlebot.commands.idlebotsubcommands.UnlinkCommand;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,7 +25,8 @@ public class IdleBotCommandManager implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String str, String[] args) {
         if (!(commandSender instanceof Player)) {
-            return true;
+            IdleBot.getPlugin().getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] This command can be run only by players!");
+            return false;
         }
         Player player = (Player) commandSender;
 

@@ -1,5 +1,6 @@
 package io.github.camshaft54.idlebot.commands.idlebotsubcommands;
 
+import io.github.camshaft54.idlebot.DiscordAPIManager;
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.PersistentDataHandler;
 import io.github.camshaft54.idlebot.commands.IdleBotCommand;
@@ -21,7 +22,7 @@ public class LinkCommand extends IdleBotCommand {
             return;
         }
         Random rng = new Random();
-        String botName = IdleBot.bot.getDiscriminatedName();
+        String botName = DiscordAPIManager.bot.getDiscriminatedName();
 
         int code = rng.nextInt(999); // Generate a random token
         while (isDuplicateToken(code)) { // Keep getting new codes until it is unique (very unlikely to ever run)

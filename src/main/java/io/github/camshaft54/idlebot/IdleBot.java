@@ -1,16 +1,19 @@
 package io.github.camshaft54.idlebot;
 
+import github.scarsz.configuralize.ParseException;
 import io.github.camshaft54.idlebot.commands.IdleBotCommandManager;
 import io.github.camshaft54.idlebot.events.IdleBotEvents;
 import io.github.camshaft54.idlebot.events.IdleChecker;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -22,12 +25,17 @@ public class IdleBot extends JavaPlugin {
 
     public static int idleTime;
     public static HashMap<Integer, Player> linkCodes = new HashMap<>();
-    public static org.javacord.api.entity.user.User bot;
 
     @Override
     public void onEnable() {
         plugin = this;
-        configManager = new ConfigManager();
+        try {
+            configManager = new ConfigManager();
+        }
+        catch (IOException | ParseException e) {
+            getServer().getConsoleSender().sendMessage(ChatColor.RED + "[IdleBot] Plugin configuration load failed! Plugin disabled. Try to fix the configuration file and try again or get support!");
+            this.disablePlugin();
+        }
         if (plugin.isEnabled()) {
             BukkitScheduler scheduler = getServer().getScheduler();
             Objects.requireNonNull(plugin.getCommand("idlebot")).setExecutor(new IdleBotCommandManager());
