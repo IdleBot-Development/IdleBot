@@ -1,0 +1,6 @@
+botToken: <Bot Token Here>
+channelID: <Channel ID Here>
+customBotActivity:
+  type: WATCHING
+  message: idle players
+idleTime: 120
