@@ -22,13 +22,22 @@ public class IdleBotEvents implements Listener {
     // If player has moved, reset playersIdling and the other condition hashmaps
     @EventHandler
     public static void onMovement(PlayerMoveEvent e) {
-        Player player = e.getPlayer();
-        Bukkit.getLogger().info(player.getDisplayName() + " stopped being idle.");
-        IdleChecker.playersIdling.put(player, 0);
-        isDamaged.put(player, false);
-        IdleChecker.isFull.put(player, false);
-        IdleChecker.atExpLevel.put(player, false);
-        IdleChecker.atLocation.put(player, false);
+        Location from = e.getFrom();
+        Location to = e.getTo();
+        //boolean difOrien = from.getPitch() != to.getPitch() || from.getYaw() != to.getYaw();
+        boolean difMove = from.getX() - to.getX() + from.getY() - to.getY() + from.getZ() - to.getZ() != 0;
+        boolean difDir = from.getDirection().equals(to.getDirection());
+        if (difDir || difMove) {
+            Player player = e.getPlayer();
+            // If player is not moving
+            Bukkit.getLogger().info(player.getDisplayName() + " stopped being idle.");
+            // Set all idle hashmaps to false
+            IdleChecker.playersIdling.put(player, 0);
+            isDamaged.put(player, false);
+            IdleChecker.isFull.put(player, false);
+            IdleChecker.atExpLevel.put(player, false);
+            IdleChecker.atLocation.put(player, false);
+        }
     }
 
     // If player leaves game, remove them from playersIdling and the other condition hashmaps
