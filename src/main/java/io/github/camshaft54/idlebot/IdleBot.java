@@ -23,7 +23,6 @@ public class IdleBot extends JavaPlugin {
     @Getter private static ConfigManager configManager;
     @Getter @Setter private static boolean discordAPIIsReady;
 
-    public static int idleTime;
     public static HashMap<Integer, Player> linkCodes = new HashMap<>();
 
     @Override

@@ -24,6 +24,8 @@ public class DiscordEvents implements MessageCreateListener {
                     PersistentDataHandler.setData(player, "discordId", event.getMessageAuthor().getIdAsString());
                     channel.sendMessage("Successfully linked your Discord username to Minecraft username " + player.getDisplayName());
                     IdleBot.linkCodes.remove(code);
+                    // Set default for afktime
+                    PersistentDataHandler.setData(player, "afktime", IdleBot.getConfigManager().getDefaultIdleTime());
                 } else {
                     channel.sendMessage("Invalid Code. To get code type `/idlebot link` in Minecraft");
                 }

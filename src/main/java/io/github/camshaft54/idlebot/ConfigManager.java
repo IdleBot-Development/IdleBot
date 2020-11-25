@@ -15,6 +15,7 @@ public class ConfigManager {
     @Getter private final String activityType;
     @Getter private final String activityMessage;
     @Getter private final String channelID;
+    @Getter private final int defaultIdleTime;
 
     // Private variables for config files
     private DynamicConfig config;
@@ -29,5 +30,6 @@ public class ConfigManager {
         channelID = config.getString("channelID");
         activityType = config.getString("customBotActivity.type");
         activityMessage = config.getString("customBotActivity.message");
+        defaultIdleTime = config.getInt("idleTime");
     }
 }

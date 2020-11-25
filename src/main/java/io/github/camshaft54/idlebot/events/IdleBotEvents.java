@@ -1,7 +1,6 @@
 package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.DiscordAPIManager;
-import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -25,9 +24,10 @@ public class IdleBotEvents implements Listener {
         Location from = e.getFrom();
         Location to = e.getTo();
         //boolean difOrien = from.getPitch() != to.getPitch() || from.getYaw() != to.getYaw();
+        assert to != null;
         boolean difMove = from.getX() - to.getX() + from.getY() - to.getY() + from.getZ() - to.getZ() != 0;
-        boolean difDir = from.getDirection().equals(to.getDirection());
-        if (difDir || difMove) {
+        boolean difDir = to.getPitch() != from.getPitch() || to.getYaw() != from.getYaw();
+        if (difDir && difMove) {
             Player player = e.getPlayer();
             // If player is not moving
             Bukkit.getLogger().info(player.getDisplayName() + " stopped being idle.");
@@ -66,7 +66,7 @@ public class IdleBotEvents implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
-        if (IdleChecker.playersIdling.get(player) >= IdleBot.idleTime) {
+        if (IdleChecker.isPlayerIdle(player)) {
             Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and dead!");
             sendPlayerMessage(player, player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").");
         }
@@ -77,7 +77,7 @@ public class IdleBotEvents implements Listener {
     public void onDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
-            if (IdleChecker.playersIdling.get(player) >= IdleBot.idleTime && !isDamaged.get(player)) {
+            if (IdleChecker.isPlayerIdle(player) && !isDamaged.get(player)) {
                 Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and taking damage!");
                 sendPlayerMessage(player, player.getDisplayName() + " is taking damage " + " (" + e.getCause().name() + ").");
                 isDamaged.put(player, true);

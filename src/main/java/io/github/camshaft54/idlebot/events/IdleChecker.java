@@ -1,6 +1,5 @@
 package io.github.camshaft54.idlebot.events;
 
-import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -17,7 +16,7 @@ public class IdleChecker implements Runnable {
     // Checks if players inventory is full and sends them a message if it is
     private static void inventoryFull() {
         for (Player player : playersIdling.keySet()) {
-            if (playersIdling.get(player) >= IdleBot.idleTime && player.getInventory().firstEmpty() < 0 && !isFull.get(player)) {
+            if (IdleChecker.isPlayerIdle(player) && player.getInventory().firstEmpty() < 0 && !isFull.get(player)) {
                 Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and their inventory is full!");
                 IdleBotEvents.sendPlayerMessage(player, player.getDisplayName() + "'s inventory is full! ");
                 isFull.put(player, true);
@@ -29,7 +28,7 @@ public class IdleChecker implements Runnable {
     private static void xpLevel() {
         for (Player player : playersIdling.keySet()) {
             //TODO: Replace "10" in if statement with variable for desired xp level set by player
-            if (playersIdling.get(player) >= IdleBot.idleTime && player.getLevel() == 10 && !atExpLevel.get(player)) {
+            if (IdleChecker.isPlayerIdle(player) && player.getLevel() == 10 && !atExpLevel.get(player)) {
                 Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and at the desired XP level!");
                 IdleBotEvents.sendPlayerMessage(player, player.getDisplayName() + " is at the desired XP level! ");
                 atExpLevel.put(player, true);
@@ -42,7 +41,7 @@ public class IdleChecker implements Runnable {
         for (Player player : playersIdling.keySet()) {
             // TODO: Replace "100"s with the XYZ coordinates with variable for desired location set by player
             boolean reachedLocation = player.getLocation().getBlockX() == 100 && player.getLocation().getBlockY() == 100 && player.getLocation().getBlockZ() == 100;
-            if (playersIdling.get(player) >= IdleBot.idleTime && reachedLocation && !atLocation.get(player)) {
+            if (IdleChecker.isPlayerIdle(player) && reachedLocation && !atLocation.get(player)) {
                 Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and they reached their desired location!");
                 IdleBotEvents.sendPlayerMessage(player, player.getDisplayName() + "'s reached the desired location! ");
                 atLocation.put(player, true);
@@ -64,7 +63,7 @@ public class IdleChecker implements Runnable {
                     atExpLevel.put(player, false);
                     atLocation.put(player, false);
                 }
-                if (playersIdling.get(player) == IdleBot.idleTime) { // If player has been idle for time specified in config
+                if (IdleChecker.isPlayerIdle(player)) { // If player has been idle for time specified in config
                     Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle.");
                 }
             }
@@ -73,5 +72,19 @@ public class IdleChecker implements Runnable {
         inventoryFull();
         xpLevel();
         locationReached();
+        // For debugging purposes
+        // Bukkit.getLogger().info("[IdleBot]: " + Arrays.toString(playersIdling.keySet().toArray()) + ", " + Arrays.toString(playersIdling.values().toArray()));
+    }
+
+    public static boolean isPlayerIdle(Player player) {
+        int time = playersIdling.get(player);
+        String afkmode = PersistentDataHandler.getStringData(player, "afkmode");
+        int afktime = PersistentDataHandler.getIntData(player, "afktime");
+        // For debugging purposes
+        //Bukkit.getLogger().info("Afkmode: " + afkmode + " Afktime: " + afktime + " Time: " + time + " ID: " + PersistentDataHandler.getStringData(player, "discordID"));
+        if (afkmode == null) {
+            return false;
+        }
+        return afkmode.equals("manual") || afktime <= time;
     }
 }
