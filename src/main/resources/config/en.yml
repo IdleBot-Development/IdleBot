@@ -19,10 +19,13 @@
 #  I::::::::I  d:::::::::ddd::::dl::::::l  ee:::::::::::::e  B::::::::::::::::B   oo:::::::::::oo         tt:::::::::::tt
 #  IIIIIIIIII   ddddddddd   dddddllllllll    eeeeeeeeeeeeee  BBBBBBBBBBBBBBBBB      ooooooooooo             ttttttttttt
 
-# This is the token you get from your application in the Discord Developer Portal: https://discord.com/developers/applications
+# This is the token you get from your application in the Discord Developer Portal: https://discord.com/developers/applications | DO NOT INCLUDE THE <>
 botToken: <Bot Token Here>
+# This is the ID of the Discord channel you want the bot to send messages to | DO NOT INCLUDE THE <>
 channelID: <Channel ID Here>
 customBotActivity:
+  # The type of activity in the bot's Discord status. Can be WATCHING, PLAYING, or LISTENING. Leave blank to disable
   type: WATCHING
+  # The second part of the bot's Discord status. For example, if this said "idle players" the bot's status could be "Watching idle players"
   message: idle players
 idleTime: 120
