@@ -2,11 +2,11 @@ package io.github.camshaft54.idlebot;
 
 import github.scarsz.configuralize.ParseException;
 import io.github.camshaft54.idlebot.commands.IdleBotCommandManager;
-import io.github.camshaft54.idlebot.events.IdleBotEvents;
-import io.github.camshaft54.idlebot.events.IdleChecker;
+import io.github.camshaft54.idlebot.discord.DiscordAPIRunnable;
+import io.github.camshaft54.idlebot.util.ConfigManager;
+import io.github.camshaft54.idlebot.util.IdleChecker;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

@@ -1,13 +1,8 @@
-package io.github.camshaft54.idlebot;
+package io.github.camshaft54.idlebot.discord;
 
-import io.github.camshaft54.idlebot.events.DiscordEvents;
+import io.github.camshaft54.idlebot.IdleBot;
 import org.bukkit.plugin.Plugin;
-import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
-import org.javacord.api.entity.activity.ActivityType;
-import org.javacord.api.entity.channel.ServerTextChannel;
-
-import java.io.IOException;
 
 public class DiscordAPIRunnable implements Runnable {
     private final DiscordAPIManager manager;

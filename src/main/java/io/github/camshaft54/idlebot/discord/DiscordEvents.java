@@ -1,7 +1,7 @@
-package io.github.camshaft54.idlebot.events;
+package io.github.camshaft54.idlebot.discord;
 
 import io.github.camshaft54.idlebot.IdleBot;
-import io.github.camshaft54.idlebot.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.javacord.api.entity.channel.ChannelType;
@@ -24,8 +24,8 @@ public class DiscordEvents implements MessageCreateListener {
                     PersistentDataHandler.setData(player, "discordId", event.getMessageAuthor().getIdAsString());
                     channel.sendMessage("Successfully linked your Discord username to Minecraft username " + player.getDisplayName());
                     IdleBot.linkCodes.remove(code);
-                    // Set default for afktime
-                    PersistentDataHandler.setData(player, "afktime", IdleBot.getConfigManager().getDefaultIdleTime());
+                    // Since the player just linked,
+                    setDefaultSettings(player);
                 } else {
                     channel.sendMessage("Invalid Code. To get code type `/idlebot link` in Minecraft");
                 }
@@ -33,5 +33,10 @@ public class DiscordEvents implements MessageCreateListener {
                 channel.sendMessage("Invalid Code. To get code type `/idlebot link` in Minecraft");
             }
         }
+    }
+
+    private void setDefaultSettings(Player player) {
+        // Set default for afktime
+        PersistentDataHandler.setData(player, "afktime", IdleBot.getConfigManager().getDefaultIdleTime());
     }
 }

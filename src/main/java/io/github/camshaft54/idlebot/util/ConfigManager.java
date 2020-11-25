@@ -1,5 +1,6 @@
-package io.github.camshaft54.idlebot;
+package io.github.camshaft54.idlebot.util;
 
+import io.github.camshaft54.idlebot.IdleBot;
 import lombok.Getter;
 import github.scarsz.configuralize.*;
 import java.io.File;
@@ -17,7 +18,6 @@ public class ConfigManager {
     @Getter private final String channelID;
     @Getter private final int defaultIdleTime;
 
-    // Private variables for config files
     private DynamicConfig config;
 
     public ConfigManager() throws IOException, ParseException {
@@ -30,6 +30,6 @@ public class ConfigManager {
         channelID = config.getString("channelID");
         activityType = config.getString("customBotActivity.type");
         activityMessage = config.getString("customBotActivity.message");
-        defaultIdleTime = config.getInt("idleTime");
+        defaultIdleTime = config.getInt("defaultIdleTime");
     }
 }

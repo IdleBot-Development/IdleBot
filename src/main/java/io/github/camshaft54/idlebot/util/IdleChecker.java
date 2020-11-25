@@ -1,8 +1,8 @@
-package io.github.camshaft54.idlebot.events;
+package io.github.camshaft54.idlebot.util;
 
-import io.github.camshaft54.idlebot.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import io.github.camshaft54.idlebot.events.IdleBotEvents;
 
 import java.util.HashMap;
 

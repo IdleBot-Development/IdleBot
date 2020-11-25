@@ -28,4 +28,5 @@ customBotActivity:
   type: WATCHING
   # The second part of the bot's Discord status. For example, if this said "idle players" the bot's status could be "Watching idle players"
   message: idle players
-idleTime: 120
+# The default idle time for players who do not set their own
+defaultIdleTime: 120

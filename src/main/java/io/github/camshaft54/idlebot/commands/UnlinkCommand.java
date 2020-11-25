@@ -1,7 +1,7 @@
-package io.github.camshaft54.idlebot.commands.idlebotsubcommands;
+package io.github.camshaft54.idlebot.commands;
 
-import io.github.camshaft54.idlebot.PersistentDataHandler;
-import io.github.camshaft54.idlebot.commands.IdleBotCommand;
+import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import org.bukkit.entity.Player;
 
 public class UnlinkCommand extends IdleBotCommand {

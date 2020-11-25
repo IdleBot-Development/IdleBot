@@ -1,9 +1,8 @@
 package io.github.camshaft54.idlebot.commands;
 
 import io.github.camshaft54.idlebot.IdleBot;
-import io.github.camshaft54.idlebot.commands.idlebotsubcommands.LinkCommand;
-import io.github.camshaft54.idlebot.commands.idlebotsubcommands.SettingsCommand;
-import io.github.camshaft54.idlebot.commands.idlebotsubcommands.UnlinkCommand;
+import io.github.camshaft54.idlebot.commands.settings.SettingsCommand;
+import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

@@ -1,5 +1,6 @@
-package io.github.camshaft54.idlebot;
+package io.github.camshaft54.idlebot.util;
 
+import io.github.camshaft54.idlebot.IdleBot;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;

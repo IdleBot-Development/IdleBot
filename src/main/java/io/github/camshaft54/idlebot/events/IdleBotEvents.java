@@ -1,7 +1,8 @@
 package io.github.camshaft54.idlebot.events;
 
-import io.github.camshaft54.idlebot.DiscordAPIManager;
-import io.github.camshaft54.idlebot.PersistentDataHandler;
+import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
+import io.github.camshaft54.idlebot.util.IdleChecker;
+import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

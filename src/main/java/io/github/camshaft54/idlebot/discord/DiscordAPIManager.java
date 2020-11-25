@@ -1,5 +1,6 @@
-package io.github.camshaft54.idlebot;
+package io.github.camshaft54.idlebot.discord;
 
+import io.github.camshaft54.idlebot.IdleBot;
 import org.bukkit.plugin.Plugin;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.activity.ActivityType;
