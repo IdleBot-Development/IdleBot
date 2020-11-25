@@ -1,3 +1,25 @@
+# This is the configuration file for the IdleBot plugin!
+# More information and help can be found here(insert link)
+
+#                        dddddddd
+#  IIIIIIIIII            d::::::dlllllll                     BBBBBBBBBBBBBBBBB                             tttt
+#  I::::::::I            d::::::dl:::::l                     B::::::::::::::::B                         ttt:::t
+#  I::::::::I            d::::::dl:::::l                     B::::::BBBBBB:::::B                        t:::::t
+#  II::::::II            d:::::d l:::::l                     BB:::::B     B:::::B                       t:::::t
+#    I::::I      ddddddddd:::::d  l::::l     eeeeeeeeeeee      B::::B     B:::::B   ooooooooooo   ttttttt:::::ttttttt
+#    I::::I    dd::::::::::::::d  l::::l   ee::::::::::::ee    B::::B     B:::::B oo:::::::::::oo t:::::::::::::::::t
+#    I::::I   d::::::::::::::::d  l::::l  e::::::eeeee:::::ee  B::::BBBBBB:::::B o:::::::::::::::ot:::::::::::::::::t
+#    I::::I  d:::::::ddddd:::::d  l::::l e::::::e     e:::::e  B:::::::::::::BB  o:::::ooooo:::::otttttt:::::::tttttt
+#    I::::I  d::::::d    d:::::d  l::::l e:::::::eeeee::::::e  B::::BBBBBB:::::B o::::o     o::::o      t:::::t
+#    I::::I  d:::::d     d:::::d  l::::l e:::::::::::::::::e   B::::B     B:::::Bo::::o     o::::o      t:::::t
+#    I::::I  d:::::d     d:::::d  l::::l e::::::eeeeeeeeeee    B::::B     B:::::Bo::::o     o::::o      t:::::t
+#    I::::I  d:::::d     d:::::d  l::::l e:::::::e             B::::B     B:::::Bo::::o     o::::o      t:::::t    tttttt
+#  II::::::IId::::::ddddd::::::ddl::::::le::::::::e          BB:::::BBBBBB::::::Bo:::::ooooo:::::o      t::::::tttt:::::t
+#  I::::::::I d:::::::::::::::::dl::::::l e::::::::eeeeeeee  B:::::::::::::::::B o:::::::::::::::o      tt::::::::::::::t
+#  I::::::::I  d:::::::::ddd::::dl::::::l  ee:::::::::::::e  B::::::::::::::::B   oo:::::::::::oo         tt:::::::::::tt
+#  IIIIIIIIII   ddddddddd   dddddllllllll    eeeeeeeeeeeeee  BBBBBBBBBBBBBBBBB      ooooooooooo             ttttttttttt
+
+# This is the token you get from your application in the Discord Developer Portal: https://discord.com/developers/applications
 botToken: <Bot Token Here>
 channelID: <Channel ID Here>
 customBotActivity:
