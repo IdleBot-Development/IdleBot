@@ -6,5 +6,5 @@ public abstract class IdleBotCommand {
 
     public abstract String getCommandName();
 
-    public abstract  void runCommand(Player player, String[] args);
+    public abstract void runCommand(Player player, String[] args);
 }

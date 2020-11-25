@@ -25,9 +25,9 @@ public class ConfigManager {
         config.addSource(IdleBot.class, "config", getConfigFile());
         config.saveAllDefaults();
         config.loadAll();
-        this.botToken = config.getString("botToken");
-        this.channelID = config.getString("channelID");
-        this.activityType = config.getString("customBotActivity.type");
-        this.activityMessage = config.getString("customBotActivity.message");
+        botToken = config.getString("botToken");
+        channelID = config.getString("channelID");
+        activityType = config.getString("customBotActivity.type");
+        activityMessage = config.getString("customBotActivity.message");
     }
 }

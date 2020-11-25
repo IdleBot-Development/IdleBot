@@ -26,7 +26,7 @@ public class IdleBotCommandManager implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String str, String[] args) {
         if (!(commandSender instanceof Player)) {
             IdleBot.getPlugin().getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] This command can be run only by players!");
-            return false;
+            return true;
         }
         Player player = (Player) commandSender;
 
