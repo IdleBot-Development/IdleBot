@@ -5,7 +5,9 @@ public enum DataValues {
     AFKTIME ("afktime"),
     AFKMODE ("afkmode"),
     DISCORDID ("discordID"),
-    ISSETAFK ("setafk");
+    ISSETAFK ("setafk"),
+    LOCATIONALERT ("locationcheck"),
+    DIRRECTMESSAGEMODE ("dmmode");
 
     private final String key;
 

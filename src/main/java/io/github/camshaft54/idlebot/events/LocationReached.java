@@ -18,7 +18,6 @@
 package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
-import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -32,7 +31,7 @@ public class LocationReached {
 
     // Checks if a player has reached a certain location and sends them a message if they have
     public static void locationReached() {
-        for (Player player : PersistentDataHandler.getPlayerSetWithCertainValue("locationCheck", true)) {
+        for (Player player : IdleBot.idlePlayers.keySet()) {
             // TODO: Replace "100"s with the XYZ coordinates with variable for desired location set by player
             boolean reachedLocation = player.getLocation().getBlockX() == 100 && player.getLocation().getBlockY() == 100 && player.getLocation().getBlockZ() == 100;
             if (isIdle(player) && reachedLocation && !atLocation.get(player)) {
