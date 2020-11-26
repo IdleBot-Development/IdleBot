@@ -24,7 +24,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-import static io.github.camshaft54.idlebot.util.EventsUtil.isPlayerIdle;
+import static io.github.camshaft54.idlebot.util.EventsUtil.isIdle;
 import static io.github.camshaft54.idlebot.util.EventsUtil.sendPlayerMessage;
 
 public class OnDeath implements Listener {
@@ -32,7 +32,7 @@ public class OnDeath implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
-        if (isPlayerIdle(player)) {
+        if (isIdle(player)) {
             Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and dead!");
             sendPlayerMessage(player, player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").");
         }

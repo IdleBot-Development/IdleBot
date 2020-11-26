@@ -18,6 +18,7 @@
 package io.github.camshaft54.idlebot.discord;
 
 import io.github.camshaft54.idlebot.IdleBot;
+import io.github.camshaft54.idlebot.util.DataValues;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -38,7 +39,7 @@ public class DiscordEvents implements MessageCreateListener {
                 Bukkit.getLogger().info("Someone entered a code: " + code);
                 if (IdleBot.linkCodes.containsKey(code)) {
                     Player player = IdleBot.linkCodes.get(code);
-                    PersistentDataHandler.setData(player, "discordId", event.getMessageAuthor().getIdAsString());
+                    PersistentDataHandler.setData(player, DataValues.DISCORDID.key(), event.getMessageAuthor().getIdAsString());
                     channel.sendMessage("Successfully linked your Discord username to Minecraft username " + player.getDisplayName());
                     IdleBot.linkCodes.remove(code);
                     // Since the player just linked,
@@ -54,6 +55,6 @@ public class DiscordEvents implements MessageCreateListener {
 
     private void setDefaultSettings(Player player) {
         // Set default for afktime
-        PersistentDataHandler.setData(player, "afktime", IdleBot.getConfigManager().getDefaultIdleTime());
+        PersistentDataHandler.setData(player, DataValues.AFKTIME.key(), IdleBot.getConfigManager().getDefaultIdleTime());
     }
 }

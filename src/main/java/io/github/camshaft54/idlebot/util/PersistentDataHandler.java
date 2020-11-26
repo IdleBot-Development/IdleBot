@@ -24,6 +24,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import javax.naming.Name;
 import java.util.ArrayList;
 
 public class PersistentDataHandler {
@@ -38,17 +39,40 @@ public class PersistentDataHandler {
         data.set(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.INTEGER, value);
     }
 
+    // Set "boolean" data (0 for false, 1 for true)
+    public static void setData(Player player, String key, boolean value) {
+        PersistentDataContainer data = player.getPersistentDataContainer();
+        data.set(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.INTEGER, (value) ? 1 : 0);
+    }
+
     public static String getStringData(Player player, String key) {
         PersistentDataContainer data = player.getPersistentDataContainer();
-        return data.get(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.STRING);
+        try {
+            return data.get(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.STRING);
+        }
+        catch (NullPointerException npe) {
+            return null;
+        }
+    }
+
+    public static boolean getBooleanData(Player player, String key) {
+        PersistentDataContainer data = player.getPersistentDataContainer();
+        try {
+            return data.get(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.INTEGER) == 1;
+        }
+        catch (NullPointerException npe) {
+            return false;
+        }
     }
 
     public static int getIntData(Player player, String key) {
         PersistentDataContainer data = player.getPersistentDataContainer();
-        if (data.has(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.INTEGER))
+        try {
             return data.get(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.INTEGER);
-        else
+        }
+        catch (NullPointerException npe) {
             return -1;
+        }
     }
 
     // Method to remove data by key from a player
@@ -57,11 +81,31 @@ public class PersistentDataHandler {
         data.remove(new NamespacedKey(IdleBot.getPlugin(), key));
     }
 
-    // Method to return an ArrayList containing every player with a certain key set true
+    // Method to return an ArrayList containing every player with a certain value (Overloaded for types)
     public static ArrayList<Player> getPlayerSetWithCertainValue(String key, String value) {
         ArrayList<Player> outputList = new ArrayList<>();
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (getStringData(player, key).equals(value)) {
+                outputList.add(player);
+            }
+        }
+        return outputList;
+    }
+
+    public static ArrayList<Player> getPlayerSetWithCertainValue(String key, int value) {
+        ArrayList<Player> outputList = new ArrayList<>();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (getIntData(player, key) == value) {
+                outputList.add(player);
+            }
+        }
+        return outputList;
+    }
+
+    public static ArrayList<Player> getPlayerSetWithCertainValue(String key, boolean value) {
+        ArrayList<Player> outputList = new ArrayList<>();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (getIntData(player, key) == ((value) ? 1 : 0)) {
                 outputList.add(player);
             }
         }

@@ -25,22 +25,26 @@ import org.bukkit.entity.Player;
 
 public class EventsUtil {
     // Check if a player is idle based on the player's settings and the time they have spent idle
-    public static boolean isPlayerIdle(Player player) {
+    public static boolean isIdle(Player player) {
         int time = IdleBot.idlePlayers.get(player);
-        String afkmode = PersistentDataHandler.getStringData(player, "afkmode");
-        int afktime = PersistentDataHandler.getIntData(player, "afktime");
-        // For debugging purposes
-        //Bukkit.getLogger().info("Afkmode: " + afkmode + " Afktime: " + afktime + " Time: " + time + " ID: " + PersistentDataHandler.getStringData(player, "discordID"));
+        String afkmode = PersistentDataHandler.getStringData(player, DataValues.AFKMODE.key());
+        boolean setafk = PersistentDataHandler.getBooleanData(player, DataValues.ISSETAFK.key());
+        int afktime = PersistentDataHandler.getIntData(player, DataValues.AFKTIME.key());
         if (afkmode == null) {
             return false;
         }
-        return afkmode.equals("manual") || afktime <= time;
+        return (afkmode.equals("manual") && setafk) || afktime <= time;
     }
 
     // Sends player a message on Discord, if player has linked account
     public static void sendPlayerMessage(Player player, String message) {
-        String discordId = PersistentDataHandler.getStringData(player, "discordId");
-        if (discordId != null)
-            DiscordAPIManager.channel.sendMessage("<@!" + discordId + "> " + message);
+        String discordID = PersistentDataHandler.getStringData(player, DataValues.DISCORDID.key());
+        if (discordID != null)
+            DiscordAPIManager.channel.sendMessage(formatUserID(discordID) + message);
+    }
+
+    // Because why not
+    private static String formatUserID(String ID) {
+        return "<@!" + ID + ">";
     }
 }

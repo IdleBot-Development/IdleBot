@@ -57,7 +57,8 @@ public class IdleBot extends JavaPlugin {
         if (plugin.isEnabled()) {
             BukkitScheduler scheduler = getServer().getScheduler();
             Objects.requireNonNull(plugin.getCommand("idlebot")).setExecutor(new IdleBotCommandManager());
-            plugin.getServer().getScheduler().runTaskTimer(plugin, new IdleChecker(), 20L, 20L); // Code in task should execute every 20 ticks (1 second)
+            plugin.getServer().getScheduler().runTaskTimer(plugin, new IdleChecker(), 20L, 20L); // Execute the idle checker every 20 ticks (1 second)
+//            plugin.getServer().getScheduler().runTaskTimer(plugin, new ExtraEventsRunner(), 20L, 20L); // Check for all extra events (events that don't have official Bukkit events) every 20 ticks (1 second)
             plugin.getServer().getPluginManager().registerEvents(new OnMovement(), plugin); // Register movement event
             plugin.getServer().getPluginManager().registerEvents(new OnDamage(), plugin); // Register damage event
             plugin.getServer().getPluginManager().registerEvents(new OnDeath(), plugin); // Register death event

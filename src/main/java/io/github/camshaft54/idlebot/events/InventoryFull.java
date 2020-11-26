@@ -22,7 +22,7 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
-import static io.github.camshaft54.idlebot.util.EventsUtil.isPlayerIdle;
+import static io.github.camshaft54.idlebot.util.EventsUtil.isIdle;
 import static io.github.camshaft54.idlebot.util.EventsUtil.sendPlayerMessage;
 
 public class InventoryFull {
@@ -31,7 +31,7 @@ public class InventoryFull {
     // Checks if players inventory is full and sends them a message if it is
     public static void inventoryFull() {
         for (Player player : IdleChecker.playersIdling.keySet()) {
-            if (isPlayerIdle(player) && player.getInventory().firstEmpty() < 0 && !isFull.get(player)) {
+            if (isIdle(player) && player.getInventory().firstEmpty() < 0 && !isFull.get(player)) {
                 Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and their inventory is full!");
                 sendPlayerMessage(player, player.getDisplayName() + "'s inventory is full! ");
                 isFull.put(player, true);

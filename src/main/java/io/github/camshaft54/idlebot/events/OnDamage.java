@@ -25,7 +25,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.HashMap;
 
-import static io.github.camshaft54.idlebot.util.EventsUtil.isPlayerIdle;
+import static io.github.camshaft54.idlebot.util.EventsUtil.isIdle;
 import static io.github.camshaft54.idlebot.util.EventsUtil.sendPlayerMessage;
 
 public class OnDamage implements Listener {
@@ -36,7 +36,7 @@ public class OnDamage implements Listener {
     public void onDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
-            if (isPlayerIdle(player) && !isDamaged.get(player)) {
+            if (isIdle(player) && !isDamaged.get(player)) {
                 Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and taking damage!");
                 sendPlayerMessage(player, player.getDisplayName() + " is taking damage " + " (" + e.getCause().name() + ").");
                 isDamaged.put(player, true);

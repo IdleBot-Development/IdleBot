@@ -23,10 +23,6 @@ import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import static io.github.camshaft54.idlebot.events.InventoryFull.inventoryFull;
-import static io.github.camshaft54.idlebot.events.LocationReached.locationReached;
-import static io.github.camshaft54.idlebot.events.XpLevel.xpLevel;
-
 public class IdleChecker implements Runnable {
 
     public void run() {
@@ -39,14 +35,10 @@ public class IdleChecker implements Runnable {
                     // Put new player into the playersIdling hashmap with value 0 (0 seconds)
                     IdleBot.idlePlayers.put(player, 0);
                 }
-                if (EventsUtil.isPlayerIdle(player)) { // If player has been idle for time specified in config
+                if (EventsUtil.isIdle(player)) { // If player has been idle for time specified in config
                     Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle.");
                 }
             }
         }
-        // Run methods to check for certain conditions
-        inventoryFull();
-        xpLevel();
-        locationReached();
     }
 }

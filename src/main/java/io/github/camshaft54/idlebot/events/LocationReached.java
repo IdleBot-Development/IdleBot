@@ -18,12 +18,13 @@
 package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
+import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
-import static io.github.camshaft54.idlebot.util.EventsUtil.isPlayerIdle;
+import static io.github.camshaft54.idlebot.util.EventsUtil.isIdle;
 import static io.github.camshaft54.idlebot.util.EventsUtil.sendPlayerMessage;
 
 public class LocationReached {
@@ -31,10 +32,10 @@ public class LocationReached {
 
     // Checks if a player has reached a certain location and sends them a message if they have
     public static void locationReached() {
-        for (Player player : IdleBot.idlePlayers.keySet()) {
+        for (Player player : PersistentDataHandler.getPlayerSetWithCertainValue("locationCheck", true)) {
             // TODO: Replace "100"s with the XYZ coordinates with variable for desired location set by player
             boolean reachedLocation = player.getLocation().getBlockX() == 100 && player.getLocation().getBlockY() == 100 && player.getLocation().getBlockZ() == 100;
-            if (isPlayerIdle(player) && reachedLocation && !atLocation.get(player)) {
+            if (isIdle(player) && reachedLocation && !atLocation.get(player)) {
                 Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and they reached their desired location!");
                 sendPlayerMessage(player, player.getDisplayName() + "'s reached the desired location! ");
                 atLocation.put(player, true);
