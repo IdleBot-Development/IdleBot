@@ -5,7 +5,7 @@ import io.github.camshaft54.idlebot.commands.IdleBotCommandManager;
 import io.github.camshaft54.idlebot.discord.DiscordAPIRunnable;
 import io.github.camshaft54.idlebot.events.IdleBotEvents;
 import io.github.camshaft54.idlebot.util.ConfigManager;
-import io.github.camshaft54.idlebot.util.IdleChecker;
+import io.github.camshaft54.idlebot.events.IdleChecker;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
