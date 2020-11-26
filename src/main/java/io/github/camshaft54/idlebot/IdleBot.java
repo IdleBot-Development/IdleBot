@@ -20,9 +20,8 @@ package io.github.camshaft54.idlebot;
 import github.scarsz.configuralize.ParseException;
 import io.github.camshaft54.idlebot.commands.IdleBotCommandManager;
 import io.github.camshaft54.idlebot.discord.DiscordAPIRunnable;
-import io.github.camshaft54.idlebot.events.OnMovement;
+import io.github.camshaft54.idlebot.events.*;
 import io.github.camshaft54.idlebot.util.ConfigManager;
-import io.github.camshaft54.idlebot.events.IdleChecker;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -32,6 +31,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -42,6 +42,7 @@ public class IdleBot extends JavaPlugin {
     @Getter @Setter private static boolean discordAPIIsReady;
 
     public static HashMap<Integer, Player> linkCodes = new HashMap<>();
+    public static HashMap<Player, Integer> idlePlayers = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -57,7 +58,10 @@ public class IdleBot extends JavaPlugin {
             BukkitScheduler scheduler = getServer().getScheduler();
             Objects.requireNonNull(plugin.getCommand("idlebot")).setExecutor(new IdleBotCommandManager());
             plugin.getServer().getScheduler().runTaskTimer(plugin, new IdleChecker(), 20L, 20L); // Code in task should execute every 20 ticks (1 second)
-            plugin.getServer().getPluginManager().registerEvents(new OnMovement(), plugin);
+            plugin.getServer().getPluginManager().registerEvents(new OnMovement(), plugin); // Register movement event
+            plugin.getServer().getPluginManager().registerEvents(new OnDamage(), plugin); // Register damage event
+            plugin.getServer().getPluginManager().registerEvents(new OnDeath(), plugin); // Register death event
+            plugin.getServer().getPluginManager().registerEvents(new OnPlayerQuit(), plugin); // Register player quit event
             discordAPIIsReady = false;
             scheduler.runTaskAsynchronously(plugin, new DiscordAPIRunnable(plugin));
             getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] Plugin successfully loaded");

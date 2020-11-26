@@ -33,6 +33,7 @@
 
 package io.github.camshaft54.idlebot.events;
 
+import io.github.camshaft54.idlebot.IdleBot;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -49,19 +50,16 @@ public class OnMovement implements Listener {
     public static void onMovement(PlayerMoveEvent e) {
         Location from = e.getFrom();
         Location to = e.getTo();
-        assert to != null;
-        boolean difMove = from.getX() - to.getX() + from.getY() - to.getY() + from.getZ() - to.getZ() != 0;
-        boolean difOrien = to.getPitch() != from.getPitch() || to.getYaw() != from.getYaw();
-        if (difOrien && difMove) {
+        if (to == null)
+            return;
+        boolean hasChangedPosition = from.getX() - to.getX() + from.getY() - to.getY() + from.getZ() - to.getZ() != 0;
+        boolean hasChangedOrientation = to.getPitch() != from.getPitch() || to.getYaw() != from.getYaw();
+        if (hasChangedOrientation && hasChangedPosition) {
             Player player = e.getPlayer();
-            // If player is not moving
+            // Send a message in the console
             Bukkit.getLogger().info(player.getDisplayName() + " stopped being idle.");
-            // Set all idle hashmaps to false
-            IdleChecker.playersIdling.put(player, 0);
-            InventoryFull.isFull.put(player, false);
-            LocationReached.atLocation.put(player, false);
-            OnDamage.isDamaged.put(player, false);
-            XpLevel.atExpLevel.put(player, false);
+            // Player is no longer idle, so they are removed from the HashMap of idle players
+            IdleBot.idlePlayers.remove(player);
         }
     }
 }

@@ -24,8 +24,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-import static io.github.camshaft54.idlebot.events.EventsUtil.isPlayerIdle;
-import static io.github.camshaft54.idlebot.events.EventsUtil.sendPlayerMessage;
+import static io.github.camshaft54.idlebot.util.EventsUtil.isPlayerIdle;
+import static io.github.camshaft54.idlebot.util.EventsUtil.sendPlayerMessage;
 
 public class OnDeath implements Listener {
     // If player has died, send them a message

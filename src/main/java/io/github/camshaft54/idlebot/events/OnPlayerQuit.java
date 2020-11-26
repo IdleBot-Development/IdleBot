@@ -17,6 +17,7 @@
 
 package io.github.camshaft54.idlebot.events;
 
+import io.github.camshaft54.idlebot.IdleBot;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,10 +28,6 @@ public class OnPlayerQuit implements Listener {
     @EventHandler
     public static void onPlayerQuit(PlayerQuitEvent e) {
         Player player = e.getPlayer();
-        IdleChecker.playersIdling.remove(player);
-        InventoryFull.isFull.remove(player);
-        LocationReached.atLocation.remove(player);
-        OnDamage.isDamaged.remove(player);
-        XpLevel.atExpLevel.remove(player);
+        IdleBot.idlePlayers.remove(player);
     }
 }

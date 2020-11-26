@@ -15,16 +15,18 @@
  *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.camshaft54.idlebot.events;
+package io.github.camshaft54.idlebot.util;
 
+import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
+import io.github.camshaft54.idlebot.events.IdleChecker;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.entity.Player;
 
 public class EventsUtil {
     // Check if a player is idle based on the player's settings and the time they have spent idle
     public static boolean isPlayerIdle(Player player) {
-        int time = IdleChecker.playersIdling.get(player);
+        int time = IdleBot.idlePlayers.get(player);
         String afkmode = PersistentDataHandler.getStringData(player, "afkmode");
         int afktime = PersistentDataHandler.getIntData(player, "afktime");
         // For debugging purposes
