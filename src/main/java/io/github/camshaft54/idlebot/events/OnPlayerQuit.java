@@ -15,13 +15,22 @@
  *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.camshaft54.idlebot.util;
+package io.github.camshaft54.idlebot.events;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 
-public abstract class IdleBotCommand {
-
-    public abstract String getCommandName();
-
-    public abstract void runCommand(Player player, String[] args);
+public class OnPlayerQuit implements Listener {
+    // If player leaves game, remove them from playersIdling and the other condition hashmaps
+    @EventHandler
+    public static void onPlayerQuit(PlayerQuitEvent e) {
+        Player player = e.getPlayer();
+        IdleChecker.playersIdling.remove(player);
+        InventoryFull.isFull.remove(player);
+        LocationReached.atLocation.remove(player);
+        OnDamage.isDamaged.remove(player);
+        XpLevel.atExpLevel.remove(player);
+    }
 }
