@@ -15,6 +15,8 @@
  *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+// This class makes use of some code by "Scarsz" here: https://github.com/Scarsz/Configuralize
+
 package io.github.camshaft54.idlebot.util;
 
 import io.github.camshaft54.idlebot.IdleBot;
