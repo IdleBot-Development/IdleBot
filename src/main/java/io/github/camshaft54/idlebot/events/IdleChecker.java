@@ -18,6 +18,7 @@
 package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
+import io.github.camshaft54.idlebot.util.DataValues;
 import io.github.camshaft54.idlebot.util.EventsUtil;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
@@ -27,7 +28,7 @@ public class IdleChecker implements Runnable {
 
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (PersistentDataHandler.getStringData(player, "discordId") != null) {
+            if (PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key()) != null) {
                 if (IdleBot.idlePlayers.containsKey(player)) { // If player is already in the hashmap
                     IdleBot.idlePlayers.put(player, IdleBot.idlePlayers.get(player) + 1); // Add 1 to the player's value
                 }

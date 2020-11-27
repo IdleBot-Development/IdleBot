@@ -26,11 +26,11 @@ import java.util.HashMap;
 import static io.github.camshaft54.idlebot.util.EventsUtil.isIdle;
 import static io.github.camshaft54.idlebot.util.EventsUtil.sendPlayerMessage;
 
-public class XPLevel {
+public class XPLevelReached {
     public static HashMap<Player, Boolean> atExpLevel = new HashMap<>();
 
     // Checks if player has reached a certain xp level and sends them a message if they have
-    public static void xpLevel() {
+    public static void xpLevelReached() {
         for (Player player : IdleBot.idlePlayers.keySet()) {
             //TODO: Replace "10" in if statement with variable for desired xp level set by player
             if (isIdle(player) && player.getLevel() == 10 && !atExpLevel.get(player)) {
