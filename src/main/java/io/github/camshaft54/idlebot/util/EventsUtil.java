@@ -19,17 +19,15 @@ package io.github.camshaft54.idlebot.util;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
-import io.github.camshaft54.idlebot.events.IdleChecker;
-import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.entity.Player;
 
 public class EventsUtil {
     // Check if a player is idle based on the player's settings and the time they have spent idle
     public static boolean isIdle(Player player) {
         int time = IdleBot.idlePlayers.get(player);
-        String afkmode = PersistentDataHandler.getStringData(player, DataValues.AFKMODE.key());
-        boolean setafk = PersistentDataHandler.getBooleanData(player, DataValues.ISSETAFK.key());
-        int afktime = PersistentDataHandler.getIntData(player, DataValues.AFKTIME.key());
+        String afkmode = PersistentDataHandler.getStringData(player, DataValues.AFK_MODE.key());
+        boolean setafk = PersistentDataHandler.getBooleanData(player, DataValues.IS_SET_AFK.key());
+        int afktime = PersistentDataHandler.getIntData(player, DataValues.AFK_TIME.key());
         if (afkmode == null) {
             return false;
         }
@@ -38,7 +36,7 @@ public class EventsUtil {
 
     // Sends player a message on Discord, if player has linked account
     public static void sendPlayerMessage(Player player, String message) {
-        String discordID = PersistentDataHandler.getStringData(player, DataValues.DISCORDID.key());
+        String discordID = PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key());
         if (discordID != null)
             DiscordAPIManager.channel.sendMessage(formatUserID(discordID) + message);
     }

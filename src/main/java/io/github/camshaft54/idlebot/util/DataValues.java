@@ -2,12 +2,12 @@ package io.github.camshaft54.idlebot.util;
 
 @SuppressWarnings("SpellCheckingInspection")
 public enum DataValues {
-    AFKTIME ("afktime"),
-    AFKMODE ("afkmode"),
-    DISCORDID ("discordID"),
-    ISSETAFK ("setafk"),
-    LOCATIONALERT ("locationcheck"),
-    DIRRECTMESSAGEMODE ("dmmode");
+    AFK_TIME("afktime"),
+    AFK_MODE("afkmode"),
+    DISCORD_ID("discordID"),
+    IS_SET_AFK("setafk"),
+    LOCATION_ALERT("locationcheck"),
+    DIRRECT_MESSAGE_MODE("dmmode");
 
     private final String key;
 

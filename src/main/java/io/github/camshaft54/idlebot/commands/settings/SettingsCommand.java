@@ -30,6 +30,7 @@ public class SettingsCommand extends IdleBotCommand {
     public SettingsCommand() {
         settings.add(new AFKMode());
         settings.add(new AFKTime());
+        settings.add(new DamageAlert());
     }
 
     @Override

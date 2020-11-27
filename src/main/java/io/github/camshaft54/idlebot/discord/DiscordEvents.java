@@ -39,7 +39,7 @@ public class DiscordEvents implements MessageCreateListener {
                 Bukkit.getLogger().info("Someone entered a code: " + code);
                 if (IdleBot.linkCodes.containsKey(code)) {
                     Player player = IdleBot.linkCodes.get(code);
-                    PersistentDataHandler.setData(player, DataValues.DISCORDID.key(), event.getMessageAuthor().getIdAsString());
+                    PersistentDataHandler.setData(player, DataValues.DISCORD_ID.key(), event.getMessageAuthor().getIdAsString());
                     channel.sendMessage("Successfully linked your Discord username to Minecraft username " + player.getDisplayName());
                     IdleBot.linkCodes.remove(code);
                     // Since the player just linked,
@@ -55,6 +55,6 @@ public class DiscordEvents implements MessageCreateListener {
 
     private void setDefaultSettings(Player player) {
         // Set default for afktime
-        PersistentDataHandler.setData(player, DataValues.AFKTIME.key(), IdleBot.getConfigManager().getDefaultIdleTime());
+        PersistentDataHandler.setData(player, DataValues.AFK_TIME.key(), IdleBot.getConfigManager().getDefaultIdleTime());
     }
 }

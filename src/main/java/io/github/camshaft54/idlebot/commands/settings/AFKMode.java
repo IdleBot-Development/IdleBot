@@ -35,13 +35,13 @@ public class AFKMode extends PlayerSettingSetter {
             return;
         }
         if (args[2].equalsIgnoreCase("manual")) {
-            PersistentDataHandler.setData(player, DataValues.AFKMODE.key(), "manual");
+            PersistentDataHandler.setData(player, DataValues.AFK_MODE.key(), "manual");
         } else if (args[2].equalsIgnoreCase("auto")) {
-            PersistentDataHandler.setData(player, DataValues.AFKMODE.key(), "auto");
+            PersistentDataHandler.setData(player, DataValues.AFK_MODE.key(), "auto");
             if (args.length >= 4) {
                 try {
                     if (Integer.parseInt(args[3]) >= 10 && Integer.parseInt(args[3]) <= 120) {
-                        PersistentDataHandler.setData(player, DataValues.AFKTIME.key(), Integer.parseInt(args[3]));
+                        PersistentDataHandler.setData(player, DataValues.AFK_TIME.key(), Integer.parseInt(args[3]));
                     } else {
                         // Say it has to be 10 seconds to 2 minutes
                         return;
