@@ -23,6 +23,8 @@ public enum DataValues {
     AFK_MODE("afkmode"),
     DISCORD_ID("discordID"),
     IS_SET_AFK("setafk"),
+    DAMAGE_ALERT("damagealert"),
+    DEATH_ALERT("deathalert"),
     LOCATION_ALERT("locationcheck"),
     DIRRECT_MESSAGE_MODE("dmmode");
 

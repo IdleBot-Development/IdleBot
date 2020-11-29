@@ -15,39 +15,49 @@
  *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.camshaft54.idlebot.commands.settings;
+package io.github.camshaft54.idlebot.commands;
 
+import io.github.camshaft54.idlebot.util.DataValues;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
-import io.github.camshaft54.idlebot.util.PlayerSettingSetter;
+import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-
-public class SettingsCommand extends IdleBotCommand {
-
-    ArrayList<PlayerSettingSetter> settings = new ArrayList<>();
-
-    public SettingsCommand() {
-        settings.add(new AFKMode());
-        settings.add(new AFKTime());
-        settings.add(new DamageAlert());
-    }
-
+public class Alert extends IdleBotCommand {
     @Override
     public String getCommandName() {
-        return "settings";
+        return "alert";
     }
 
     @Override
     public void runCommand(Player player, String[] args) {
+        String DataKey;
         if (args.length < 2) {
-            // Information about the command
+            // BLURB
             return;
         }
-        for (PlayerSettingSetter setting : settings) {
-            if (args[1].equalsIgnoreCase(setting.getSettingName())) {
-                setting.setSetting(player, args);
-            }
+        switch (args[1].toLowerCase()) {
+            case "damage":
+                DataKey = DataValues.DAMAGE_ALERT.key();
+                break;
+            case "death":
+                DataKey = DataValues.DEATH_ALERT.key();
+                break;
+            default:
+                // WRONG
+                return;
+        }
+        if (args.length < 3) {
+            // send message what it is
+            return;
+        }
+        if (args[2].equalsIgnoreCase("true")) {
+            PersistentDataHandler.setData(player, DataKey,true);
+        }
+        else if (args[2].equalsIgnoreCase("false")) {
+            PersistentDataHandler.setData(player, DataValues.DAMAGE_ALERT.key(), false);
+        }
+        else {
+            // BLURB
         }
     }
 }

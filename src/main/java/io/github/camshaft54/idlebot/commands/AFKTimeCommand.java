@@ -15,30 +15,36 @@
  *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.camshaft54.idlebot.commands.settings;
+package io.github.camshaft54.idlebot.commands;
 
+import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.DataValues;
+import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
-import io.github.camshaft54.idlebot.util.PlayerSettingSetter;
 import org.bukkit.entity.Player;
 
-public class DamageAlert extends PlayerSettingSetter {
+public class AFKTimeCommand extends IdleBotCommand {
     @Override
-    public String getSettingName() {
-        return "damage_alert";
+    public String getCommandName() {
+        return "afktime";
     }
 
     @Override
-    public void setSetting(Player player, String[] args) {
-        if (args.length < 3) {
-            // BLURB
+    public void runCommand(Player player, String[] args) {
+        if (args.length < 2) {
+            // Information about the setting
             return;
         }
-        if (args[2].equalsIgnoreCase("true")) {
-            PersistentDataHandler.setData(player, DataValues.LOCATION_ALERT.key(), true);
-        }
-        else if (args[2].equalsIgnoreCase("false")) {
-            PersistentDataHandler.setData(player, DataValues.LOCATION_ALERT.key(), false);
+        try {
+            if (Integer.parseInt(args[2]) >= IdleBot.getConfigManager().getMinIdleTime() && Integer.parseInt(args[2]) <= IdleBot.getConfigManager().getMaxIdleTime()) {
+                PersistentDataHandler.setData(player, DataValues.AFK_TIME.key(), Integer.parseInt(args[2]));
+            } else {
+                // Say it has to be 10 seconds to 2 minutes
+                return;
+            }
+        } catch (NumberFormatException nfe) {
+            // Send the player message about needs to be "<number>"
+            return;
         }
     }
 }

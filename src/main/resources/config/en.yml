@@ -1,5 +1,6 @@
 # This is the configuration file for the IdleBot plugin!
 # More information and help can be found here(insert link)
+# Comments refer to the option BELOW them
 
 #                        dddddddd
 #  IIIIIIIIII            d::::::dlllllll                     BBBBBBBBBBBBBBBBB                             tttt
@@ -26,7 +27,13 @@ channelID: <Channel ID Here>
 customBotActivity:
   # The type of activity in the bot's Discord status. Can be WATCHING, PLAYING, or LISTENING. Leave blank to disable
   type: WATCHING
-  # The second part of the bot's Discord status. For example, if this said "idle players" the bot's status could be "Watching idle players"
+  # The second part of the bot's Discord status. For example, if this says "idle players" the bot's status could be "Watching idle players"
   message: idle players
-# The default idle time for players who do not set their own
-defaultIdleTime: 120
+# These values are in seconds
+idleTime:
+  # The default idle time for players who do not set their own
+  defaultIdleTime: 120
+  # The maximum idle time a player can set for themself
+  maximumIdleTime: 600
+  # The minimum idle time a player can set for themself | WE RECOMMEND KEEPING THIS AT LEAST 10 SECONDS
+  minimumIdleTime: 20

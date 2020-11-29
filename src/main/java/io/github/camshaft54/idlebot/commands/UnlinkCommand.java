@@ -17,6 +17,7 @@
 
 package io.github.camshaft54.idlebot.commands;
 
+import io.github.camshaft54.idlebot.util.DataValues;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import org.bukkit.entity.Player;
@@ -33,10 +34,10 @@ public class UnlinkCommand extends IdleBotCommand {
             // Send a blurb about how they aren't linked so they can't unlink
             return;
         }
-        PersistentDataHandler.removeData(player, "discordID");
+        PersistentDataHandler.removeData(player, DataValues.DISCORD_ID.key());
     }
 
     private boolean playerIsLinked(Player player) {
-        return PersistentDataHandler.getStringData(player, "discordID") != null; // Returns true if the player already has an account linked
+        return PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key()) != null; // Returns true if the player already has an account linked
     }
 }

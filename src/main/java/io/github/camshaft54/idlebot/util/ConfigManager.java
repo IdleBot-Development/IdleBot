@@ -36,6 +36,8 @@ public class ConfigManager {
     @Getter private final String activityMessage;
     @Getter private final String channelID;
     @Getter private final int defaultIdleTime;
+    @Getter private final int minIdleTime;
+    @Getter private final int maxIdleTime;
 
     private DynamicConfig config;
 
@@ -49,6 +51,8 @@ public class ConfigManager {
         channelID = config.getString("channelID");
         activityType = config.getString("customBotActivity.type");
         activityMessage = config.getString("customBotActivity.message");
-        defaultIdleTime = config.getInt("defaultIdleTime");
+        defaultIdleTime = config.getInt("idleTime.defaultIdleTime");
+        minIdleTime = config.getInt("idleTime.minimumIdleTime");
+        maxIdleTime = config.getInt("idleTime.maximumIdleTime");
     }
 }

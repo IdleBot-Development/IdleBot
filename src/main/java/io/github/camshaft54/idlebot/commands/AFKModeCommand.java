@@ -15,33 +15,34 @@
  *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.camshaft54.idlebot.commands.settings;
+package io.github.camshaft54.idlebot.commands;
 
 import io.github.camshaft54.idlebot.util.DataValues;
+import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
-import io.github.camshaft54.idlebot.util.PlayerSettingSetter;
 import org.bukkit.entity.Player;
 
-public class AFKMode extends PlayerSettingSetter {
+public class AFKModeCommand extends IdleBotCommand {
+
     @Override
-    public String getSettingName() {
+    public String getCommandName() {
         return "afkmode";
     }
 
     @Override
-    public void setSetting(Player player, String[] args) {
-        if (args.length < 3) {
+    public void runCommand(Player player, String[] args) {
+        if (args.length < 2) {
             // Information about the setting
             return;
         }
-        if (args[2].equalsIgnoreCase("manual")) {
+        if (args[1].equalsIgnoreCase("manual")) {
             PersistentDataHandler.setData(player, DataValues.AFK_MODE.key(), "manual");
-        } else if (args[2].equalsIgnoreCase("auto")) {
+        } else if (args[1].equalsIgnoreCase("auto")) {
             PersistentDataHandler.setData(player, DataValues.AFK_MODE.key(), "auto");
-            if (args.length >= 4) {
+            if (args.length >= 3) {
                 try {
-                    if (Integer.parseInt(args[3]) >= 10 && Integer.parseInt(args[3]) <= 120) {
-                        PersistentDataHandler.setData(player, DataValues.AFK_TIME.key(), Integer.parseInt(args[3]));
+                    if (Integer.parseInt(args[2]) >= 10 && Integer.parseInt(args[2]) <= 120) {
+                        PersistentDataHandler.setData(player, DataValues.AFK_TIME.key(), Integer.parseInt(args[2]));
                     } else {
                         // Say it has to be 10 seconds to 2 minutes
                         return;

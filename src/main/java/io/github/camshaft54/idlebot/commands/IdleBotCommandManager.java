@@ -1,7 +1,6 @@
 package io.github.camshaft54.idlebot.commands;
 
 import io.github.camshaft54.idlebot.IdleBot;
-import io.github.camshaft54.idlebot.commands.settings.SettingsCommand;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -35,7 +34,10 @@ public class IdleBotCommandManager implements CommandExecutor {
     public IdleBotCommandManager() {
         idleBotCommands.add(new LinkCommand());
         idleBotCommands.add(new UnlinkCommand());
-        idleBotCommands.add(new SettingsCommand());
+        idleBotCommands.add(new Alert());
+        idleBotCommands.add(new AFKTimeCommand());
+        idleBotCommands.add(new AFKModeCommand());
+
     }
 
     @Override

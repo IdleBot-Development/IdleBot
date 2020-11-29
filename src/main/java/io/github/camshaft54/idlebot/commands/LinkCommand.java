@@ -19,6 +19,7 @@ package io.github.camshaft54.idlebot.commands;
 
 import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
 import io.github.camshaft54.idlebot.IdleBot;
+import io.github.camshaft54.idlebot.util.DataValues;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.entity.Player;
@@ -57,6 +58,6 @@ public class LinkCommand extends IdleBotCommand {
     }
 
     private boolean playerIsLinked(Player player) {
-        return PersistentDataHandler.getStringData(player, "discordID") != null; // Returns true if the player already has an account linked
+        return PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key()) != null; // Returns true if the player already has an account linked
     }
 }
