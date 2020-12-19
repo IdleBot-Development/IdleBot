@@ -18,6 +18,7 @@
 package io.github.camshaft54.idlebot.discord;
 
 import io.github.camshaft54.idlebot.IdleBot;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.activity.ActivityType;
@@ -36,15 +37,15 @@ public class DiscordAPIManager {
     }
 
     public void consoleInfo() {
-        plugin.getLogger().info("[IdleBot] Success! Connected to Discord as " + api.getYourself().getDiscriminatedName());
-        plugin.getLogger().info("[IdleBot] Open the following url to invite the bot: " + api.createBotInvite());
+        plugin.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "Success! Connected to Discord as " + api.getYourself().getDiscriminatedName());
+        plugin.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "Open the following url to invite the bot: " + api.createBotInvite());
     }
 
     public void connectToChannel() {
         if (api.getServerTextChannelById(IdleBot.getConfigManager().getChannelID()).isPresent()) {
             channel = api.getServerTextChannelById(IdleBot.getConfigManager().getChannelID()).get();
-        } else {
-            plugin.getLogger().warning("[IdleBot] Invalid Discord channel specified in config");
+        } else { // TODO: Should this disable the plugin?
+            plugin.getLogger().warning(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.DARK_RED + "Invalid Discord channel specified in config");
         }
     }
 

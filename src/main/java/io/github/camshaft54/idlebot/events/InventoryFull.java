@@ -19,6 +19,7 @@ package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class InventoryFull {
     public static void inventoryFull() {
         for (Player player : IdleBot.idlePlayers.keySet()) {
             if (isIdle(player) && player.getInventory().firstEmpty() < 0 && !isFull.get(player)) {
-                Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and their inventory is full!");
+                Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and their inventory is full!");
                 sendPlayerMessage(player, player.getDisplayName() + "'s inventory is full! ");
                 isFull.put(player, true);
             }

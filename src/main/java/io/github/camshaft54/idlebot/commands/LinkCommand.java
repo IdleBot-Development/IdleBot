@@ -22,6 +22,7 @@ import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.DataValues;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.Random;
@@ -46,7 +47,7 @@ public class LinkCommand extends IdleBotCommand {
         while (isDuplicateToken(code)) { // Keep getting new codes until it is unique (very unlikely to ever run)
             code = rng.nextInt(999);
         }
-        player.sendMessage("Your link code is " + code + ". Send this code in a private message to " + botName + " to link your account.");
+        player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "Your link code is " + code + ". Send this code in a private message to " + botName + " to link your account.");
         IdleBot.linkCodes.put(code, player);
     }
 

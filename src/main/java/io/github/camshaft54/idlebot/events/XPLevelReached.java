@@ -19,6 +19,7 @@ package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -34,7 +35,7 @@ public class XPLevelReached {
         for (Player player : IdleBot.idlePlayers.keySet()) {
             //TODO: Replace "10" in if statement with variable for desired xp level set by player
             if (isIdle(player) && player.getLevel() == 10 && !atExpLevel.get(player)) {
-                Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and at the desired XP level!");
+                Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and at the desired XP level!");
                 sendPlayerMessage(player, player.getDisplayName() + " is at the desired XP level! ");
                 atExpLevel.put(player, true);
             }

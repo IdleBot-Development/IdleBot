@@ -33,7 +33,7 @@ public class AFKTimeCommand extends IdleBotCommand {
     @Override
     public void runCommand(Player player, String[] args) {
         if (args.length < 2) {
-            player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot]: " + ChatColor.AQUA + "to use this command, enter \"/idlebot afktime <time in seconds>\" (without the <>).");
+            player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot]: " + ChatColor.BLUE + "to use this command, enter \"/idlebot afktime <time in seconds>\" (without the <>).");
             return;
         }
         try {

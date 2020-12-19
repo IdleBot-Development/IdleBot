@@ -2,6 +2,7 @@ package io.github.camshaft54.idlebot.commands;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -43,7 +44,7 @@ public class IdleBotCommandManager implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String str, String[] args) {
         if (!(commandSender instanceof Player)) {
-            IdleBot.getPlugin().getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] This command can be run only by players!");
+            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.BLUE + "This command can be run only by players!");
             return true;
         }
         Player player = (Player) commandSender;

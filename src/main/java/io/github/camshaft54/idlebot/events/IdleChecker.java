@@ -22,6 +22,7 @@ import io.github.camshaft54.idlebot.util.DataValues;
 import io.github.camshaft54.idlebot.util.EventsUtil;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class IdleChecker implements Runnable {
@@ -29,7 +30,7 @@ public class IdleChecker implements Runnable {
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key()) != null) {
-                if (IdleBot.idlePlayers.containsKey(player)) { // If player is already in the hashmap
+                if (IdleBot.idlePlayers.containsKey(player) && IdleBot.idlePlayers.get(player) != PersistentDataHandler.getIntData(player, DataValues.AFK_TIME.key())) { // If player is already in the hashmap and not at max time
                     IdleBot.idlePlayers.put(player, IdleBot.idlePlayers.get(player) + 1); // Add 1 to the player's value
                 }
                 else {
@@ -37,7 +38,7 @@ public class IdleChecker implements Runnable {
                     IdleBot.idlePlayers.put(player, 0);
                 }
                 if (EventsUtil.isIdle(player)) { // If player has been idle for time specified in config
-                    Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle.");
+                    Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle.");
                 }
             }
         }

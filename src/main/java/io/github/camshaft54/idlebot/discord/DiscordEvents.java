@@ -21,6 +21,7 @@ import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.DataValues;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.entity.channel.TextChannel;
@@ -36,7 +37,7 @@ public class DiscordEvents implements MessageCreateListener {
             TextChannel channel = message.getChannel();
             try {
                 Integer code = Integer.parseInt(message.getContent());
-                Bukkit.getLogger().info("Someone entered a code: " + code);
+                Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "Someone entered a code: " + code);
                 if (IdleBot.linkCodes.containsKey(code)) {
                     Player player = IdleBot.linkCodes.get(code);
                     PersistentDataHandler.setData(player, DataValues.DISCORD_ID.key(), event.getMessageAuthor().getIdAsString());

@@ -35,6 +35,7 @@ package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -57,7 +58,7 @@ public class OnMovement implements Listener {
         if (hasChangedOrientation && hasChangedPosition) {
             Player player = e.getPlayer();
             // Send a message in the console
-            Bukkit.getLogger().info(player.getDisplayName() + " stopped being idle.");
+            Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " stopped being idle.");
             // Player is no longer idle, so they are removed from the HashMap of idle players
             IdleBot.idlePlayers.remove(player);
         }

@@ -18,6 +18,7 @@
 package io.github.camshaft54.idlebot.events;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,7 +34,7 @@ public class OnDeath implements Listener {
     public void onDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
         if (isIdle(player)) {
-            Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and dead!");
+            Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and dead!");
             sendPlayerMessage(player, player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").");
         }
     }

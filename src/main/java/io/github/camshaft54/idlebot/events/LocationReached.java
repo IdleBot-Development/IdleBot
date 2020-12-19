@@ -19,6 +19,7 @@ package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -35,7 +36,7 @@ public class LocationReached {
             // TODO: Replace "100"s with the XYZ coordinates with variable for desired location set by player
             boolean reachedLocation = player.getLocation().getBlockX() == 100 && player.getLocation().getBlockY() == 100 && player.getLocation().getBlockZ() == 100;
             if (isIdle(player) && reachedLocation && !atLocation.get(player)) {
-                Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and they reached their desired location!");
+                Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and they reached their desired location!");
                 sendPlayerMessage(player, player.getDisplayName() + "'s reached the desired location! ");
                 atLocation.put(player, true);
             }

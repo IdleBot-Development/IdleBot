@@ -18,6 +18,7 @@
 package io.github.camshaft54.idlebot.events;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -37,7 +38,7 @@ public class OnDamage implements Listener {
         if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
             if (isIdle(player) && !isDamaged.get(player)) {
-                Bukkit.getLogger().info("[IdleBot]: " + player.getDisplayName() + " is idle and taking damage!");
+                Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and taking damage!");
                 sendPlayerMessage(player, player.getDisplayName() + " is taking damage " + " (" + e.getCause().name() + ").");
                 isDamaged.put(player, true);
             }

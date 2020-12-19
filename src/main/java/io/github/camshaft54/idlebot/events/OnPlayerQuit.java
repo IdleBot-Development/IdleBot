@@ -27,7 +27,6 @@ public class OnPlayerQuit implements Listener {
     // If player leaves game, remove them from playersIdling and the other condition hashmaps
     @EventHandler
     public static void onPlayerQuit(PlayerQuitEvent e) {
-        Player player = e.getPlayer();
-        IdleBot.idlePlayers.remove(player);
+        IdleBot.idlePlayers.remove(e.getPlayer());
     }
 }
