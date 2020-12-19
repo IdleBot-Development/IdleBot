@@ -21,6 +21,7 @@ import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.DataValues;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class AFKTimeCommand extends IdleBotCommand {
@@ -32,7 +33,7 @@ public class AFKTimeCommand extends IdleBotCommand {
     @Override
     public void runCommand(Player player, String[] args) {
         if (args.length < 2) {
-            // Information about the setting
+            player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot]: " + ChatColor.AQUA + "to use this command, enter \"/idlebot afktime <time in seconds>\" (without the <>).");
             return;
         }
         try {

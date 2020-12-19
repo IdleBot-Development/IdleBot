@@ -50,7 +50,7 @@ public class IdleBot extends JavaPlugin {
             configManager = new ConfigManager();
         }
         catch (IOException | ParseException e) {
-            getServer().getConsoleSender().sendMessage(ChatColor.RED + "[IdleBot] Plugin configuration load failed! Plugin disabled. Try to fix the configuration file and try again or get support!");
+            Bukkit.getLogger().warning(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.DARK_RED + "Plugin configuration load failed! Plugin disabled. Try to fix the configuration file and try again or get support!");
             this.disablePlugin();
         }
         if (plugin.isEnabled()) {
@@ -64,14 +64,14 @@ public class IdleBot extends JavaPlugin {
             plugin.getServer().getPluginManager().registerEvents(new OnPlayerQuit(), plugin); // Register player quit event
             discordAPIIsReady = false;
             scheduler.runTaskAsynchronously(plugin, new DiscordAPIRunnable(plugin));
-            getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] Plugin successfully loaded");
-            getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] Note: Plugin has not finished initializing Discord API! Discord functionality is not yet ready!");
+            Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "Plugin successfully loaded");
+            Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.GREEN + "Plugin has not finished initializing Discord API! Discord functionality is not yet ready!");
         }
     }
 
     @Override
     public void onDisable() {
-        getServer().getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] All data saved. Plugin can safely close!");
+        Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "All data saved. Plugin safely closed!");
     }
 
     public void disablePlugin() {

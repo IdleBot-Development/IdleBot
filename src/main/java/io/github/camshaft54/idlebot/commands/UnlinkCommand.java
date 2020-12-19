@@ -37,7 +37,7 @@ public class UnlinkCommand extends IdleBotCommand {
         PersistentDataHandler.removeData(player, DataValues.DISCORD_ID.key());
     }
 
-    private boolean playerIsLinked(Player player) {
+    private boolean playerIsLinked(Player player) { //TODO: this is used only once maybe remove it and put inline?
         return PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key()) != null; // Returns true if the player already has an account linked
     }
 }

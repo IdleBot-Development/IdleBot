@@ -30,17 +30,17 @@ public class Alert extends IdleBotCommand {
 
     @Override
     public void runCommand(Player player, String[] args) {
-        String DataKey;
+        String dataKey;
         if (args.length < 2) {
             // BLURB
             return;
         }
         switch (args[1].toLowerCase()) {
             case "damage":
-                DataKey = DataValues.DAMAGE_ALERT.key();
+                dataKey = DataValues.DAMAGE_ALERT.key();
                 break;
             case "death":
-                DataKey = DataValues.DEATH_ALERT.key();
+                dataKey = DataValues.DEATH_ALERT.key();
                 break;
             default:
                 // WRONG
@@ -51,7 +51,7 @@ public class Alert extends IdleBotCommand {
             return;
         }
         if (args[2].equalsIgnoreCase("true")) {
-            PersistentDataHandler.setData(player, DataKey,true);
+            PersistentDataHandler.setData(player, dataKey,true);
         }
         else if (args[2].equalsIgnoreCase("false")) {
             PersistentDataHandler.setData(player, DataValues.DAMAGE_ALERT.key(), false);
