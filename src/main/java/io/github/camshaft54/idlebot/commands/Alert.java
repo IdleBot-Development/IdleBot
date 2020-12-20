@@ -20,6 +20,7 @@ package io.github.camshaft54.idlebot.commands;
 import io.github.camshaft54.idlebot.util.DataValues;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class Alert extends IdleBotCommand {
@@ -32,7 +33,7 @@ public class Alert extends IdleBotCommand {
     public void runCommand(Player player, String[] args) {
         String dataKey;
         if (args.length < 2) {
-            // BLURB
+            player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.BLUE + "placeholder for the command usage");
             return;
         }
         switch (args[1].toLowerCase()) {
@@ -41,6 +42,15 @@ public class Alert extends IdleBotCommand {
                 break;
             case "death":
                 dataKey = DataValues.DEATH_ALERT.key();
+                break;
+            case "location":
+                dataKey = DataValues.LOCATION_ALERT.key();
+                break;
+            case "xp":
+                dataKey = DataValues.EXPERIENCE_ALERT.key();
+                break;
+            case "inventory":
+                dataKey = DataValues.INVENTORY_FULL_ALERT.key();
                 break;
             default:
                 // WRONG
@@ -57,7 +67,7 @@ public class Alert extends IdleBotCommand {
             PersistentDataHandler.setData(player, DataValues.DAMAGE_ALERT.key(), false);
         }
         else {
-            // BLURB
+            player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.BLUE + "invalid value for alert " + args[1].toLowerCase() + ". To use this command, type \"/idlebot alert " + args[1].toLowerCase() + " <true/false>\" (where <true/false> is the value you want it to be.");
         }
     }
 }

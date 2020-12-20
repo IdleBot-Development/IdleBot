@@ -21,11 +21,13 @@ package io.github.camshaft54.idlebot.util;
 public enum DataValues {
     AFK_TIME("afktime"),
     AFK_MODE("afkmode"),
-    DISCORD_ID("discordID"),
+    DISCORD_ID("discordid"),
     IS_SET_AFK("setafk"),
     DAMAGE_ALERT("damagealert"),
     DEATH_ALERT("deathalert"),
     LOCATION_ALERT("locationcheck"),
+    EXPERIENCE_ALERT("xpalert"),
+    INVENTORY_FULL_ALERT("inventoryalert"),
     DIRRECT_MESSAGE_MODE("dmmode");
 
     private final String key;
