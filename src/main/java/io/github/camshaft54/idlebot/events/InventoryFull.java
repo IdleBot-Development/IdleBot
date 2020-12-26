@@ -18,6 +18,7 @@
 package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
+import io.github.camshaft54.idlebot.util.DataValues;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -35,7 +36,7 @@ public class InventoryFull {
         for (Player player : IdleBot.idlePlayers.keySet()) {
             if (isIdle(player) && player.getInventory().firstEmpty() < 0 && !isFull.get(player)) {
                 Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and their inventory is full!");
-                sendPlayerMessage(player, player.getDisplayName() + "'s inventory is full! ");
+                sendPlayerMessage(player, player.getDisplayName() + "'s inventory is full! ", DataValues.INVENTORY_FULL_ALERT.key());
                 isFull.put(player, true);
             }
         }

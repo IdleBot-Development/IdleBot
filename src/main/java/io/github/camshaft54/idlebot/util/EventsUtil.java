@@ -21,6 +21,8 @@ import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
 import org.bukkit.entity.Player;
 
+import java.util.concurrent.ExecutionException;
+
 public class EventsUtil {
     // Check if a player is idle based on the player's settings and the time they have spent idle
     public static boolean isIdle(Player player) {
@@ -35,10 +37,21 @@ public class EventsUtil {
     }
 
     // Sends player a message on Discord, if player has linked account
-    public static void sendPlayerMessage(Player player, String message) {
+    public static void sendPlayerMessage(Player player, String message, String alertType) {
         String discordID = PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key());
-        if (discordID != null)
-            DiscordAPIManager.channel.sendMessage(formatUserID(discordID) + message);
+        if (discordID != null && PersistentDataHandler.getBooleanData(player, alertType)) {
+            if (PersistentDataHandler.getBooleanData(player, DataValues.DIRECT_MESSAGE_MODE.key())) {
+                try {
+                    DiscordAPIManager.api.getUserById(PersistentDataHandler.getStringData(player,
+                            DataValues.DISCORD_ID.key())).get().getPrivateChannel()
+                            .ifPresent(channel -> channel.sendMessage(formatUserID(discordID) + message));
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                DiscordAPIManager.channel.sendMessage(formatUserID(discordID) + message);
+            }
+        }
     }
 
     // Because why not

@@ -17,7 +17,6 @@
 
 package io.github.camshaft54.idlebot.util;
 
-@SuppressWarnings("SpellCheckingInspection")
 public enum DataValues {
     AFK_TIME("afktime"),
     AFK_MODE("afkmode"),
@@ -28,7 +27,9 @@ public enum DataValues {
     LOCATION_ALERT("locationcheck"),
     EXPERIENCE_ALERT("xpalert"),
     INVENTORY_FULL_ALERT("inventoryalert"),
-    DIRRECT_MESSAGE_MODE("dmmode");
+    DIRECT_MESSAGE_MODE("dmmode"),
+    LOCATION_DESIRED("locationdesired"),
+    EXPERIENCE_LEVEL_DESIRED("xpleveldesired");
 
     private final String key;
 
