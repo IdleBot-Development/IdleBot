@@ -53,9 +53,7 @@ public class OnMovement implements Listener {
         Location to = e.getTo();
         if (to == null)
             return;
-        boolean hasChangedPosition = from.getX() - to.getX() + from.getY() - to.getY() + from.getZ() - to.getZ() != 0;
-        boolean hasChangedOrientation = to.getPitch() != from.getPitch() || to.getYaw() != from.getYaw();
-        if (hasChangedOrientation && hasChangedPosition) {
+        if (to.getPitch() != from.getPitch() || to.getYaw() != from.getYaw()) {
             Player player = e.getPlayer();
             // Send a message in the console
             Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " stopped being idle.");

@@ -22,6 +22,7 @@ import static io.github.camshaft54.idlebot.events.LocationReached.locationReache
 import static io.github.camshaft54.idlebot.events.XPLevelReached.xpLevelReached;
 
 public class EventManager implements Runnable {
+    // TODO: add hashmaps of players to this class so it will have a single instance
     @Override
     public void run() {
         // Run "events" that are not actually events every one second
