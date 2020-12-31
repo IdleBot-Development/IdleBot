@@ -36,15 +36,15 @@ public class AFKModeCommand extends IdleBotCommand {
             return;
         }
         if (args[1].equalsIgnoreCase("manual")) {
-            PersistentDataHandler.setData(player, DataValues.AFK_MODE.key(), "manual");
+            PersistentDataHandler.setData(player, DataValues.AUTO_AFK.key(), false);
         } else if (args[1].equalsIgnoreCase("auto")) {
-            PersistentDataHandler.setData(player, DataValues.AFK_MODE.key(), "auto");
+            PersistentDataHandler.setData(player, DataValues.AUTO_AFK.key(), true);
             if (args.length >= 3) {
                 try {
                     if (Integer.parseInt(args[2]) >= 10 && Integer.parseInt(args[2]) <= 120) {
                         PersistentDataHandler.setData(player, DataValues.AFK_TIME.key(), Integer.parseInt(args[2]));
                     } else {
-                        // Say it has to be 10 seconds to 2 minutes
+                        // Say it has to be [min] seconds to [max] seconds
                         return;
                     }
                 } catch (NumberFormatException nfe) {

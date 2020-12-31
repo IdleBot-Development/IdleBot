@@ -30,14 +30,22 @@ public class IdleChecker implements Runnable {
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key()) != null) {
-                if (IdleBot.idlePlayers.containsKey(player) && IdleBot.idlePlayers.get(player) != PersistentDataHandler.getIntData(player, DataValues.AFK_TIME.key())) { // If player is already in the hashmap and not at max time
-                    IdleBot.idlePlayers.put(player, IdleBot.idlePlayers.get(player) + 1); // Add 1 to the player's value
+                /* If the player:
+                 * Is not already idle
+                 * Is in the list of idle players (not in auto mode)`
+                 */
+                if (!EventUtils.isIdle(player) && IdleBot.idlePlayers.containsKey(player)) {
+                    IdleBot.idlePlayers.put(player, IdleBot.idlePlayers.get(player) + 1); // Increase by one
                 }
-                else {
-                    // Put new player into the playersIdling hashmap with value 0 (0 seconds)
+                /* If the player:
+                 * Is not already idle
+                 * Has auto afk mode on
+                 */
+                else if (!EventUtils.isIdle(player) && PersistentDataHandler.getBooleanData(player, DataValues.AUTO_AFK.key())) {
                     IdleBot.idlePlayers.put(player, 0);
                 }
-                if (EventUtils.isIdle(player)) { // If player has been idle for time specified in config
+                // Debugging only; TODO: remove this
+                if (EventUtils.isIdle(player)) {
                     Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle.");
                 }
             }

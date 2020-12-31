@@ -55,8 +55,9 @@ public class DiscordEvents implements MessageCreateListener {
         }
     }
 
+    // This method is to set up default values for every player when they link their account
     private void setDefaultSettings(Player player) {
-        // Set default for afktime
         PersistentDataHandler.setData(player, DataValues.AFK_TIME.key(), IdleBot.getConfigManager().getDefaultIdleTime());
+        PersistentDataHandler.setData(player, DataValues.AUTO_AFK.key(), false);
     }
 }

@@ -27,13 +27,10 @@ public class EventUtils {
     // Check if a player is idle based on the player's settings and the time they have spent idle
     public static boolean isIdle(Player player) {
         int time = IdleBot.idlePlayers.get(player);
-        String afkmode = PersistentDataHandler.getStringData(player, DataValues.AFK_MODE.key());
+        boolean autoAFK = PersistentDataHandler.getBooleanData(player, DataValues.AUTO_AFK.key());
         boolean setafk = PersistentDataHandler.getBooleanData(player, DataValues.IS_SET_AFK.key());
         int afktime = PersistentDataHandler.getIntData(player, DataValues.AFK_TIME.key());
-        if (afkmode == null) {
-            return false;
-        }
-        return (afkmode.equals("manual") && setafk) || afktime <= time;
+        return (autoAFK && setafk) || afktime <= time;
     }
 
     // Sends player a message on Discord, if player has linked account

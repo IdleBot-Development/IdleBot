@@ -19,7 +19,7 @@ package io.github.camshaft54.idlebot.util;
 
 public enum DataValues {
     AFK_TIME("afktime"),
-    AFK_MODE("afkmode"),
+    AUTO_AFK("autoafk"),
     DISCORD_ID("discordid"),
     IS_SET_AFK("setafk"),
     DAMAGE_ALERT("damagealert"),
