@@ -21,7 +21,7 @@ import static io.github.camshaft54.idlebot.events.InventoryFull.inventoryFull;
 import static io.github.camshaft54.idlebot.events.LocationReached.locationReached;
 import static io.github.camshaft54.idlebot.events.XPLevelReached.xpLevelReached;
 
-public class ExtraEventsRunner implements Runnable {
+public class EventManager implements Runnable {
     @Override
     public void run() {
         // Run "events" that are not actually events every one second

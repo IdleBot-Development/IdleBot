@@ -27,8 +27,8 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.HashMap;
 
-import static io.github.camshaft54.idlebot.util.EventsUtil.isIdle;
-import static io.github.camshaft54.idlebot.util.EventsUtil.sendPlayerMessage;
+import static io.github.camshaft54.idlebot.util.EventUtils.isIdle;
+import static io.github.camshaft54.idlebot.util.EventUtils.sendPlayerMessage;
 
 public class OnDamage implements Listener {
     public static HashMap<Player, Boolean> isDamaged = new HashMap<>();

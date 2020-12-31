@@ -26,8 +26,8 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
-import static io.github.camshaft54.idlebot.util.EventsUtil.isIdle;
-import static io.github.camshaft54.idlebot.util.EventsUtil.sendPlayerMessage;
+import static io.github.camshaft54.idlebot.util.EventUtils.isIdle;
+import static io.github.camshaft54.idlebot.util.EventUtils.sendPlayerMessage;
 
 public class XPLevelReached {
     public static HashMap<Player, Boolean> atExpLevel = new HashMap<>();
@@ -35,7 +35,7 @@ public class XPLevelReached {
     // Checks if player has reached a certain xp level and sends them a message if they have
     public static void xpLevelReached() {
         for (Player player : IdleBot.idlePlayers.keySet()) {
-            if (isIdle(player) && player.getLevel() == PersistentDataHandler.getIntData(player, DataValues.EXPERIENCE_LEVEL_DESIRED.key()) && !atExpLevel.get(player)) {
+            if (isIdle(player) && player.getLevel() >= PersistentDataHandler.getIntData(player, DataValues.EXPERIENCE_LEVEL_DESIRED.key()) && !atExpLevel.get(player)) {
                 Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and at the desired XP level!");
                 sendPlayerMessage(player, player.getDisplayName() + " is at the desired XP level! ", DataValues.EXPERIENCE_ALERT.key());
                 atExpLevel.put(player, true);

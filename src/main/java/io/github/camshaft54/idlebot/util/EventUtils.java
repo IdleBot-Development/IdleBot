@@ -23,7 +23,7 @@ import org.bukkit.entity.Player;
 
 import java.util.concurrent.ExecutionException;
 
-public class EventsUtil {
+public class EventUtils {
     // Check if a player is idle based on the player's settings and the time they have spent idle
     public static boolean isIdle(Player player) {
         int time = IdleBot.idlePlayers.get(player);

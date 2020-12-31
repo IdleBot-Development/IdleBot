@@ -19,7 +19,7 @@ package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.DataValues;
-import io.github.camshaft54.idlebot.util.EventsUtil;
+import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -37,7 +37,7 @@ public class IdleChecker implements Runnable {
                     // Put new player into the playersIdling hashmap with value 0 (0 seconds)
                     IdleBot.idlePlayers.put(player, 0);
                 }
-                if (EventsUtil.isIdle(player)) { // If player has been idle for time specified in config
+                if (EventUtils.isIdle(player)) { // If player has been idle for time specified in config
                     Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle.");
                 }
             }

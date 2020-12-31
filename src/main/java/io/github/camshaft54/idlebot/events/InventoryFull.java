@@ -25,8 +25,8 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
-import static io.github.camshaft54.idlebot.util.EventsUtil.isIdle;
-import static io.github.camshaft54.idlebot.util.EventsUtil.sendPlayerMessage;
+import static io.github.camshaft54.idlebot.util.EventUtils.isIdle;
+import static io.github.camshaft54.idlebot.util.EventUtils.sendPlayerMessage;
 
 public class InventoryFull {
     public static HashMap<Player, Boolean> isFull = new HashMap<>();
