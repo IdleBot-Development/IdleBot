@@ -17,12 +17,21 @@
 
 package io.github.camshaft54.idlebot.events;
 
+import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+
 import static io.github.camshaft54.idlebot.events.InventoryFull.inventoryFull;
 import static io.github.camshaft54.idlebot.events.LocationReached.locationReached;
 import static io.github.camshaft54.idlebot.events.XPLevelReached.xpLevelReached;
 
 public class EventManager implements Runnable {
-    // TODO: add hashmaps of players to this class so it will have a single instance
+    // Lists to store the players who have already been pinged
+    public ArrayList<Player> inventoryFullPlayers = new ArrayList<>();
+    public ArrayList<Player> locationReachedPlayers = new ArrayList<>();
+    public ArrayList<Player> damagedPlayers = new ArrayList<>();
+    public ArrayList<Player> XPLevelReachedPlayers = new ArrayList<>();
+
     @Override
     public void run() {
         // Run "events" that are not actually events every one second

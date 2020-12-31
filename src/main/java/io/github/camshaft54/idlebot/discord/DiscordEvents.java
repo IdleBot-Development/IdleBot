@@ -42,6 +42,7 @@ public class DiscordEvents implements MessageCreateListener {
                     Player player = IdleBot.linkCodes.get(code);
                     PersistentDataHandler.setData(player, DataValues.DISCORD_ID.key(), event.getMessageAuthor().getIdAsString());
                     channel.sendMessage("Successfully linked your Discord username to Minecraft username " + player.getDisplayName());
+                    player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "Successfully linked your Minecraft username to Discord username " + event.getMessageAuthor().getDiscriminatedName());
                     IdleBot.linkCodes.remove(code);
                     // Since the player just linked,
                     setDefaultSettings(player);
