@@ -19,25 +19,21 @@ package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.DataValues;
+import io.github.camshaft54.idlebot.util.IdleCheck;
+import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-
-import static io.github.camshaft54.idlebot.util.EventUtils.isIdle;
 import static io.github.camshaft54.idlebot.util.EventUtils.sendPlayerMessage;
 
-public class InventoryFull {
-    public static HashMap<Player, Boolean> isFull = new HashMap<>();
-
-    // Checks if players inventory is full and sends them a message if it is
-    public static void inventoryFull() {
-        for (Player player : IdleBot.idlePlayers.keySet()) {
-            if (isIdle(player) && player.getInventory().firstEmpty() < 0 && !isFull.get(player)) {
+public class InventoryFull implements IdleCheck {
+    public void check() {
+        for (Player player : PersistentDataHandler.getIdlePlayerSetWithCertainValue(DataValues.INVENTORY_FULL_ALERT.key(), true)) {
+            if (player.getInventory().firstEmpty() < 0 && !IdleBot.getEventManager().inventoryFullPlayers.contains(player)) {
                 Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and their inventory is full!");
-                sendPlayerMessage(player, player.getDisplayName() + "'s inventory is full! ", DataValues.INVENTORY_FULL_ALERT.key());
-                isFull.put(player, true);
+                sendPlayerMessage(player, player.getDisplayName() + "'s inventory is full! ");
+                IdleBot.getEventManager().inventoryFullPlayers.add(player);
             }
         }
     }

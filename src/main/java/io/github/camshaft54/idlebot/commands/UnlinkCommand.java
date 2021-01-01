@@ -22,7 +22,7 @@ import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import org.bukkit.entity.Player;
 
-public class UnlinkCommand extends IdleBotCommand {
+public class UnlinkCommand implements IdleBotCommand {
     @Override
     public String getCommandName() {
         return "unlink";

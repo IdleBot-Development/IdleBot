@@ -17,7 +17,9 @@
 
 package io.github.camshaft54.idlebot.events;
 
+import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.DataValues;
+import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -31,17 +33,16 @@ import static io.github.camshaft54.idlebot.util.EventUtils.isIdle;
 import static io.github.camshaft54.idlebot.util.EventUtils.sendPlayerMessage;
 
 public class OnDamage implements Listener {
-    public static HashMap<Player, Boolean> isDamaged = new HashMap<>();
 
     // If player was damaged, send them a message
     @EventHandler
     public void onDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
-            if (isIdle(player) && !isDamaged.get(player)) {
+            if (isIdle(player) && !IdleBot.getEventManager().damagedPlayers.contains(player) && PersistentDataHandler.getBooleanData(player, DataValues.DAMAGE_ALERT.key())) {
                 Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and taking damage!");
-                sendPlayerMessage(player, player.getDisplayName() + " is taking damage " + " (" + e.getCause().name() + ").", DataValues.DAMAGE_ALERT.key());
-                isDamaged.put(player, true);
+                sendPlayerMessage(player, player.getDisplayName() + " is taking damage " + " (" + e.getCause().name() + ").");
+                IdleBot.getEventManager().damagedPlayers.add(player);
             }
         }
     }

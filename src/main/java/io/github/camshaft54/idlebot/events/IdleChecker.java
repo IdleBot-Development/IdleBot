@@ -19,11 +19,12 @@ package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.DataValues;
-import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+
+import static io.github.camshaft54.idlebot.util.EventUtils.isIdle;
 
 public class IdleChecker implements Runnable {
 
@@ -34,18 +35,18 @@ public class IdleChecker implements Runnable {
                  * Is not already idle
                  * Is in the list of idle players (not in auto mode)`
                  */
-                if (!EventUtils.isIdle(player) && IdleBot.idlePlayers.containsKey(player)) {
+                if (!isIdle(player) && IdleBot.idlePlayers.containsKey(player)) {
                     IdleBot.idlePlayers.put(player, IdleBot.idlePlayers.get(player) + 1); // Increase by one
                 }
                 /* If the player:
                  * Is not already idle
                  * Has auto afk mode on
                  */
-                else if (!EventUtils.isIdle(player) && PersistentDataHandler.getBooleanData(player, DataValues.AUTO_AFK.key())) {
+                else if (!isIdle(player) && PersistentDataHandler.getBooleanData(player, DataValues.AUTO_AFK.key())) {
                     IdleBot.idlePlayers.put(player, 0);
                 }
                 // Debugging only; TODO: remove this
-                if (EventUtils.isIdle(player)) {
+                if (isIdle(player)) {
                     Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle.");
                 }
             }

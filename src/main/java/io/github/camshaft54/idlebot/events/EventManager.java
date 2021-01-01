@@ -17,13 +17,10 @@
 
 package io.github.camshaft54.idlebot.events;
 
+import io.github.camshaft54.idlebot.util.IdleCheck;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-
-import static io.github.camshaft54.idlebot.events.InventoryFull.inventoryFull;
-import static io.github.camshaft54.idlebot.events.LocationReached.locationReached;
-import static io.github.camshaft54.idlebot.events.XPLevelReached.xpLevelReached;
 
 public class EventManager implements Runnable {
     // Lists to store the players who have already been pinged
@@ -31,12 +28,18 @@ public class EventManager implements Runnable {
     public ArrayList<Player> locationReachedPlayers = new ArrayList<>();
     public ArrayList<Player> damagedPlayers = new ArrayList<>();
     public ArrayList<Player> XPLevelReachedPlayers = new ArrayList<>();
+    private final ArrayList<IdleCheck> idleChecks = new ArrayList<>();
+
+    public EventManager() {
+        idleChecks.add(new InventoryFull());
+        idleChecks.add(new LocationReached());
+    }
 
     @Override
     public void run() {
         // Run "events" that are not actually events every one second
-        inventoryFull();
-        locationReached();
-        xpLevelReached();
+        for (IdleCheck check : idleChecks) {
+            check.check();
+        }
     }
 }

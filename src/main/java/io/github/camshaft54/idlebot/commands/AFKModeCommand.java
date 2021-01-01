@@ -22,7 +22,7 @@ import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.entity.Player;
 
-public class AFKModeCommand extends IdleBotCommand {
+public class AFKModeCommand implements IdleBotCommand {
 
     @Override
     public String getCommandName() {

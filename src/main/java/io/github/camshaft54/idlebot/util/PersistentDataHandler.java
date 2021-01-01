@@ -111,4 +111,35 @@ public class PersistentDataHandler {
         }
         return outputList;
     }
+
+    // Method to return an ArrayList containing every idle player with a certain value (Overloaded for types)
+    public static ArrayList<Player> getIdlePlayerSetWithCertainValue(String key, String value) {
+        ArrayList<Player> outputList = new ArrayList<>();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (getStringData(player, key).equals(value) && EventUtils.isIdle(player)) {
+                outputList.add(player);
+            }
+        }
+        return outputList;
+    }
+
+    public static ArrayList<Player> getIdlePlayerSetWithCertainValue(String key, int value) {
+        ArrayList<Player> outputList = new ArrayList<>();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (getIntData(player, key) == value && EventUtils.isIdle(player)) {
+                outputList.add(player);
+            }
+        }
+        return outputList;
+    }
+
+    public static ArrayList<Player> getIdlePlayerSetWithCertainValue(String key, boolean value) {
+        ArrayList<Player> outputList = new ArrayList<>();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (getIntData(player, key) == ((value) ? 1 : 0) && EventUtils.isIdle(player)) {
+                outputList.add(player);
+            }
+        }
+        return outputList;
+    }
 }

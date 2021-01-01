@@ -27,7 +27,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Random;
 
-public class LinkCommand extends IdleBotCommand {
+public class LinkCommand implements IdleBotCommand {
 
     @Override
     public String getCommandName() {

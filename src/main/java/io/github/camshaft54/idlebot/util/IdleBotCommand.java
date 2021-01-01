@@ -19,9 +19,9 @@ package io.github.camshaft54.idlebot.util;
 
 import org.bukkit.entity.Player;
 
-public abstract class IdleBotCommand {
+public interface IdleBotCommand {
 
-    public abstract String getCommandName();
+    String getCommandName();
 
-    public abstract void runCommand(Player player, String[] args);
+    void runCommand(Player player, String[] args);
 }

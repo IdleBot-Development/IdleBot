@@ -34,9 +34,9 @@ public class EventUtils {
     }
 
     // Sends player a message on Discord, if player has linked account
-    public static void sendPlayerMessage(Player player, String message, String alertType) {
+    public static void sendPlayerMessage(Player player, String message) {
         String discordID = PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key());
-        if (discordID != null && PersistentDataHandler.getBooleanData(player, alertType)) {
+        if (discordID != null) {
             if (PersistentDataHandler.getBooleanData(player, DataValues.DIRECT_MESSAGE_MODE.key())) {
                 try {
                     DiscordAPIManager.api.getUserById(PersistentDataHandler.getStringData(player,

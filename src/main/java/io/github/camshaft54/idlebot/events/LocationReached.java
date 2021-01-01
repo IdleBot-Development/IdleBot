@@ -19,34 +19,34 @@ package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.DataValues;
+import io.github.camshaft54.idlebot.util.IdleCheck;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
-import java.util.HashMap;
 
 import static io.github.camshaft54.idlebot.util.EventUtils.isIdle;
 import static io.github.camshaft54.idlebot.util.EventUtils.sendPlayerMessage;
 
-public class LocationReached {
-    public static HashMap<Player, Boolean> atLocation = new HashMap<>();
+public class LocationReached implements IdleCheck {
 
     // Sends a player a message if they have reached their desired location
-    public static void locationReached() {
-        for (Player player : IdleBot.idlePlayers.keySet()) {
+    public void check() {
+        for (Player player : PersistentDataHandler.getIdlePlayerSetWithCertainValue(DataValues.LOCATION_ALERT.key(), true)) {
             // Convert location from string to int array
+            // TODO: change this to the new location checks (settings also need to be added
             String desiredLocationString = PersistentDataHandler.getStringData(player, DataValues.LOCATION_DESIRED.key());
             if (desiredLocationString == null)
                 continue;
             int[] desiredLocation = Arrays.stream(desiredLocationString.split("\\s+")).mapToInt(Integer::parseInt).toArray();
 
             boolean reachedLocation = player.getLocation().getBlockX() == desiredLocation[0] && player.getLocation().getBlockY() == desiredLocation[1] && player.getLocation().getBlockZ() == desiredLocation[2];
-            if (isIdle(player) && reachedLocation && !atLocation.get(player)) {
+            if (isIdle(player) && reachedLocation && !IdleBot.getEventManager().locationReachedPlayers.contains(player)) {
                 Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and they reached their desired location!");
-                sendPlayerMessage(player, player.getDisplayName() + "'s reached the desired location! ", DataValues.LOCATION_ALERT.key());
-                atLocation.put(player, true);
+                sendPlayerMessage(player, player.getDisplayName() + "'s reached the desired location! ");
+                IdleBot.getEventManager().locationReachedPlayers.add(player);
             }
         }
     }
