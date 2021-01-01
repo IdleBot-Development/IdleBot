@@ -18,6 +18,7 @@
 package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.util.DataValues;
+import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,17 +28,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-import static io.github.camshaft54.idlebot.util.EventUtils.isIdle;
-import static io.github.camshaft54.idlebot.util.EventUtils.sendPlayerMessage;
-
 public class OnDeath implements Listener {
     // If player has died, send them a message
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
-        if (isIdle(player) && PersistentDataHandler.getBooleanData(player, DataValues.DEATH_ALERT.key())) {
+        if (EventUtils.isIdle(player) && PersistentDataHandler.getBooleanData(player, DataValues.DEATH_ALERT.key())) {
             Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and dead!");
-            sendPlayerMessage(player, player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").");
+            EventUtils.sendPlayerMessage(player, player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").");
         }
     }
 

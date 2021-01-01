@@ -27,6 +27,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class XPLevelReached implements IdleCheck {
+    @Override
+    public String getDataValue() {
+        return DataValues.EXPERIENCE_ALERT.key();
+    }
+
     // Checks if player has reached a certain xp level and sends them a message if they have
     public void check(Player player) {
         if (player.getLevel() >= PersistentDataHandler.getIntData(player, DataValues.EXPERIENCE_LEVEL_DESIRED.key()) && !IdleBot.getEventManager().XPLevelReachedPlayers.contains(player)) {
