@@ -24,7 +24,7 @@ import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class AFKTimeCommand extends IdleBotCommand {
+public class AFKTimeCommand implements IdleBotCommand {
     @Override
     public String getCommandName() {
         return "afktime";

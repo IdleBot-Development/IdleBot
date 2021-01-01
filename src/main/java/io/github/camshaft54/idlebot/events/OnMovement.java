@@ -59,7 +59,10 @@ public class OnMovement implements Listener {
             Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " stopped being idle.");
             // Player is no longer idle, so they are removed from the HashMap of idle players
             IdleBot.idlePlayers.remove(player);
+            IdleBot.getEventManager().inventoryFullPlayers.remove(player);
+            IdleBot.getEventManager().damagedPlayers.remove(player);
+            IdleBot.getEventManager().locationReachedPlayers.remove(player);
+            IdleBot.getEventManager().XPLevelReachedPlayers.remove(player);
         }
     }
 }
-

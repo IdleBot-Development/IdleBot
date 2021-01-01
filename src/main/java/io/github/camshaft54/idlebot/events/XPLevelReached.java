@@ -19,27 +19,25 @@ package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.DataValues;
+import io.github.camshaft54.idlebot.util.EventUtils;
+import io.github.camshaft54.idlebot.util.IdleCheck;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-
-import static io.github.camshaft54.idlebot.util.EventUtils.isIdle;
-import static io.github.camshaft54.idlebot.util.EventUtils.sendPlayerMessage;
-
-public class XPLevelReached {
-    public static HashMap<Player, Boolean> atExpLevel = new HashMap<>();
+public class XPLevelReached implements IdleCheck {
+    @Override
+    public String getDataValue() {
+        return DataValues.EXPERIENCE_ALERT.key();
+    }
 
     // Checks if player has reached a certain xp level and sends them a message if they have
-    public static void xpLevelReached() {
-        for (Player player : IdleBot.idlePlayers.keySet()) {
-            if (isIdle(player) && player.getLevel() >= PersistentDataHandler.getIntData(player, DataValues.EXPERIENCE_LEVEL_DESIRED.key()) && !atExpLevel.get(player)) {
-                Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and at the desired XP level!");
-                sendPlayerMessage(player, player.getDisplayName() + " is at the desired XP level! ", DataValues.EXPERIENCE_ALERT.key());
-                atExpLevel.put(player, true);
-            }
+    public void check(Player player) {
+        if (player.getLevel() >= PersistentDataHandler.getIntData(player, DataValues.EXPERIENCE_LEVEL_DESIRED.key()) && !IdleBot.getEventManager().XPLevelReachedPlayers.contains(player)) {
+            Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and at the desired XP level!");
+            EventUtils.sendPlayerMessage(player, player.getDisplayName() + " is at the desired XP level! ");
+            IdleBot.getEventManager().XPLevelReachedPlayers.add(player);
         }
     }
 }

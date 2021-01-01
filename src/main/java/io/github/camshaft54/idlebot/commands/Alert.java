@@ -23,7 +23,7 @@ import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class Alert extends IdleBotCommand {
+public class Alert implements IdleBotCommand {
     @Override
     public String getCommandName() {
         return "alert";
