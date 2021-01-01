@@ -25,8 +25,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import static io.github.camshaft54.idlebot.util.EventUtils.sendPlayerMessage;
-
 public class InventoryFull implements IdleCheck {
     public void check() {
         for (Player player : PersistentDataHandler.getIdlePlayerSetWithCertainValue(DataValues.INVENTORY_FULL_ALERT.key(), true)) {

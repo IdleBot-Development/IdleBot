@@ -19,24 +19,20 @@ package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.DataValues;
+import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.IdleCheck;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import static io.github.camshaft54.idlebot.util.EventUtils.isIdle;
-import static io.github.camshaft54.idlebot.util.EventUtils.sendPlayerMessage;
-
 public class XPLevelReached implements IdleCheck {
     // Checks if player has reached a certain xp level and sends them a message if they have
-    public void check() {
-        for (Player player : PersistentDataHandler.getIdlePlayerSetWithCertainValue(DataValues.EXPERIENCE_ALERT.key(), true)) {
-            if (isIdle(player) && player.getLevel() >= PersistentDataHandler.getIntData(player, DataValues.EXPERIENCE_LEVEL_DESIRED.key()) && !IdleBot.getEventManager().XPLevelReachedPlayers.contains(player)) {
-                Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and at the desired XP level!");
-                sendPlayerMessage(player, player.getDisplayName() + " is at the desired XP level! ");
-                IdleBot.getEventManager().XPLevelReachedPlayers.add(player);
-            }
+    public void check(Player player) {
+        if (player.getLevel() >= PersistentDataHandler.getIntData(player, DataValues.EXPERIENCE_LEVEL_DESIRED.key()) && !IdleBot.getEventManager().XPLevelReachedPlayers.contains(player)) {
+            Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and at the desired XP level!");
+            EventUtils.sendPlayerMessage(player, player.getDisplayName() + " is at the desired XP level! ");
+            IdleBot.getEventManager().XPLevelReachedPlayers.add(player);
         }
     }
 }

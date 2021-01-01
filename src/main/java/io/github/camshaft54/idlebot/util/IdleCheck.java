@@ -1,5 +1,8 @@
 package io.github.camshaft54.idlebot.util;
 
+import org.bukkit.entity.Player;
+
 public interface IdleCheck {
-    void check();
+    String getDataValue();
+    void check(Player player);
 }

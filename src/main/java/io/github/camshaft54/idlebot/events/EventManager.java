@@ -17,7 +17,10 @@
 
 package io.github.camshaft54.idlebot.events;
 
+import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.IdleCheck;
+import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -28,18 +31,22 @@ public class EventManager implements Runnable {
     public ArrayList<Player> locationReachedPlayers = new ArrayList<>();
     public ArrayList<Player> damagedPlayers = new ArrayList<>();
     public ArrayList<Player> XPLevelReachedPlayers = new ArrayList<>();
+
     private final ArrayList<IdleCheck> idleChecks = new ArrayList<>();
 
     public EventManager() {
         idleChecks.add(new InventoryFull());
         idleChecks.add(new LocationReached());
+        idleChecks.add(new XPLevelReached());
     }
 
     @Override
     public void run() {
-        // Run "events" that are not actually events every one second
-        for (IdleCheck check : idleChecks) {
-            check.check();
-        }
+        Bukkit.getOnlinePlayers().forEach(player ->
+            idleChecks.forEach(check -> {
+                if (PersistentDataHandler.getBooleanData(player, check.getDataValue()) && EventUtils.isIdle(player))
+                    check.check(player);
+            })
+        );
     }
 }

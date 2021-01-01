@@ -32,15 +32,19 @@ import static io.github.camshaft54.idlebot.util.EventUtils.sendPlayerMessage;
 
 public class LocationReached implements IdleCheck {
 
+    @Override
+    public String getDataValue() {
+        return DataValues.LOCATION_ALERT.key();
+    }
+
     // Sends a player a message if they have reached their desired location
-    public void check() {
-        for (Player player : PersistentDataHandler.getIdlePlayerSetWithCertainValue(DataValues.LOCATION_ALERT.key(), true)) {
-            // Convert location from string to int array
-            // TODO: change this to the new location checks (settings also need to be added
-            String desiredLocationString = PersistentDataHandler.getStringData(player, DataValues.LOCATION_DESIRED.key());
-            if (desiredLocationString == null)
-                continue;
-            int[] desiredLocation = Arrays.stream(desiredLocationString.split("\\s+")).mapToInt(Integer::parseInt).toArray();
+    public void check(Player player) {
+        // Convert location from string to int array
+        // TODO: change this to the new location checks (settings also need to be added)
+        String desiredLocationString = PersistentDataHandler.getStringData(player, DataValues.LOCATION_DESIRED.key());
+        if (desiredLocationString == null)
+            return;
+        int[] desiredLocation = Arrays.stream(desiredLocationString.split("\\s+")).mapToInt(Integer::parseInt).toArray();
 
             boolean reachedLocation = player.getLocation().getBlockX() == desiredLocation[0] && player.getLocation().getBlockY() == desiredLocation[1] && player.getLocation().getBlockZ() == desiredLocation[2];
             if (isIdle(player) && reachedLocation && !IdleBot.getEventManager().locationReachedPlayers.contains(player)) {
