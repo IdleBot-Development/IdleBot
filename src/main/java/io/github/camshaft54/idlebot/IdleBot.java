@@ -66,8 +66,8 @@ public class IdleBot extends JavaPlugin {
             plugin.getServer().getPluginManager().registerEvents(new OnPlayerQuit(), plugin); // Register player quit event
             discordAPIIsReady = false;
             scheduler.runTaskAsynchronously(plugin, new DiscordAPIRunnable(plugin));
-            Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "Plugin successfully loaded");
-            Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.GREEN + "Plugin has not finished initializing Discord API! Discord functionality is not yet ready!");
+            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "Plugin successfully loaded");
+            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.GREEN + "Plugin has not finished initializing Discord API! Discord functionality is not yet ready!");
         }
     }
 
