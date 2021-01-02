@@ -46,7 +46,7 @@ public class IdleChecker implements Runnable {
                 }
                 // Debugging only; TODO: remove this
                 if (EventUtils.isIdle(player)) {
-                    Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle.");
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle.");
                 }
             }
         }

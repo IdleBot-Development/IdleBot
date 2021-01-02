@@ -56,7 +56,7 @@ public class OnMovement implements Listener {
         if (to.getPitch() != from.getPitch() || to.getYaw() != from.getYaw()) {
             Player player = e.getPlayer();
             // Send a message in the console
-            Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " stopped being idle.");
+            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " stopped being idle.");
             clearPlayerIdleStats(player);
         }
     }

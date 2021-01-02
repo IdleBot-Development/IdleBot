@@ -33,7 +33,7 @@ public class InventoryFull implements IdleCheck {
 
     public void check(Player player) {
         if (player.getInventory().firstEmpty() < 0 && !IdleBot.getEventManager().inventoryFullPlayers.contains(player)) {
-            Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and their inventory is full!");
+            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and their inventory is full!");
             EventUtils.sendPlayerMessage(player, player.getDisplayName() + "'s inventory is full! ");
             IdleBot.getEventManager().inventoryFullPlayers.add(player);
         }

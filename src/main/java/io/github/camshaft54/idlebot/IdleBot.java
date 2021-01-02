@@ -52,7 +52,7 @@ public class IdleBot extends JavaPlugin {
             configManager = new ConfigManager();
         }
         catch (IOException | ParseException e) {
-            Bukkit.getLogger().warning(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.DARK_RED + "Plugin configuration load failed! Plugin disabled. Try to fix the configuration file and try again or get support!");
+            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.DARK_RED + "Plugin configuration load failed! Plugin disabled. Try to fix the configuration file and try again or get support!");
             this.disablePlugin();
         }
         if (plugin.isEnabled()) {
@@ -73,7 +73,7 @@ public class IdleBot extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "All data saved. Plugin safely closed!");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "All data saved. Plugin safely closed!");
     }
 
     public void disablePlugin() {

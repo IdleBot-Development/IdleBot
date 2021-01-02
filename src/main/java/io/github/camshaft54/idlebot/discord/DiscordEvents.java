@@ -37,7 +37,7 @@ public class DiscordEvents implements MessageCreateListener {
             TextChannel channel = message.getChannel();
             try {
                 Integer code = Integer.parseInt(message.getContent());
-                Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "Someone entered a code: " + code);
+                Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "Someone entered a code: " + code);
                 if (IdleBot.linkCodes.containsKey(code)) {
                     Player player = IdleBot.linkCodes.get(code);
                     PersistentDataHandler.setData(player, DataValues.DISCORD_ID.key(), event.getMessageAuthor().getIdAsString());

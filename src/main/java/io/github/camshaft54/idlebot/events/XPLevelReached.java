@@ -35,7 +35,7 @@ public class XPLevelReached implements IdleCheck {
     // Checks if player has reached a certain xp level and sends them a message if they have
     public void check(Player player) {
         if (player.getLevel() >= PersistentDataHandler.getIntData(player, DataValues.EXPERIENCE_LEVEL_DESIRED.key()) && !IdleBot.getEventManager().XPLevelReachedPlayers.contains(player)) {
-            Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and at the desired XP level!");
+            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and at the desired XP level!");
             EventUtils.sendPlayerMessage(player, player.getDisplayName() + " is at the desired XP level! ");
             IdleBot.getEventManager().XPLevelReachedPlayers.add(player);
         }

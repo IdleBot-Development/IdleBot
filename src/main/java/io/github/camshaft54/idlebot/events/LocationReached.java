@@ -47,7 +47,7 @@ public class LocationReached implements IdleCheck {
 
         boolean reachedLocation = player.getLocation().getBlockX() == desiredLocation[0] && player.getLocation().getBlockY() == desiredLocation[1] && player.getLocation().getBlockZ() == desiredLocation[2];
         if (EventUtils.isIdle(player) && reachedLocation && !IdleBot.getEventManager().locationReachedPlayers.contains(player)) {
-            Bukkit.getLogger().info(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and they reached their desired location!");
+            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and they reached their desired location!");
             EventUtils.sendPlayerMessage(player, player.getDisplayName() + "'s reached the desired location! ");
             IdleBot.getEventManager().locationReachedPlayers.add(player);
         }
