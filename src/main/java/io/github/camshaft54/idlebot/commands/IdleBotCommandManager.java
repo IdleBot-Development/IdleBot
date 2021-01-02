@@ -33,6 +33,7 @@ public class IdleBotCommandManager implements CommandExecutor {
     ArrayList<IdleBotCommand> idleBotCommands = new ArrayList<>();
 
     public IdleBotCommandManager() {
+        // Add /idlebot commands to list of commands
         idleBotCommands.add(new LinkCommand());
         idleBotCommands.add(new UnlinkCommand());
         idleBotCommands.add(new Alert());

@@ -30,7 +30,7 @@ public class DiscordAPIRunnable implements Runnable {
 
     @Override
     public void run() {
-        DiscordAPIManager.api = new DiscordApiBuilder().setToken(IdleBot.getConfigManager().getBotToken()).login().join(); // Call #onConnectToDiscord(...) after a successful login
+        DiscordAPIManager.api = new DiscordApiBuilder().setToken(IdleBot.getConfigManager().BOT_TOKEN).login().join(); // Call #onConnectToDiscord(...) after a successful login
         DiscordAPIManager.api.addListener(new DiscordEvents());
         DiscordAPIManager.bot = DiscordAPIManager.api.getYourself();
         manager.consoleInfo(); // Send some information to the console once the API is functional

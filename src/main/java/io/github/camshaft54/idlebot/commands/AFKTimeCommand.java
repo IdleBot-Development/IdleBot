@@ -37,7 +37,7 @@ public class AFKTimeCommand implements IdleBotCommand {
             return;
         }
         try {
-            if (Integer.parseInt(args[1]) >= IdleBot.getConfigManager().getMinIdleTime() && Integer.parseInt(args[1]) <= IdleBot.getConfigManager().getMaxIdleTime()) {
+            if (Integer.parseInt(args[1]) >= IdleBot.getConfigManager().MINIMUM_IDLE_TIME && Integer.parseInt(args[1]) <= IdleBot.getConfigManager().MAXIMUM_IDLE_TIME) {
                 PersistentDataHandler.setData(player, DataValues.AFK_TIME.key(), Integer.parseInt(args[1]));
             } else {
                 // Say it has to be 10 seconds to 2 minutes

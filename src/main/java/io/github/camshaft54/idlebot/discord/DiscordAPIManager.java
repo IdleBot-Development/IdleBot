@@ -42,23 +42,23 @@ public class DiscordAPIManager {
     }
 
     public void connectToChannel() {
-        if (api.getServerTextChannelById(IdleBot.getConfigManager().getChannelID()).isPresent()) {
-            channel = api.getServerTextChannelById(IdleBot.getConfigManager().getChannelID()).get();
+        if (api.getServerTextChannelById(IdleBot.getConfigManager().CHANNEL_ID).isPresent()) {
+            channel = api.getServerTextChannelById(IdleBot.getConfigManager().CHANNEL_ID).get();
         } else { // TODO: Should this disable the plugin?
             plugin.getLogger().warning(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.DARK_RED + "Invalid Discord channel specified in config");
         }
     }
 
     public void setActivity() {
-        switch (IdleBot.getConfigManager().getActivityType()) {
+        switch (IdleBot.getConfigManager().ACTIVITY_TYPE) {
             case "PLAYING":
-                api.updateActivity(ActivityType.PLAYING, IdleBot.getConfigManager().getActivityMessage());
+                api.updateActivity(ActivityType.PLAYING, IdleBot.getConfigManager().ACTIVITY_MESSAGE);
                 break;
             case "LISTENING":
-                api.updateActivity(ActivityType.LISTENING, IdleBot.getConfigManager().getActivityMessage());
+                api.updateActivity(ActivityType.LISTENING, IdleBot.getConfigManager().ACTIVITY_MESSAGE);
                 break;
             case "WATCHING":
-                api.updateActivity(ActivityType.WATCHING, IdleBot.getConfigManager().getActivityMessage());
+                api.updateActivity(ActivityType.WATCHING, IdleBot.getConfigManager().ACTIVITY_MESSAGE);
                 break;
         }
     }

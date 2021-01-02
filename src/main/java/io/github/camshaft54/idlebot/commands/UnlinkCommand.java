@@ -30,14 +30,10 @@ public class UnlinkCommand implements IdleBotCommand {
 
     @Override
     public void runCommand(Player player, String[] args) {
-        if (!playerIsLinked(player)) {
+        if (PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key()) == null) { // If they are not linked
             // Send a blurb about how they aren't linked so they can't unlink
             return;
         }
         PersistentDataHandler.removeData(player, DataValues.DISCORD_ID.key());
-    }
-
-    private boolean playerIsLinked(Player player) { //TODO: this is used only once maybe remove it and put inline?
-        return PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key()) != null; // Returns true if the player already has an account linked
     }
 }

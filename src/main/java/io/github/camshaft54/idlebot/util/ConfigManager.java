@@ -13,9 +13,10 @@
  *
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ *
+ *    This class makes use of some code by "Scarsz" here: https://github.com/Scarsz/Configuralize
  */
-
-// This class makes use of some code by "Scarsz" here: https://github.com/Scarsz/Configuralize
 
 package io.github.camshaft54.idlebot.util;
 
@@ -31,13 +32,13 @@ public class ConfigManager {
     @Getter private final File configFile = new File(plugin.getDataFolder(), "config.yml");
 
     // Private variables for config values
-    @Getter private final String botToken;
-    @Getter private final String activityType;
-    @Getter private final String activityMessage;
-    @Getter private final String channelID;
-    @Getter private final int defaultIdleTime;
-    @Getter private final int minIdleTime;
-    @Getter private final int maxIdleTime;
+    public final String BOT_TOKEN;
+    public final String ACTIVITY_TYPE;
+    public final String ACTIVITY_MESSAGE;
+    public final String CHANNEL_ID;
+    public final int DEFAULT_IDLE_TIME;
+    public final int MINIMUM_IDLE_TIME;
+    public final int MAXIMUM_IDLE_TIME;
 
     private DynamicConfig config;
 
@@ -47,12 +48,12 @@ public class ConfigManager {
         config.addSource(IdleBot.class, "config", getConfigFile());
         config.saveAllDefaults();
         config.loadAll();
-        botToken = config.getString("botToken");
-        channelID = config.getString("channelID");
-        activityType = config.getString("customBotActivity.type");
-        activityMessage = config.getString("customBotActivity.message");
-        defaultIdleTime = config.getInt("idleTime.defaultIdleTime");
-        minIdleTime = config.getInt("idleTime.minimumIdleTime");
-        maxIdleTime = config.getInt("idleTime.maximumIdleTime");
+        BOT_TOKEN = config.getString("botToken");
+        CHANNEL_ID = config.getString("channelID");
+        ACTIVITY_TYPE = config.getString("customBotActivity.type");
+        ACTIVITY_MESSAGE = config.getString("customBotActivity.message");
+        DEFAULT_IDLE_TIME = config.getInt("idleTime.defaultIdleTime");
+        MINIMUM_IDLE_TIME = config.getInt("idleTime.minimumIdleTime");
+        MAXIMUM_IDLE_TIME = config.getInt("idleTime.maximumIdleTime");
     }
 }
