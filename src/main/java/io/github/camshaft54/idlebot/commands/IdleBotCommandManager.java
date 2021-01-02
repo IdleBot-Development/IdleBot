@@ -38,7 +38,7 @@ public class IdleBotCommandManager implements CommandExecutor {
         idleBotCommands.add(new Alert());
         idleBotCommands.add(new AFKTimeCommand());
         idleBotCommands.add(new AFKModeCommand());
-
+        idleBotCommands.add(new XPLevelCommand());
     }
 
     @Override
