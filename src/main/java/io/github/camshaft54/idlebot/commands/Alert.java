@@ -43,9 +43,9 @@ public class Alert implements IdleBotCommand {
             case "death":
                 dataKey = DataValues.DEATH_ALERT.key();
                 break;
-            case "location":
-                dataKey = DataValues.LOCATION_ALERT.key();
-                break;
+            case "location": // This alert has more complicated settings
+                locationAlertCommand(player, args);
+                return;
             case "xp":
                 dataKey = DataValues.EXPERIENCE_ALERT.key();
                 break;
@@ -68,6 +68,21 @@ public class Alert implements IdleBotCommand {
         }
         else {
             player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.BLUE + "invalid value for alert " + args[1].toLowerCase() + ". To use this command, type \"/idlebot alert " + args[1].toLowerCase() + " <true/false>\" (where <true/false> is the value you want it to be.");
+        }
+    }
+
+    private void locationAlertCommand(Player player, String[] args) {
+        /* Example command:
+         * /idlebot alert location x 500
+         * args length: 4
+         * axis index: 2
+         * coordinate index: 3
+         */
+        if (args.length < 3 || (!args[2].equalsIgnoreCase("x") && !args[2].equalsIgnoreCase("z"))) {
+            // blurb about needing axis (x/z) AND coordinate
+        }
+        try {
+            if
         }
     }
 }

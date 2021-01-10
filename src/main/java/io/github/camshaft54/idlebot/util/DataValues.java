@@ -17,6 +17,7 @@
 
 package io.github.camshaft54.idlebot.util;
 
+@SuppressWarnings("SpellCheckingInspection")
 public enum DataValues {
     AFK_TIME("afktime"),
     AUTO_AFK("autoafk"),
@@ -24,7 +25,12 @@ public enum DataValues {
     IS_SET_AFK("setafk"),
     DAMAGE_ALERT("damagealert"),
     DEATH_ALERT("deathalert"),
-    LOCATION_ALERT("locationcheck"),
+    LOCATION_ALERT_X("locationcheckx"),
+    LOCATION_ALERT_Z("locationcheckz"),
+    LOCATION_X_DESIRED("locationx"),
+    LOCATION_Z_DESIRED("locationz"),
+    LOCATION_X_DIRECTION("locationxdir"),
+    LOCATION_Z_DIRECTION("locationzdir"),
     EXPERIENCE_ALERT("xpalert"),
     INVENTORY_FULL_ALERT("inventoryalert"),
     DIRECT_MESSAGE_MODE("dmmode"),
