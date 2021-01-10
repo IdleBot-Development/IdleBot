@@ -36,7 +36,7 @@ public class EventManager implements Runnable {
 
     public EventManager() {
         idleChecks.add(new InventoryFull());
-        idleChecks.add(new LocationReached());
+        //idleChecks.add(new LocationReached()); // Will be two separpetep ones for x and z
         idleChecks.add(new XPLevelReached());
     }
 

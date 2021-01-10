@@ -12,23 +12,19 @@ public class SetAFKCommand implements IdleBotCommand {
     }
 
     @Override
-    public void runCommand(Player player, String[] args) {
-        if (args.length < 2) {
-            // Say how command must contain another argument
-            return;
+    public String getCommandUsage() {
+        return "/idlebot afk <true|false>";
+    }
+
+    @Override
+    public boolean runCommand(Player player, String[] args) {
+        if (args.length >= 2 && args[1].equalsIgnoreCase("true")) {
+            PersistentDataHandler.setData(player, DataValues.IS_SET_AFK.key(), true);
+            return true;
+        } else if (args.length >= 2 && args[1].equalsIgnoreCase("false")) {
+            PersistentDataHandler.setData(player, DataValues.IS_SET_AFK.key(), false);
+            return true;
         }
-        if (!PersistentDataHandler.getBooleanData(player, DataValues.AUTO_AFK.key())) {
-            if (args[1].equalsIgnoreCase("true")) {
-                PersistentDataHandler.setData(player, DataValues.IS_SET_AFK.key(), true);
-            } else if (args[1].equalsIgnoreCase("false")) {
-                PersistentDataHandler.setData(player, DataValues.IS_SET_AFK.key(), false);
-            } else {
-                // Say how arg must be true/false
-                return;
-            }
-        } else {
-            // Say how you need to have afkmode set to manual to manually set afk
-            return;
-        }
+        return false;
     }
 }

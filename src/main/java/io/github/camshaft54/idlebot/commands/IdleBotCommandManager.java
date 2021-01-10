@@ -57,8 +57,12 @@ public class IdleBotCommandManager implements CommandExecutor {
         }
         for (IdleBotCommand eachCommand : idleBotCommands) {
             if (eachCommand.getCommandName().equalsIgnoreCase(args[0])) {
-                eachCommand.runCommand(player, args);
-                return true;
+                if (!eachCommand.runCommand(player, args)) {
+                    player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.BLUE + "Command usage: " + eachCommand.getCommandUsage());
+                    return false;
+                } else {
+                    return true;
+                }
             }
         }
         return false;

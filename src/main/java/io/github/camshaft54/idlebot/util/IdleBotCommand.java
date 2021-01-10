@@ -23,5 +23,7 @@ public interface IdleBotCommand {
 
     String getCommandName();
 
-    void runCommand(Player player, String[] args);
+    String getCommandUsage();
+
+    boolean runCommand(Player player, String[] args);
 }

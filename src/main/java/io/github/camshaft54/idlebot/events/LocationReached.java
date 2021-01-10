@@ -33,7 +33,7 @@ public class LocationReached implements IdleCheck {
 
     @Override
     public String getDataValue() {
-        return DataValues.LOCATION_ALERT.key();
+        return null;
     }
 
     // Sends a player a message if they have reached their desired location

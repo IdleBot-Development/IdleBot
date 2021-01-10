@@ -62,11 +62,9 @@ public class Alert implements IdleBotCommand {
         }
         if (args[2].equalsIgnoreCase("true")) {
             PersistentDataHandler.setData(player, dataKey,true);
-        }
-        else if (args[2].equalsIgnoreCase("false")) {
+        } else if (args[2].equalsIgnoreCase("false")) {
             PersistentDataHandler.setData(player, DataValues.DAMAGE_ALERT.key(), false);
-        }
-        else {
+        } else {
             player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.BLUE + "invalid value for alert " + args[1].toLowerCase() + ". To use this command, type \"/idlebot alert " + args[1].toLowerCase() + " <true/false>\" (where <true/false> is the value you want it to be.");
         }
     }
@@ -81,8 +79,6 @@ public class Alert implements IdleBotCommand {
         if (args.length < 3 || (!args[2].equalsIgnoreCase("x") && !args[2].equalsIgnoreCase("z"))) {
             // blurb about needing axis (x/z) AND coordinate
         }
-        try {
-            if
-        }
+
     }
 }

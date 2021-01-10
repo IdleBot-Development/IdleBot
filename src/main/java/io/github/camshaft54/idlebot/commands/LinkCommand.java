@@ -35,10 +35,15 @@ public class LinkCommand implements IdleBotCommand {
     }
 
     @Override
-    public void runCommand(Player player, String[] args) {
+    public String getCommandUsage() {
+        return "/idlebot link";
+    }
+
+    @Override
+    public boolean runCommand(Player player, String[] args) {
         if (playerIsLinked(player)) {
-            // Send a blurb about they are already linked and they need to /unlink if they want to relink or something
-            return;
+            player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.BLUE + "Your account is already linked!");
+            return true;
         }
         Random rng = new Random();
         String botName = DiscordAPIManager.bot.getDiscriminatedName();
@@ -47,12 +52,13 @@ public class LinkCommand implements IdleBotCommand {
         while (isDuplicateToken(code)) { // Keep getting new codes until it is unique (very unlikely to ever run)
             code = rng.nextInt(999);
         }
-        player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "Your link code is " + code + ". Send this code in a private message to " + botName + " to link your account.");
+        player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.GREEN + "Your link code is " + code + ". Send this code in a private message to " + botName + " to link your account.");
         IdleBot.linkCodes.put(code, player);
+        return true;
     }
 
     private boolean isDuplicateToken(int code) {
-        for (int eachCode  : IdleBot.linkCodes.keySet()) {
+        for (int eachCode : IdleBot.linkCodes.keySet()) {
             if (eachCode == code) return true;
         }
         return false;
