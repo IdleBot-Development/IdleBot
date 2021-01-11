@@ -23,18 +23,23 @@ import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class Alert implements IdleBotCommand {
+@SuppressWarnings("SpellCheckingInspection")
+public class AlertCommand implements IdleBotCommand {
     @Override
     public String getCommandName() {
         return "alert";
     }
 
     @Override
-    public void runCommand(Player player, String[] args) {
+    public String getCommandUsage() {
+        return "/idlebot alert <damage|death|xlocation|zlocation|xp|inventory> <true|false>";
+    }
+
+    @Override
+    public boolean runCommand(Player player, String[] args) {
         String dataKey;
-        if (args.length < 2) {
-            player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.BLUE + "placeholder for the command usage");
-            return;
+        if (args.length < 3) {
+            return false;
         }
         switch (args[1].toLowerCase()) {
             case "damage":
@@ -43,8 +48,11 @@ public class Alert implements IdleBotCommand {
             case "death":
                 dataKey = DataValues.DEATH_ALERT.key();
                 break;
-            case "location":
-                dataKey = DataValues.LOCATION_ALERT.key();
+            case "xlocation":
+                dataKey = DataValues.LOCATION_ALERT_X.key();
+                break;
+            case "zlocation":
+                dataKey = DataValues.LOCATION_ALERT_Z.key();
                 break;
             case "xp":
                 dataKey = DataValues.EXPERIENCE_ALERT.key();
@@ -53,21 +61,15 @@ public class Alert implements IdleBotCommand {
                 dataKey = DataValues.INVENTORY_FULL_ALERT.key();
                 break;
             default:
-                // WRONG
-                return;
-        }
-        if (args.length < 3) {
-            // send message what it is
-            return;
+                return false;
         }
         if (args[2].equalsIgnoreCase("true")) {
             PersistentDataHandler.setData(player, dataKey,true);
-        }
-        else if (args[2].equalsIgnoreCase("false")) {
+            return true;
+        } else if (args[2].equalsIgnoreCase("false")) {
             PersistentDataHandler.setData(player, DataValues.DAMAGE_ALERT.key(), false);
+            return true;
         }
-        else {
-            player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.BLUE + "invalid value for alert " + args[1].toLowerCase() + ". To use this command, type \"/idlebot alert " + args[1].toLowerCase() + " <true/false>\" (where <true/false> is the value you want it to be.");
-        }
+        return false;
     }
 }

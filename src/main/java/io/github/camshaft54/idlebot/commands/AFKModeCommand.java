@@ -20,6 +20,7 @@ package io.github.camshaft54.idlebot.commands;
 import io.github.camshaft54.idlebot.util.DataValues;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
 public class AFKModeCommand implements IdleBotCommand {
@@ -30,28 +31,19 @@ public class AFKModeCommand implements IdleBotCommand {
     }
 
     @Override
-    public void runCommand(Player player, String[] args) {
-        if (args.length < 2) {
-            // Information about the setting
-            return;
-        }
-        if (args[1].equalsIgnoreCase("manual")) {
+    public String getCommandUsage() {
+        return "/idlebot afkmode <auto|manual>";
+    }
+
+    @Override
+    public boolean runCommand(Player player, String[] args) {
+        if (args.length >= 2 && args[1].equalsIgnoreCase("manual")) {
             PersistentDataHandler.setData(player, DataValues.AUTO_AFK.key(), false);
-        } else if (args[1].equalsIgnoreCase("auto")) {
+            return true;
+        } else if (args.length >= 2 && args[1].equalsIgnoreCase("auto")) {
             PersistentDataHandler.setData(player, DataValues.AUTO_AFK.key(), true);
-            if (args.length >= 3) {
-                try {
-                    if (Integer.parseInt(args[2]) >= 10 && Integer.parseInt(args[2]) <= 120) {
-                        PersistentDataHandler.setData(player, DataValues.AFK_TIME.key(), Integer.parseInt(args[2]));
-                    } else {
-                        // Say it has to be [min] seconds to [max] seconds
-                        return;
-                    }
-                } catch (NumberFormatException nfe) {
-                    // Send the player message about needs to be "auto <number>"
-                    return;
-                }
-            }
+            return true;
         }
+        return false;
     }
 }

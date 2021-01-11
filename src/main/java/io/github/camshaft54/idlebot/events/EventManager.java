@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class EventManager implements Runnable {
     // Lists to store the players who have already been pinged
     public ArrayList<Player> inventoryFullPlayers = new ArrayList<>();
-    public ArrayList<Player> locationReachedPlayers = new ArrayList<>();
+    public ArrayList<Player> locationReachedPlayers = new ArrayList<>(); // This will also need to be two separate ones then
     public ArrayList<Player> damagedPlayers = new ArrayList<>();
     public ArrayList<Player> XPLevelReachedPlayers = new ArrayList<>();
 
@@ -36,7 +36,7 @@ public class EventManager implements Runnable {
 
     public EventManager() {
         idleChecks.add(new InventoryFull());
-        idleChecks.add(new LocationReached());
+        //idleChecks.add(new LocationReached()); // Will be two separate ones for x and z
         idleChecks.add(new XPLevelReached());
     }
 

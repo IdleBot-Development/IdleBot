@@ -65,7 +65,7 @@ public class OnMovement implements Listener {
         IdleBot.idlePlayers.remove(player);
         IdleBot.getEventManager().inventoryFullPlayers.remove(player);
         IdleBot.getEventManager().damagedPlayers.remove(player);
-        IdleBot.getEventManager().locationReachedPlayers.remove(player);
+        IdleBot.getEventManager().locationReachedPlayers.remove(player); // TODO: this will need to be split also
         IdleBot.getEventManager().XPLevelReachedPlayers.remove(player);
     }
 }

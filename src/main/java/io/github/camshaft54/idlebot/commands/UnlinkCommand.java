@@ -20,6 +20,7 @@ package io.github.camshaft54.idlebot.commands;
 import io.github.camshaft54.idlebot.util.DataValues;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class UnlinkCommand implements IdleBotCommand {
@@ -29,11 +30,17 @@ public class UnlinkCommand implements IdleBotCommand {
     }
 
     @Override
-    public void runCommand(Player player, String[] args) {
+    public String getCommandUsage() {
+        return "/idlebot unlink";
+    }
+
+    @Override
+    public boolean runCommand(Player player, String[] args) {
         if (PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key()) == null) { // If they are not linked
-            // Send a blurb about how they aren't linked so they can't unlink
-            return;
+            player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.BLUE + "Your account isn't linked so you can't unlink!");
+            return true;
         }
         PersistentDataHandler.removeData(player, DataValues.DISCORD_ID.key());
+        return true;
     }
 }

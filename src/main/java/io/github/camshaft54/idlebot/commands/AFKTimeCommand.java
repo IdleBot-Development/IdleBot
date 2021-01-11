@@ -21,6 +21,7 @@ import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.DataValues;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -31,21 +32,16 @@ public class AFKTimeCommand implements IdleBotCommand {
     }
 
     @Override
-    public void runCommand(Player player, String[] args) {
-        if (args.length < 2) {
-            player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot]: " + ChatColor.BLUE + "to use this command, enter \"/idlebot afktime <time in seconds>\" (without the <>).");
-            return;
+    public String getCommandUsage() {
+        return "/idlebot afktime <time in seconds (your server's admin set the minimum and maximum afk time to " + IdleBot.getConfigManager().MINIMUM_IDLE_TIME + " and " + IdleBot.getConfigManager().MAXIMUM_IDLE_TIME + ")>";
+    }
+
+    @Override
+    public boolean runCommand(Player player, String[] args) {
+        if (args.length >= 2 && StringUtils.isNumeric(args[1]) && Integer.parseInt(args[1]) >= IdleBot.getConfigManager().MINIMUM_IDLE_TIME && Integer.parseInt(args[1]) <= IdleBot.getConfigManager().MAXIMUM_IDLE_TIME) {
+            PersistentDataHandler.setData(player, DataValues.AFK_TIME.key(), Integer.parseInt(args[1]));
+            return true;
         }
-        try {
-            if (Integer.parseInt(args[1]) >= IdleBot.getConfigManager().MINIMUM_IDLE_TIME && Integer.parseInt(args[1]) <= IdleBot.getConfigManager().MAXIMUM_IDLE_TIME) {
-                PersistentDataHandler.setData(player, DataValues.AFK_TIME.key(), Integer.parseInt(args[1]));
-            } else {
-                // Say it has to be 10 seconds to 2 minutes
-                return;
-            }
-        } catch (NumberFormatException nfe) {
-            // Send the player message about needs to be "<number>"
-            return;
-        }
+        return false;
     }
 }

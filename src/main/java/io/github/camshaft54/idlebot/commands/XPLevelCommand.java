@@ -13,11 +13,16 @@ public class XPLevelCommand implements IdleBotCommand {
     }
 
     @Override
-    public void runCommand(Player player, String[] args) {
-        if (args.length >= 2 && StringUtils.isNumeric(args[1]) && Integer.parseInt(args[1]) >= 0) {
+    public String getCommandUsage() {
+        return "/idlebot xplevel";
+    }
+
+    @Override
+    public boolean runCommand(Player player, String[] args) {
+        if (args.length >= 2 && StringUtils.isNumeric(args[1]) && Integer.parseInt(args[1]) > 0) {
             PersistentDataHandler.setData(player, DataValues.EXPERIENCE_LEVEL_DESIRED.key(), Integer.parseInt(args[1]));
-        } else {
-            // Say how the number needs to be a positive integer
+            return true;
         }
+        return false;
     }
 }

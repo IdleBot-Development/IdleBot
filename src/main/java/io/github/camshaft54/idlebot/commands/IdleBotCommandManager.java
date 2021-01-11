@@ -1,6 +1,5 @@
 package io.github.camshaft54.idlebot.commands;
 
-import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -34,13 +33,13 @@ public class IdleBotCommandManager implements CommandExecutor {
 
     public IdleBotCommandManager() {
         // Add /idlebot commands to list of commands
-        idleBotCommands.add(new LinkCommand());
-        idleBotCommands.add(new UnlinkCommand());
-        idleBotCommands.add(new Alert());
-        idleBotCommands.add(new AFKTimeCommand());
         idleBotCommands.add(new AFKModeCommand());
-        idleBotCommands.add(new XPLevelCommand());
+        idleBotCommands.add(new AFKTimeCommand());
+        idleBotCommands.add(new AlertCommand());
+        idleBotCommands.add(new LinkCommand());
         idleBotCommands.add(new SetAFKCommand());
+        idleBotCommands.add(new UnlinkCommand());
+        idleBotCommands.add(new XPLevelCommand());
     }
 
     @Override
@@ -57,8 +56,12 @@ public class IdleBotCommandManager implements CommandExecutor {
         }
         for (IdleBotCommand eachCommand : idleBotCommands) {
             if (eachCommand.getCommandName().equalsIgnoreCase(args[0])) {
-                eachCommand.runCommand(player, args);
-                return true;
+                if (!eachCommand.runCommand(player, args)) {
+                    player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.BLUE + "Command usage: " + eachCommand.getCommandUsage());
+                    return false;
+                } else {
+                    return true;
+                }
             }
         }
         return false;

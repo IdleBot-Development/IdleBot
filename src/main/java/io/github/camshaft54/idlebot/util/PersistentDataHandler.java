@@ -18,14 +18,10 @@
 package io.github.camshaft54.idlebot.util;
 
 import io.github.camshaft54.idlebot.IdleBot;
-import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-
-import javax.naming.Name;
-import java.util.ArrayList;
 
 public class PersistentDataHandler {
     // Overload method to set String or Integer
@@ -79,67 +75,5 @@ public class PersistentDataHandler {
     public static void removeData(Player player, String key) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         data.remove(new NamespacedKey(IdleBot.getPlugin(), key));
-    }
-
-    // Method to return an ArrayList containing every player with a certain value (Overloaded for types)
-    public static ArrayList<Player> getPlayerSetWithCertainValue(String key, String value) {
-        ArrayList<Player> outputList = new ArrayList<>();
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (getStringData(player, key).equals(value)) {
-                outputList.add(player);
-            }
-        }
-        return outputList;
-    }
-
-    public static ArrayList<Player> getPlayerSetWithCertainValue(String key, int value) {
-        ArrayList<Player> outputList = new ArrayList<>();
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (getIntData(player, key) == value) {
-                outputList.add(player);
-            }
-        }
-        return outputList;
-    }
-
-    public static ArrayList<Player> getPlayerSetWithCertainValue(String key, boolean value) {
-        ArrayList<Player> outputList = new ArrayList<>();
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (getIntData(player, key) == ((value) ? 1 : 0)) {
-                outputList.add(player);
-            }
-        }
-        return outputList;
-    }
-
-    // Method to return an ArrayList containing every idle player with a certain value (Overloaded for types)
-    public static ArrayList<Player> getIdlePlayerSetWithCertainValue(String key, String value) {
-        ArrayList<Player> outputList = new ArrayList<>();
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (getStringData(player, key).equals(value) && EventUtils.isIdle(player)) {
-                outputList.add(player);
-            }
-        }
-        return outputList;
-    }
-
-    public static ArrayList<Player> getIdlePlayerSetWithCertainValue(String key, int value) {
-        ArrayList<Player> outputList = new ArrayList<>();
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (getIntData(player, key) == value && EventUtils.isIdle(player)) {
-                outputList.add(player);
-            }
-        }
-        return outputList;
-    }
-
-    public static ArrayList<Player> getIdlePlayerSetWithCertainValue(String key, boolean value) {
-        ArrayList<Player> outputList = new ArrayList<>();
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (getIntData(player, key) == ((value) ? 1 : 0) && EventUtils.isIdle(player)) {
-                outputList.add(player);
-            }
-        }
-        return outputList;
     }
 }
