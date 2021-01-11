@@ -23,18 +23,23 @@ import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-public class Alert implements IdleBotCommand {
+@SuppressWarnings("SpellCheckingInspection")
+public class AlertCommand implements IdleBotCommand {
     @Override
     public String getCommandName() {
         return "alert";
     }
 
     @Override
-    public void runCommand(Player player, String[] args) {
+    public String getCommandUsage() {
+        return "/idlebot alert <damage|death|xlocation|zlocation|xp|inventory> <true|false>";
+    }
+
+    @Override
+    public boolean runCommand(Player player, String[] args) {
         String dataKey;
         if (args.length < 2) {
-            player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.BLUE + "placeholder for the command usage");
-            return;
+            return false;
         }
         switch (args[1].toLowerCase()) {
             case "damage":
@@ -43,9 +48,12 @@ public class Alert implements IdleBotCommand {
             case "death":
                 dataKey = DataValues.DEATH_ALERT.key();
                 break;
-            case "location": // This alert has more complicated settings
-                locationAlertCommand(player, args);
-                return;
+            case "xlocation":
+                dataKey = DataValues.LOCATION_ALERT_X.key();
+                break;
+            case "zlocation":
+                dataKey = DataValues.LOCATION_ALERT_Z.key();
+                break;
             case "xp":
                 dataKey = DataValues.EXPERIENCE_ALERT.key();
                 break;
@@ -53,32 +61,15 @@ public class Alert implements IdleBotCommand {
                 dataKey = DataValues.INVENTORY_FULL_ALERT.key();
                 break;
             default:
-                // WRONG
-                return;
+                return false;
         }
-        if (args.length < 3) {
-            // send message what it is
-            return;
-        }
-        if (args[2].equalsIgnoreCase("true")) {
+        if (args.length >= 3 && args[2].equalsIgnoreCase("true")) {
             PersistentDataHandler.setData(player, dataKey,true);
-        } else if (args[2].equalsIgnoreCase("false")) {
+            return true;
+        } else if (args.length >= 3 && args[2].equalsIgnoreCase("false")) {
             PersistentDataHandler.setData(player, DataValues.DAMAGE_ALERT.key(), false);
-        } else {
-            player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.BLUE + "invalid value for alert " + args[1].toLowerCase() + ". To use this command, type \"/idlebot alert " + args[1].toLowerCase() + " <true/false>\" (where <true/false> is the value you want it to be.");
+            return true;
         }
-    }
-
-    private void locationAlertCommand(Player player, String[] args) {
-        /* Example command:
-         * /idlebot alert location x 500
-         * args length: 4
-         * axis index: 2
-         * coordinate index: 3
-         */
-        if (args.length < 3 || (!args[2].equalsIgnoreCase("x") && !args[2].equalsIgnoreCase("z"))) {
-            // blurb about needing axis (x/z) AND coordinate
-        }
-
+        return false;
     }
 }
