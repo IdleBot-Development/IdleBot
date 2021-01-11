@@ -38,7 +38,7 @@ public class AlertCommand implements IdleBotCommand {
     @Override
     public boolean runCommand(Player player, String[] args) {
         String dataKey;
-        if (args.length < 2) {
+        if (args.length < 3) {
             return false;
         }
         switch (args[1].toLowerCase()) {
@@ -63,10 +63,10 @@ public class AlertCommand implements IdleBotCommand {
             default:
                 return false;
         }
-        if (args.length >= 3 && args[2].equalsIgnoreCase("true")) {
+        if (args[2].equalsIgnoreCase("true")) {
             PersistentDataHandler.setData(player, dataKey,true);
             return true;
-        } else if (args.length >= 3 && args[2].equalsIgnoreCase("false")) {
+        } else if (args[2].equalsIgnoreCase("false")) {
             PersistentDataHandler.setData(player, DataValues.DAMAGE_ALERT.key(), false);
             return true;
         }
