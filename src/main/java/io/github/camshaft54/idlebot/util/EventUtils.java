@@ -54,6 +54,15 @@ public class EventUtils {
 
     // Because why not
     private static String formatUserID(String ID) {
-        return "<@!" + ID + ">";
+        return "<@!" + ID + "> ";
+    }
+
+    public static void clearPlayerIdleStats(Player player) {
+        IdleBot.idlePlayers.remove(player);
+        IdleBot.getEventManager().inventoryFullPlayers.remove(player);
+        IdleBot.getEventManager().damagedPlayers.remove(player);
+        IdleBot.getEventManager().locationReachedPlayersX.remove(player);
+        IdleBot.getEventManager().locationReachedPlayersZ.remove(player);
+        IdleBot.getEventManager().XPLevelReachedPlayers.remove(player);
     }
 }

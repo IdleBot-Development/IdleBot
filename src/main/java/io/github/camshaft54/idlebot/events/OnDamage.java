@@ -23,6 +23,7 @@ import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -37,7 +38,7 @@ public class OnDamage implements Listener {
             Player player = (Player) e.getEntity();
             if (EventUtils.isIdle(player) && !IdleBot.getEventManager().damagedPlayers.contains(player) && PersistentDataHandler.getBooleanData(player, DataValues.DAMAGE_ALERT.key())) {
                 Messenger.sendMessage(player.getDisplayName() + " is idle and taking damage!", MessageLevel.INFO);
-                EventUtils.sendPlayerMessage(player, player.getDisplayName() + " is taking damage " + " (" + e.getCause().name() + ").");
+                EventUtils.sendPlayerMessage(player, player.getDisplayName() + " is taking damage " + " (" + StringUtils.capitalize(e.getCause().name()) + ").");
                 IdleBot.getEventManager().damagedPlayers.add(player);
             }
         }

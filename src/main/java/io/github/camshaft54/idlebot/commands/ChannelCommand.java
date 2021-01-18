@@ -21,8 +21,10 @@ public class ChannelCommand implements IdleBotCommand {
         if (args.length < 2) return false;
         if (args[1].equalsIgnoreCase("public")) {
             PersistentDataHandler.setData(player, DataValues.DIRECT_MESSAGE_MODE.key(), false);
+            return true;
         } else if (args[1].equalsIgnoreCase("private")) {
             PersistentDataHandler.setData(player, DataValues.DIRECT_MESSAGE_MODE.key(), true);
+            return true;
         }
         return false;
     }

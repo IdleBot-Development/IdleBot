@@ -63,10 +63,10 @@ public class AlertCommand implements IdleBotCommand {
                 return false;
         }
         if (args[2].equalsIgnoreCase("true")) {
-            PersistentDataHandler.setData(player, dataKey,true);
+            PersistentDataHandler.setData(player, dataKey, true);
             return true;
         } else if (args[2].equalsIgnoreCase("false")) {
-            PersistentDataHandler.setData(player, DataValues.DAMAGE_ALERT.key(), false);
+            PersistentDataHandler.setData(player, dataKey, false);
             return true;
         }
         return false;

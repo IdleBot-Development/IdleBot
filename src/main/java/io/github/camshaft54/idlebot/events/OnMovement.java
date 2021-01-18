@@ -33,11 +33,11 @@
 
 package io.github.camshaft54.idlebot.events;
 
-import io.github.camshaft54.idlebot.IdleBot;
+import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.Messenger;
+import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -59,16 +59,9 @@ public class OnMovement implements Listener {
             Player player = e.getPlayer();
             // TODO: Debugging message
             Messenger.sendMessage(player.getDisplayName() + " stopped being idle.", MessageLevel.INFO);
-            clearPlayerIdleStats(player);
+            if (!PersistentDataHandler.getBooleanData(player, DataValues.IS_SET_AFK.key()))
+                EventUtils.clearPlayerIdleStats(player);
         }
     }
 
-    private static void clearPlayerIdleStats(Player player) {
-        IdleBot.idlePlayers.remove(player);
-        IdleBot.getEventManager().inventoryFullPlayers.remove(player);
-        IdleBot.getEventManager().damagedPlayers.remove(player);
-        IdleBot.getEventManager().locationReachedPlayersX.remove(player);
-        IdleBot.getEventManager().locationReachedPlayersZ.remove(player);
-        IdleBot.getEventManager().XPLevelReachedPlayers.remove(player);
-    }
 }

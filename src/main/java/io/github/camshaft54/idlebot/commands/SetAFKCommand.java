@@ -1,5 +1,6 @@
 package io.github.camshaft54.idlebot.commands;
 
+import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
@@ -23,6 +24,7 @@ public class SetAFKCommand implements IdleBotCommand {
             return true;
         } else if (args.length >= 2 && args[1].equalsIgnoreCase("false")) {
             PersistentDataHandler.setData(player, DataValues.IS_SET_AFK.key(), false);
+            EventUtils.clearPlayerIdleStats(player);
             return true;
         }
         return false;

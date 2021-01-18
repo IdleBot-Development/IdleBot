@@ -41,6 +41,7 @@ public class AFKModeCommand implements IdleBotCommand {
             return true;
         } else if (args.length >= 2 && args[1].equalsIgnoreCase("auto")) {
             PersistentDataHandler.setData(player, DataValues.AUTO_AFK.key(), true);
+            PersistentDataHandler.setData(player, DataValues.IS_SET_AFK.key(), false);
             return true;
         }
         return false;

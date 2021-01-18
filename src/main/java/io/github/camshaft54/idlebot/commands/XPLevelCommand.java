@@ -14,7 +14,7 @@ public class XPLevelCommand implements IdleBotCommand {
 
     @Override
     public String getCommandUsage() {
-        return "/idlebot xplevel";
+        return "/idlebot xplevel <desired xp level>";
     }
 
     @Override
