@@ -18,9 +18,12 @@
 package io.github.camshaft54.idlebot.discord;
 
 import io.github.camshaft54.idlebot.IdleBot;
+import io.github.camshaft54.idlebot.util.Messenger;
+import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
+import org.graalvm.compiler.nodes.memory.MemoryAccess;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.entity.activity.ActivityType;
 import org.javacord.api.entity.channel.ServerTextChannel;
@@ -31,22 +34,23 @@ public class DiscordAPIManager {
     public static org.javacord.api.entity.user.User bot;
     public static ServerTextChannel channel;
 
-    private final Plugin plugin;
+    private final IdleBot plugin;
 
-    public DiscordAPIManager(Plugin plugin) {
+    public DiscordAPIManager(IdleBot plugin) {
         this.plugin = plugin;
     }
 
     public void consoleInfo() {
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "Success! Connected to Discord as " + api.getYourself().getDiscriminatedName());
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "Open the following url to invite the bot: " + api.createBotInvite());
+        Messenger.sendMessage("Success! Connected to Discord as " + api.getYourself().getDiscriminatedName(), MessageLevel.INFO);
+        Messenger.sendMessage("Open the following url to invite the bot: " + api.createBotInvite(), MessageLevel.INFO);
     }
 
     public void connectToChannel() {
         if (api.getServerTextChannelById(IdleBot.getConfigManager().CHANNEL_ID).isPresent()) {
             channel = api.getServerTextChannelById(IdleBot.getConfigManager().CHANNEL_ID).get();
-        } else { // TODO: Should this disable the plugin?
-            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.DARK_RED + "Invalid Discord channel specified in config");
+        } else {
+            Messenger.sendMessage("Invalid Discord channel specified in config", MessageLevel.FATAL_ERROR);
+            plugin.disablePlugin();
         }
     }
 

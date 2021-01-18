@@ -1,6 +1,6 @@
 package io.github.camshaft54.idlebot.commands;
 
-import io.github.camshaft54.idlebot.util.DataValues;
+import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import org.bukkit.entity.Player;

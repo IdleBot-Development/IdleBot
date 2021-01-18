@@ -1,15 +1,3 @@
-package io.github.camshaft54.idlebot.commands;
-
-import io.github.camshaft54.idlebot.util.IdleBotCommand;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
-
 /*
  *    Copyright (C) 2020 Camshaft54, MetalTurtle18
  *
@@ -27,6 +15,19 @@ import java.util.ArrayList;
  *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+package io.github.camshaft54.idlebot.commands;
+
+import io.github.camshaft54.idlebot.util.IdleBotCommand;
+import io.github.camshaft54.idlebot.util.Messenger;
+import io.github.camshaft54.idlebot.util.enums.MessageLevel;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+
+
 public class IdleBotCommandManager implements CommandExecutor {
 
     ArrayList<IdleBotCommand> idleBotCommands = new ArrayList<>();
@@ -40,12 +41,14 @@ public class IdleBotCommandManager implements CommandExecutor {
         idleBotCommands.add(new SetAFKCommand());
         idleBotCommands.add(new UnlinkCommand());
         idleBotCommands.add(new XPLevelCommand());
+        idleBotCommands.add(new ChannelCommand());
+        idleBotCommands.add(new LocationCommand());
     }
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String str, String[] args) {
         if (!(commandSender instanceof Player)) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.BLUE + "This command can be run only by players!");
+            Messenger.sendMessage("This command can be run only by players!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }
         Player player = (Player) commandSender;
@@ -57,7 +60,7 @@ public class IdleBotCommandManager implements CommandExecutor {
         for (IdleBotCommand eachCommand : idleBotCommands) {
             if (eachCommand.getCommandName().equalsIgnoreCase(args[0])) {
                 if (!eachCommand.runCommand(player, args)) {
-                    player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.BLUE + "Command usage: " + eachCommand.getCommandUsage());
+                    Messenger.sendMessage(player, "Command usage: " + eachCommand.getCommandUsage(), MessageLevel.INCORRECT_COMMAND_USAGE);
                     return false;
                 } else {
                     return true;

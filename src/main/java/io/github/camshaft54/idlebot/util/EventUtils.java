@@ -19,6 +19,7 @@ package io.github.camshaft54.idlebot.util;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
+import io.github.camshaft54.idlebot.util.enums.DataValues;
 import org.bukkit.entity.Player;
 
 import java.util.concurrent.ExecutionException;

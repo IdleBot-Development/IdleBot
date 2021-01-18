@@ -24,7 +24,7 @@ import org.javacord.api.DiscordApiBuilder;
 public class DiscordAPIRunnable implements Runnable {
     private final DiscordAPIManager manager;
 
-    public DiscordAPIRunnable(Plugin plugin) {
+    public DiscordAPIRunnable(IdleBot plugin) {
         this.manager = new DiscordAPIManager(plugin);
     }
 

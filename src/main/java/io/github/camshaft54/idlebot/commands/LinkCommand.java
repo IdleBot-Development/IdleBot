@@ -19,9 +19,11 @@ package io.github.camshaft54.idlebot.commands;
 
 import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
 import io.github.camshaft54.idlebot.IdleBot;
-import io.github.camshaft54.idlebot.util.DataValues;
+import io.github.camshaft54.idlebot.util.Messenger;
+import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -42,17 +44,17 @@ public class LinkCommand implements IdleBotCommand {
     @Override
     public boolean runCommand(Player player, String[] args) {
         if (playerIsLinked(player)) {
-            player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.BLUE + "Your account is already linked!");
+            Messenger.sendMessage(player, "Your account is already linked!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }
         Random rng = new Random();
         String botName = DiscordAPIManager.bot.getDiscriminatedName();
 
         int code = rng.nextInt(999); // Generate a random token
-        while (isDuplicateToken(code)) { // Keep getting new codes until it is unique (very unlikely to ever run)
+        while (isDuplicateToken(code) || code < 100) { // Keep getting new codes until it is unique and 3 digits
             code = rng.nextInt(999);
         }
-        player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.GREEN + "Your link code is " + code + ". Send this code in a private message to " + botName + " to link your account.");
+        Messenger.sendMessage(player, "Your link code is " + code + ". Send this code in a private message to " + botName + " to link your account.", MessageLevel.IMPORTANT);
         IdleBot.linkCodes.put(code, player);
         return true;
     }

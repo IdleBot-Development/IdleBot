@@ -1,9 +1,9 @@
 package io.github.camshaft54.idlebot.commands;
 
-import io.github.camshaft54.idlebot.util.DataValues;
+import io.github.camshaft54.idlebot.util.CommandUtils;
+import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
 public class LocationCommand implements IdleBotCommand {
@@ -14,7 +14,7 @@ public class LocationCommand implements IdleBotCommand {
 
     @Override
     public String getCommandUsage() {
-        return "/idlebot location <x|z> <coordinate (must be less than 50,000,000 (and more than -50,000,000))>";
+        return "/idlebot location <x|z> <coordinate (must be between -50,000,000 and 50,000,000)>";
     }
 
     @Override
@@ -23,7 +23,7 @@ public class LocationCommand implements IdleBotCommand {
         if (args.length < 3 || (!args[1].equalsIgnoreCase("x") && !args[1].equalsIgnoreCase("z"))) {
             return false;
         }
-        if (StringUtils.isNumeric(args[2]) && args[2].length() <= 9 && Integer.parseInt(args[2]) >= -50_000_000 && Integer.parseInt(args[2]) <= 50_000_000) {
+        if (CommandUtils.isInteger(args[2]) && args[2].length() <= 9 && Integer.parseInt(args[2]) >= -50_000_000 && Integer.parseInt(args[2]) <= 50_000_000) {
             int coord = Integer.parseInt(args[2]);
             if (args[1].equalsIgnoreCase("x")) {
                 if ((int) player.getLocation().getX() < coord) {

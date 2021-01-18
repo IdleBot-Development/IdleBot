@@ -15,7 +15,7 @@
  *    along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.camshaft54.idlebot.util;
+package io.github.camshaft54.idlebot.util.enums;
 
 @SuppressWarnings("SpellCheckingInspection")
 public enum DataValues {
@@ -32,10 +32,9 @@ public enum DataValues {
     LOCATION_X_DIRECTION("locationxdir"), // e/w; example: player is at x = 100, wants alert x = 500, value = "e"
     LOCATION_Z_DIRECTION("locationzdir"), // s/n; example: player is at z = 100, wants alert z = -500, value = "n"
     EXPERIENCE_ALERT("xpalert"),
+    EXPERIENCE_LEVEL_DESIRED("xpleveldesired"),
     INVENTORY_FULL_ALERT("inventoryalert"),
-    DIRECT_MESSAGE_MODE("dmmode"),
-    LOCATION_DESIRED("locationdesired"),
-    EXPERIENCE_LEVEL_DESIRED("xpleveldesired");
+    DIRECT_MESSAGE_MODE("dmmode");
 
     private final String key;
 
