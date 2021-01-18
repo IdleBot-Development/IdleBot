@@ -21,6 +21,7 @@
 package io.github.camshaft54.idlebot.util;
 
 import io.github.camshaft54.idlebot.IdleBot;
+import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import lombok.Getter;
 import github.scarsz.configuralize.*;
 import java.io.File;
@@ -55,5 +56,9 @@ public class ConfigManager {
         DEFAULT_IDLE_TIME = config.getInt("idleTime.defaultIdleTime");
         MINIMUM_IDLE_TIME = config.getInt("idleTime.minimumIdleTime");
         MAXIMUM_IDLE_TIME = config.getInt("idleTime.maximumIdleTime");
+        if (BOT_TOKEN.equals("<Bot Token Here>") || CHANNEL_ID.equals("<Channel ID Here>")) {
+            Messenger.sendMessage("Plugin configuration file invalid! botToken and/or channelToken need to be set in config.yml.", MessageLevel.FATAL_ERROR);
+            plugin.disablePlugin();
+        }
     }
 }

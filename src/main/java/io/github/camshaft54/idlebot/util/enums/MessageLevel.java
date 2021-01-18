@@ -14,6 +14,6 @@ public enum MessageLevel {
     }
 
     public String getPrefix() {
-        return color + "[IdleBot] ";
+        return ChatColor.DARK_PURPLE + "[IdleBot] " + color;
     }
 }

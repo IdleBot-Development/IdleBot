@@ -27,7 +27,6 @@ import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -75,7 +74,6 @@ public class IdleBot extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "All data saved. Plugin safely closed!");
         Messenger.sendMessage("All data saved. Plugin safely closed!", MessageLevel.INFO);
     }
 
