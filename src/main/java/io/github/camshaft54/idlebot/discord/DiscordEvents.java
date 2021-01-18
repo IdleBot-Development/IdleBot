@@ -21,8 +21,7 @@ import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
 import org.javacord.api.entity.channel.ChannelType;
 import org.javacord.api.entity.channel.TextChannel;
@@ -38,12 +37,12 @@ public class DiscordEvents implements MessageCreateListener {
             TextChannel channel = message.getChannel();
             try {
                 Integer code = Integer.parseInt(message.getContent());
-                Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "Someone entered a code: " + code);
+                Messenger.sendMessage(event.getMessageAuthor().getDiscriminatedName() + " entered a code: " + code, MessageLevel.INFO);
                 if (IdleBot.linkCodes.containsKey(code)) {
                     Player player = IdleBot.linkCodes.get(code);
                     PersistentDataHandler.setData(player, DataValues.DISCORD_ID.key(), event.getMessageAuthor().getIdAsString());
                     channel.sendMessage("Successfully linked your Discord username to Minecraft username " + player.getDisplayName());
-                    player.sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "Successfully linked your Minecraft username to Discord username " + event.getMessageAuthor().getDiscriminatedName());
+                    Messenger.sendMessage(player, "Successfully linked your Minecraft username to Discord username " + event.getMessageAuthor().getDiscriminatedName(), MessageLevel.INFO);
                     IdleBot.linkCodes.remove(code);
                     // Since the player just linked,
                     setDefaultSettings(player);

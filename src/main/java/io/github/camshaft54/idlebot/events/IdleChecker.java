@@ -22,8 +22,8 @@ import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class IdleChecker implements Runnable {
@@ -45,9 +45,9 @@ public class IdleChecker implements Runnable {
                 else if (!EventUtils.isIdle(player) && PersistentDataHandler.getBooleanData(player, DataValues.AUTO_AFK.key())) {
                     IdleBot.idlePlayers.put(player, 0);
                 }
-                // Debugging only; TODO: remove this
+                // TODO: Debugging message
                 if (EventUtils.isIdle(player)) {
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle.");
+                    Messenger.sendMessage(player.getDisplayName() + " is idle.", MessageLevel.INFO);
                 }
             }
         }

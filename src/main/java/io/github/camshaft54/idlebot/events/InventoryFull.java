@@ -22,8 +22,7 @@ import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.IdleCheck;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
 
 public class InventoryFull implements IdleCheck {
@@ -34,7 +33,7 @@ public class InventoryFull implements IdleCheck {
 
     public void check(Player player) {
         if (player.getInventory().firstEmpty() < 0 && !IdleBot.getEventManager().inventoryFullPlayers.contains(player)) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and their inventory is full!");
+            Messenger.sendMessage(player.getDisplayName() + " is idle and their inventory is full!", MessageLevel.INFO);
             EventUtils.sendPlayerMessage(player, player.getDisplayName() + "'s inventory is full! ");
             IdleBot.getEventManager().inventoryFullPlayers.add(player);
         }

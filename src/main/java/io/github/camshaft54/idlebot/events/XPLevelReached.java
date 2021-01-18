@@ -23,8 +23,7 @@ import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.IdleCheck;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
 
 public class XPLevelReached implements IdleCheck {

@@ -21,8 +21,7 @@ import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,7 +34,7 @@ public class OnDeath implements Listener {
     public void onDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
         if (EventUtils.isIdle(player) && PersistentDataHandler.getBooleanData(player, DataValues.DEATH_ALERT.key())) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and dead!");
+            Messenger.sendMessage(player.getDisplayName() + " is idle and dead!", MessageLevel.INFO);
             EventUtils.sendPlayerMessage(player, player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").");
         }
     }

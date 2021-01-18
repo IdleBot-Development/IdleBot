@@ -22,8 +22,7 @@ import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -37,7 +36,7 @@ public class OnDamage implements Listener {
         if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
             if (EventUtils.isIdle(player) && !IdleBot.getEventManager().damagedPlayers.contains(player) && PersistentDataHandler.getBooleanData(player, DataValues.DAMAGE_ALERT.key())) {
-                Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and taking damage!");
+                Messenger.sendMessage(player.getDisplayName() + " is idle and taking damage!", MessageLevel.INFO);
                 EventUtils.sendPlayerMessage(player, player.getDisplayName() + " is taking damage " + " (" + e.getCause().name() + ").");
                 IdleBot.getEventManager().damagedPlayers.add(player);
             }

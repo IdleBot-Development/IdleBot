@@ -22,6 +22,8 @@ import io.github.camshaft54.idlebot.commands.IdleBotCommandManager;
 import io.github.camshaft54.idlebot.discord.DiscordAPIRunnable;
 import io.github.camshaft54.idlebot.events.*;
 import io.github.camshaft54.idlebot.util.ConfigManager;
+import io.github.camshaft54.idlebot.util.Messenger;
+import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -52,8 +54,8 @@ public class IdleBot extends JavaPlugin {
             configManager = new ConfigManager();
         }
         catch (IOException | ParseException e) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.DARK_RED + "Plugin configuration load failed! Plugin disabled. Try to fix the configuration file and try again or get support!");
-            this.disablePlugin();
+            Messenger.sendMessage("Plugin configuration load failed! Plugin disabled. Try to fix the configuration file and try again or get support!", MessageLevel.FATAL_ERROR);
+            disablePlugin();
         }
         if (plugin.isEnabled()) {
             BukkitScheduler scheduler = getServer().getScheduler();
@@ -66,14 +68,15 @@ public class IdleBot extends JavaPlugin {
             plugin.getServer().getPluginManager().registerEvents(new OnPlayerQuit(), plugin); // Register player quit event
             discordAPIIsReady = false;
             scheduler.runTaskAsynchronously(plugin, new DiscordAPIRunnable(plugin));
-            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "Plugin successfully loaded");
-            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.GREEN + "Plugin has not finished initializing Discord API! Discord functionality is not yet ready!");
+            Messenger.sendMessage("Plugin successfully loaded", MessageLevel.INFO);
+            Messenger.sendMessage("Plugin has not finished initializing Discord API! Discord functionality is not yet ready!", MessageLevel.IMPORTANT);
         }
     }
 
     @Override
     public void onDisable() {
         Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + "All data saved. Plugin safely closed!");
+        Messenger.sendMessage("All data saved. Plugin safely closed!", MessageLevel.INFO);
     }
 
     public void disablePlugin() {

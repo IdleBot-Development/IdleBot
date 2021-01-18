@@ -34,6 +34,8 @@
 package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
+import io.github.camshaft54.idlebot.util.Messenger;
+import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -55,8 +57,8 @@ public class OnMovement implements Listener {
             return;
         if (to.getPitch() != from.getPitch() || to.getYaw() != from.getYaw()) {
             Player player = e.getPlayer();
-            // Send a message in the console
-            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " stopped being idle.");
+            // TODO: Debugging message
+            Messenger.sendMessage(player.getDisplayName() + " stopped being idle.", MessageLevel.INFO);
             clearPlayerIdleStats(player);
         }
     }
