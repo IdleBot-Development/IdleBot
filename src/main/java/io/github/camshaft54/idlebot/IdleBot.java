@@ -51,6 +51,8 @@ public class IdleBot extends JavaPlugin {
     public static HashMap<Integer, Player> linkCodes = new HashMap<>();
     public static HashMap<Player, Integer> idlePlayers = new HashMap<>();
 
+    public JDA bot;
+
     @Override
     public void onEnable() {
         plugin = this;
