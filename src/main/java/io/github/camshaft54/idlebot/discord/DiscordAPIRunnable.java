@@ -20,6 +20,7 @@ package io.github.camshaft54.idlebot.discord;
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
+import net.dv8tion.jda.api.JDABuilder;
 import org.javacord.api.DiscordApiBuilder;
 
 public class DiscordAPIRunnable implements Runnable {
@@ -41,6 +42,7 @@ public class DiscordAPIRunnable implements Runnable {
             manager.connectToChannel(); // Connect the bot to the text channel specified in config
             manager.setActivity(); // Set the status of the bot in Discord
             manager.setDiscordIsReady();
+
         } catch (Exception e) {
             Messenger.sendMessage("Error connecting to Discord! Plugin configuration file may be invalid. botToken and/or channelToken need to be set to valid values in config.yml.", MessageLevel.FATAL_ERROR);
             plugin.disablePlugin();
