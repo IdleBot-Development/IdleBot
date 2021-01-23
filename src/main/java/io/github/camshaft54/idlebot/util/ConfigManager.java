@@ -29,8 +29,8 @@ import java.io.IOException;
 
 public class ConfigManager {
 
-    IdleBot plugin = IdleBot.getPlugin();
-    @Getter private final File configFile = new File(plugin.getDataFolder(), "config.yml");
+    IdleBot plugin;
+    @Getter private final File configFile;
 
     // Private variables for config values
     public final String BOT_TOKEN;
@@ -43,7 +43,9 @@ public class ConfigManager {
 
     private DynamicConfig config;
 
-    public ConfigManager() throws IOException, ParseException {
+    public ConfigManager(IdleBot plugin) throws IOException, ParseException {
+        this.plugin = plugin;
+        configFile = new File(plugin.getDataFolder(), "config.yml");
         plugin.getDataFolder().mkdirs();
         config = new DynamicConfig();
         config.addSource(IdleBot.class, "config", getConfigFile());

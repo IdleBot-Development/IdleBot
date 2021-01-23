@@ -32,6 +32,7 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
@@ -43,11 +44,10 @@ import java.util.Objects;
 
 public class IdleBot extends JavaPlugin {
 
+    @Getter private static  ConfigManager configManager;
+    @Getter private static final EventManager eventManager = new EventManager();
     @Getter private static IdleBot plugin;
-    @Getter private static ConfigManager configManager;
-    @Getter private static EventManager eventManager;
-    @Getter @Setter private static boolean discordAPIIsReady;
-
+    public static boolean discordAPIIsReady;
     public static HashMap<Integer, Player> linkCodes = new HashMap<>();
     public static HashMap<Player, Integer> idlePlayers = new HashMap<>();
 
@@ -56,23 +56,23 @@ public class IdleBot extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
-        eventManager = new EventManager();
         try {
-            configManager = new ConfigManager();
+            configManager = new ConfigManager(this);
         }
         catch (IOException | ParseException e) {
             Messenger.sendMessage("Plugin configuration load failed! Plugin disabled. Try to fix the configuration file and try again or get support!", MessageLevel.FATAL_ERROR);
             disablePlugin();
         }
-        if (plugin.isEnabled()) {
+        if (isEnabled()) {
             BukkitScheduler scheduler = getServer().getScheduler();
-            Objects.requireNonNull(plugin.getCommand("idlebot")).setExecutor(new IdleBotCommandManager());
-            plugin.getServer().getScheduler().runTaskTimer(plugin, new IdleChecker(), 20L, 20L); // Execute the idle checker every 20 ticks (1 second)
-            plugin.getServer().getScheduler().runTaskTimer(plugin, eventManager, 20L, 20L); // Check for all extra events (events that don't have official Bukkit events) every 20 ticks (1 second)
-            plugin.getServer().getPluginManager().registerEvents(new OnMovement(), plugin); // Register movement event
-            plugin.getServer().getPluginManager().registerEvents(new OnDamage(), plugin); // Register damage event
-            plugin.getServer().getPluginManager().registerEvents(new OnDeath(), plugin); // Register death event
-            plugin.getServer().getPluginManager().registerEvents(new OnPlayerQuit(), plugin); // Register player quit event
+            PluginManager pluginManager = getServer().getPluginManager();
+            Objects.requireNonNull(this.getCommand("idlebot")).setExecutor(new IdleBotCommandManager());
+            scheduler.runTaskTimer(this, new IdleChecker(), 20L, 20L); // Execute the idle checker every 20 ticks (1 second)
+            scheduler.runTaskTimer(this, eventManager, 20L, 20L); // Check for all extra events (events that don't have official Bukkit events) every 20 ticks (1 second)
+            pluginManager.registerEvents(new OnMovement(), this); // Register movement event
+            pluginManager.registerEvents(new OnDamage(), this); // Register damage event
+            pluginManager.registerEvents(new OnDeath(), this); // Register death event
+            pluginManager.registerEvents(new OnPlayerQuit(), this); // Register player quit event
             discordAPIIsReady = false;
             //scheduler.runTaskAsynchronously(plugin, new DiscordAPIRunnable(plugin));
             Messenger.sendMessage("Starting to load JDA", MessageLevel.INFO);
@@ -87,7 +87,7 @@ public class IdleBot extends JavaPlugin {
             }
             MessageChannel channel = bot.getTextChannelById(configManager.CHANNEL_ID);
             assert channel != null;
-            channel.sendMessage(new EmbedBuilder().setTitle("EMBED TITILEI").setAuthor("MR IDLE GBTO").setColor(Color.ORANGE).setFooter("ASBHDVCUYITFUOAYGIDUhkj").build()).queue();
+            channel.sendMessage(new EmbedBuilder().setTitle("EMBED TITILEI").setAuthor("MR IDLE GBTO").setColor(Color.ORANGE).setFooter("sticky ballon").build()).queue();
             Messenger.sendMessage("Plugin successfully loaded", MessageLevel.INFO);
             // Messenger.sendMessage("Plugin has not finished initializing Discord API! Discord functionality is not yet ready!", MessageLevel.IMPORTANT);
         }
