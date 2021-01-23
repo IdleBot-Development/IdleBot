@@ -22,7 +22,7 @@ import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import org.bukkit.entity.Player;
 
-import java.util.concurrent.ExecutionException;
+import java.util.Objects;
 
 public class EventUtils {
     // Check if a player is idle based on the player's settings and the time they have spent idle
@@ -39,13 +39,8 @@ public class EventUtils {
         String discordID = PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key());
         if (discordID != null) {
             if (PersistentDataHandler.getBooleanData(player, DataValues.DIRECT_MESSAGE_MODE.key())) {
-                try {
-                    DiscordAPIManager.api.getUserById(PersistentDataHandler.getStringData(player,
-                            DataValues.DISCORD_ID.key())).get().getPrivateChannel()
-                            .ifPresent(channel -> channel.sendMessage(formatUserID(discordID) + message));
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
+                DiscordAPIManager.bot.getUserById(Objects.requireNonNull(PersistentDataHandler.getStringData(player,
+                        DataValues.DISCORD_ID.key()))).openPrivateChannel().queue(channel -> channel.sendMessage(formatUserID(discordID) + message));
             } else {
                 DiscordAPIManager.channel.sendMessage(formatUserID(discordID) + message);
             }

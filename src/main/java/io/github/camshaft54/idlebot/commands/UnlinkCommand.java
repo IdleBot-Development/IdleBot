@@ -17,12 +17,11 @@
 
 package io.github.camshaft54.idlebot.commands;
 
-import io.github.camshaft54.idlebot.util.Messenger;
-import io.github.camshaft54.idlebot.util.enums.DataValues;
-import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
+import io.github.camshaft54.idlebot.util.Messenger;
+import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class UnlinkCommand implements IdleBotCommand {

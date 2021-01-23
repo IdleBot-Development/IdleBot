@@ -17,14 +17,13 @@
 
 package io.github.camshaft54.idlebot.commands;
 
-import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
 import io.github.camshaft54.idlebot.IdleBot;
-import io.github.camshaft54.idlebot.util.Messenger;
-import io.github.camshaft54.idlebot.util.enums.DataValues;
+import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
+import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.Random;
@@ -48,7 +47,7 @@ public class LinkCommand implements IdleBotCommand {
             return true;
         }
         Random rng = new Random();
-        String botName = DiscordAPIManager.bot.getDiscriminatedName();
+        String botName = DiscordAPIManager.bot.getSelfUser().getName();
 
         int code = rng.nextInt(999); // Generate a random token
         while (isDuplicateToken(code) || code < 100) { // Keep getting new codes until it is unique and 3 digits

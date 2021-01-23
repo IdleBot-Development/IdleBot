@@ -24,7 +24,6 @@ import io.github.camshaft54.idlebot.util.ConfigManager;
 import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import lombok.Getter;
-import lombok.Setter;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -81,7 +80,7 @@ public class IdleBot extends JavaPlugin {
                         .setActivity(Activity.watching("YAYAYAY JDA"))
                         .build();
                 bot.awaitReady();
-            } catch(LoginException | InterruptedException e) {
+            } catch (LoginException | InterruptedException e) {
                 Messenger.sendMessage("Failed to initialize JDA!", MessageLevel.FATAL_ERROR);
                 this.disablePlugin();
             }
