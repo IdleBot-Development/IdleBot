@@ -35,12 +35,13 @@ public class EventUtils {
     }
 
     // Sends player a message on Discord, if player has linked account
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void sendPlayerMessage(Player player, String message) {
         String discordID = PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key());
         if (discordID != null) {
             if (PersistentDataHandler.getBooleanData(player, DataValues.DIRECT_MESSAGE_MODE.key())) {
-                DiscordAPIManager.bot.getUserById(Objects.requireNonNull(PersistentDataHandler.getStringData(player,
-                        DataValues.DISCORD_ID.key()))).openPrivateChannel().queue(channel -> channel.sendMessage(formatUserID(discordID) + message));
+                Objects.requireNonNull(DiscordAPIManager.bot.getUserById(Objects.requireNonNull(PersistentDataHandler.getStringData(player,
+                        DataValues.DISCORD_ID.key())))).openPrivateChannel().queue(channel -> channel.sendMessage(formatUserID(discordID) + message));
             } else {
                 DiscordAPIManager.channel.sendMessage(formatUserID(discordID) + message);
             }

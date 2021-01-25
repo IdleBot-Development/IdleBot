@@ -19,24 +19,19 @@ package io.github.camshaft54.idlebot;
 
 import github.scarsz.configuralize.ParseException;
 import io.github.camshaft54.idlebot.commands.IdleBotCommandManager;
+import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
 import io.github.camshaft54.idlebot.events.*;
 import io.github.camshaft54.idlebot.util.ConfigManager;
 import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import lombok.Getter;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.MessageChannel;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
-import javax.security.auth.login.LoginException;
-import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
@@ -46,7 +41,7 @@ public class IdleBot extends JavaPlugin {
     @Getter private static  ConfigManager configManager;
     @Getter private static final EventManager eventManager = new EventManager();
     @Getter private static IdleBot plugin;
-    public static boolean discordAPIIsReady;
+    public static boolean discordAPIIsReady = false;
     public static HashMap<Integer, Player> linkCodes = new HashMap<>();
     public static HashMap<Player, Integer> idlePlayers = new HashMap<>();
 
@@ -72,23 +67,10 @@ public class IdleBot extends JavaPlugin {
             pluginManager.registerEvents(new OnDamage(), this); // Register damage event
             pluginManager.registerEvents(new OnDeath(), this); // Register death event
             pluginManager.registerEvents(new OnPlayerQuit(), this); // Register player quit event
-            discordAPIIsReady = false;
-            //scheduler.runTaskAsynchronously(plugin, new DiscordAPIRunnable(plugin));
+            // Load JDA
             Messenger.sendMessage("Starting to load JDA", MessageLevel.INFO);
-            try {
-                bot = JDABuilder.createDefault(IdleBot.getConfigManager().BOT_TOKEN)
-                        .setActivity(Activity.watching("YAYAYAY JDA"))
-                        .build();
-                bot.awaitReady();
-            } catch (LoginException | InterruptedException e) {
-                Messenger.sendMessage("Failed to initialize JDA!", MessageLevel.FATAL_ERROR);
-                this.disablePlugin();
-            }
-            MessageChannel channel = bot.getTextChannelById(configManager.CHANNEL_ID);
-            assert channel != null;
-            channel.sendMessage(new EmbedBuilder().setTitle("EMBED TITILEI").setAuthor("MR IDLE GBTO").setColor(Color.ORANGE).setFooter("sticky ballon").build()).queue();
+            new DiscordAPIManager();
             Messenger.sendMessage("Plugin successfully loaded", MessageLevel.INFO);
-            // Messenger.sendMessage("Plugin has not finished initializing Discord API! Discord functionality is not yet ready!", MessageLevel.IMPORTANT);
         }
     }
 

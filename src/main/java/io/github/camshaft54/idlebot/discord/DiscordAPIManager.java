@@ -44,6 +44,8 @@ public class DiscordAPIManager {
         }
         setActivity();
         getChannel();
+        consoleInfo();
+        setDiscordIsReady();
     }
 
     private void setActivity() {
