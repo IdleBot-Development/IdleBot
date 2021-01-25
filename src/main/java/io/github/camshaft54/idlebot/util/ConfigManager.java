@@ -20,17 +20,19 @@
 
 package io.github.camshaft54.idlebot.util;
 
+import github.scarsz.configuralize.DynamicConfig;
+import github.scarsz.configuralize.ParseException;
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import lombok.Getter;
-import github.scarsz.configuralize.*;
+
 import java.io.File;
 import java.io.IOException;
 
 public class ConfigManager {
 
-    IdleBot plugin = IdleBot.getPlugin();
-    @Getter private final File configFile = new File(plugin.getDataFolder(), "config.yml");
+    IdleBot plugin;
+    @Getter private final File configFile;
 
     // Private variables for config values
     public final String BOT_TOKEN;
@@ -43,7 +45,9 @@ public class ConfigManager {
 
     private DynamicConfig config;
 
-    public ConfigManager() throws IOException, ParseException {
+    public ConfigManager(IdleBot plugin) throws IOException, ParseException {
+        this.plugin = plugin;
+        configFile = new File(plugin.getDataFolder(), "config.yml");
         plugin.getDataFolder().mkdirs();
         config = new DynamicConfig();
         config.addSource(IdleBot.class, "config", getConfigFile());

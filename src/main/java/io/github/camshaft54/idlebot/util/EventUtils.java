@@ -20,9 +20,12 @@ package io.github.camshaft54.idlebot.util;
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.MessageBuilder;
 import org.bukkit.entity.Player;
 
-import java.util.concurrent.ExecutionException;
+import java.awt.*;
+import java.util.Objects;
 
 public class EventUtils {
     // Check if a player is idle based on the player's settings and the time they have spent idle
@@ -35,26 +38,21 @@ public class EventUtils {
     }
 
     // Sends player a message on Discord, if player has linked account
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void sendPlayerMessage(Player player, String message) {
         String discordID = PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key());
         if (discordID != null) {
+            EmbedBuilder eb = new EmbedBuilder().setAuthor(player.getDisplayName(), null, "https://minotar.net/helm/" + player.getUniqueId())
+                    .setTitle(message)
+                    .setColor(Color.RED);
+            MessageBuilder mb = new MessageBuilder().append("<@!").append(discordID).append(">").setEmbed(eb.build());
             if (PersistentDataHandler.getBooleanData(player, DataValues.DIRECT_MESSAGE_MODE.key())) {
-                try {
-                    DiscordAPIManager.api.getUserById(PersistentDataHandler.getStringData(player,
-                            DataValues.DISCORD_ID.key())).get().getPrivateChannel()
-                            .ifPresent(channel -> channel.sendMessage(formatUserID(discordID) + message));
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
+                Objects.requireNonNull(DiscordAPIManager.bot.getUserById(Objects.requireNonNull(PersistentDataHandler.getStringData(player,
+                        DataValues.DISCORD_ID.key())))).openPrivateChannel().queue(channel -> channel.sendMessage(mb.build()));
             } else {
-                DiscordAPIManager.channel.sendMessage(formatUserID(discordID) + message);
+                DiscordAPIManager.channel.sendMessage(mb.build()).queue();
             }
         }
-    }
-
-    // Because why not
-    private static String formatUserID(String ID) {
-        return "<@!" + ID + "> ";
     }
 
     public static void clearPlayerIdleStats(Player player) {

@@ -25,7 +25,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class OnPlayerQuit implements Listener {
     // If player leaves game, remove them from playersIdling and the other condition hashmaps
     @EventHandler
-    public static void onPlayerQuit(PlayerQuitEvent e) { // TODO: There is probably more stuff to reset when the player leaves
+    public void onPlayerQuit(PlayerQuitEvent e) { // TODO: There is probably more stuff to reset when the player leaves
         IdleBot.idlePlayers.remove(e.getPlayer());
     }
 }
