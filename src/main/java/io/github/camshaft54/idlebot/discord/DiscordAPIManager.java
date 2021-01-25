@@ -40,7 +40,8 @@ public class DiscordAPIManager {
         this.plugin = plugin;
         try {
             bot = JDABuilder.createDefault(config.BOT_TOKEN).build();
-        } catch (LoginException e) {
+            bot.awaitReady();
+        } catch (LoginException | InterruptedException e) {
             Messenger.sendMessage("Failed to initialize JDA!", MessageLevel.FATAL_ERROR);
             plugin.disablePlugin();
         }
