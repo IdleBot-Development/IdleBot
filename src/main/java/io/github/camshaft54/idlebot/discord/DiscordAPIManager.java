@@ -31,21 +31,24 @@ import javax.security.auth.login.LoginException;
 
 public class DiscordAPIManager {
     private final ConfigManager config;
-    public static JDA bot;
-    public static TextChannel channel;
+    private final IdleBot plugin;
+    public JDA bot;
+    public TextChannel channel;
 
-    public DiscordAPIManager() {
+    public DiscordAPIManager(IdleBot plugin) {
         config = IdleBot.getConfigManager();
+        this.plugin = plugin;
         try {
-            bot = setActivity(JDABuilder.createDefault(config.BOT_TOKEN)).build();
+            bot = JDABuilder.createDefault(config.BOT_TOKEN).build();
         } catch (LoginException e) {
             Messenger.sendMessage("Failed to initialize JDA!", MessageLevel.FATAL_ERROR);
-            IdleBot.getPlugin().disablePlugin();
+            plugin.disablePlugin();
         }
         setActivity();
         getChannel();
-        consoleInfo();
-        setDiscordIsReady();
+        Messenger.sendMessage("Successfully connected to Discord as " + bot.getSelfUser().getName(), MessageLevel.INFO);
+        Messenger.sendMessage("Open the following url to invite the bot: " + bot.getInviteUrl(), MessageLevel.INFO);
+        IdleBot.discordAPIIsReady = true;
     }
 
     private void setActivity() {
@@ -53,12 +56,13 @@ public class DiscordAPIManager {
         switch (config.ACTIVITY_TYPE) {
             case "WATCHING":
                 presence.setPresence(Activity.watching(config.ACTIVITY_MESSAGE), false);
+                break;
             case "PLAYING":
                 presence.setPresence(Activity.playing(config.ACTIVITY_MESSAGE), false);
+                break;
             case "LISTENING":
-                activity = Activity.listening(config.ACTIVITY_MESSAGE);
-            default:
-                activity = null;
+                presence.setPresence(Activity.listening(config.ACTIVITY_MESSAGE), false);
+                break;
         }
     }
 
@@ -67,16 +71,7 @@ public class DiscordAPIManager {
             channel = bot.getTextChannelById(config.CHANNEL_ID);
         } else {
             Messenger.sendMessage("Invalid Discord channel specified in config", MessageLevel.FATAL_ERROR);
-            IdleBot.getPlugin().disablePlugin();
+            plugin.disablePlugin();
         }
-    }
-
-    public void setDiscordIsReady() {
-        IdleBot.discordAPIIsReady = true;
-    }
-
-    public void consoleInfo() {
-        Messenger.sendMessage("Success! Connected to Discord as " + bot.getSelfUser().getName(), MessageLevel.INFO);
-        Messenger.sendMessage("Open the following url to invite the bot: " + bot.getInviteUrl(), MessageLevel.INFO);
     }
 }

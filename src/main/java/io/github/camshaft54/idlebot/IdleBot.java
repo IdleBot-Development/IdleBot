@@ -41,6 +41,7 @@ public class IdleBot extends JavaPlugin {
     @Getter private static  ConfigManager configManager;
     @Getter private static final EventManager eventManager = new EventManager();
     @Getter private static IdleBot plugin;
+    @Getter private static DiscordAPIManager discordAPIManager;
     public static boolean discordAPIIsReady = false;
     public static HashMap<Integer, Player> linkCodes = new HashMap<>();
     public static HashMap<Player, Integer> idlePlayers = new HashMap<>();
@@ -69,7 +70,7 @@ public class IdleBot extends JavaPlugin {
             pluginManager.registerEvents(new OnPlayerQuit(), this); // Register player quit event
             // Load JDA
             Messenger.sendMessage("Starting to load JDA", MessageLevel.INFO);
-            new DiscordAPIManager();
+            discordAPIManager = new DiscordAPIManager(this);
             Messenger.sendMessage("Plugin successfully loaded", MessageLevel.INFO);
         }
     }

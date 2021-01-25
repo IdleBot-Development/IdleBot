@@ -33,7 +33,7 @@ customBotActivity:
 idleTime:
   # The default idle time for players who do not set their own
   defaultIdleTime: 120
-  # The maximum idle time a player can set for themself
-  maximumIdleTime: 600
   # The minimum idle time a player can set for themself | WE RECOMMEND KEEPING THIS AT LEAST 10 SECONDS
   minimumIdleTime: 20
+  # The maximum idle time a player can set for themself
+  maximumIdleTime: 600

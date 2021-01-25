@@ -50,7 +50,7 @@ public class OnMovement implements Listener {
     // The following method is a derivative work of AFKPlus by Dart2112 (https://github.com/LapisPlugins/AFKPlus) under the Apache License
     // If player has moved and looked in a different direction, reset playersIdling and the other condition hashmaps
     @EventHandler
-    public static void onMovement(PlayerMoveEvent e) {
+    public void onMovement(PlayerMoveEvent e) {
         Location from = e.getFrom();
         Location to = e.getTo();
         if (to == null)
