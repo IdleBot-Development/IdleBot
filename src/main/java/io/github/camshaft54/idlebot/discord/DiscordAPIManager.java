@@ -32,8 +32,8 @@ import javax.security.auth.login.LoginException;
 public class DiscordAPIManager {
     private final ConfigManager config;
     private final IdleBot plugin;
-    public JDA bot;
-    public TextChannel channel;
+    public static JDA bot;
+    public static TextChannel channel;
 
     public DiscordAPIManager(IdleBot plugin) {
         config = IdleBot.getConfigManager();
@@ -44,9 +44,10 @@ public class DiscordAPIManager {
             Messenger.sendMessage("Failed to initialize JDA!", MessageLevel.FATAL_ERROR);
             plugin.disablePlugin();
         }
+        bot.addEventListener(new DiscordMessageEvent());
         setActivity();
         getChannel();
-        Messenger.sendMessage("Successfully connected to Discord as " + bot.getSelfUser().getName(), MessageLevel.INFO);
+        Messenger.sendMessage("Successfully connected to Discord as " + bot.getSelfUser().getAsTag(), MessageLevel.INFO);
         Messenger.sendMessage("Open the following url to invite the bot: " + bot.getInviteUrl(), MessageLevel.INFO);
         IdleBot.discordAPIIsReady = true;
     }

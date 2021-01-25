@@ -47,12 +47,11 @@ public class LinkCommand implements IdleBotCommand {
             return true;
         }
         Random rng = new Random();
-        String botName = DiscordAPIManager.bot.getSelfUser().getName();
-
-        int code = rng.nextInt(999); // Generate a random token
-        while (isDuplicateToken(code) || code < 100) { // Keep getting new codes until it is unique and 3 digits
+        String botName = DiscordAPIManager.bot.getSelfUser().getAsTag();
+        int code;
+        do {
             code = rng.nextInt(999);
-        }
+        } while (isDuplicateToken(code) || code < 100);
         Messenger.sendMessage(player, "Your link code is " + code + ". Send this code in a private message to " + botName + " to link your account.", MessageLevel.IMPORTANT);
         IdleBot.linkCodes.put(code, player);
         return true;

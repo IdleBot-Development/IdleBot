@@ -23,45 +23,42 @@ import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.bukkit.entity.Player;
 
 public class DiscordMessageEvent extends ListenerAdapter {
-//    @Override
-//    public void onMessageCreate(MessageCreateEvent event) {
-//        if (event.getChannel().getType() == ChannelType.PRIVATE_CHANNEL && !event.getMessageAuthor().isBotUser()) {
-//            Message message = event.getMessage();
-//            TextChannel channel = message.getChannel();
-//            try {
-//                Integer code = Integer.parseInt(message.getContent());
-//                Messenger.sendMessage(event.getMessageAuthor().getDiscriminatedName() + " entered a code: " + code, MessageLevel.INFO);
-//                if (IdleBot.linkCodes.containsKey(code)) {
-//                    Player player = IdleBot.linkCodes.get(code);
-//                    PersistentDataHandler.setData(player, DataValues.DISCORD_ID.key(), event.getMessageAuthor().getIdAsString());
-//                    channel.sendMessage("Successfully linked your Discord username to Minecraft username " + player.getDisplayName());
-//                    Messenger.sendMessage(player, "Successfully linked your Minecraft username to Discord username " + event.getMessageAuthor().getDiscriminatedName(), MessageLevel.INFO);
-//                    IdleBot.linkCodes.remove(code);
-//                    // Since the player just linked,
-//                    setDefaultSettings(player);
-//                } else {
-//                    channel.sendMessage("Invalid Code. To get code type `/idlebot link` in Minecraft");
-//                }
-//            } catch (NumberFormatException e) {
-//                channel.sendMessage("Invalid Code. To get code type `/idlebot link` in Minecraft");
-//            }
-//        }
-//    }
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getChannelType() == ChannelType.PRIVATE && !event.getAuthor().isBot()) {
-
+            Message message = event.getMessage();
+            MessageChannel channel = event.getChannel();
+            try {
+                int code = Integer.parseInt(message.getContentRaw());
+                Messenger.sendMessage(event.getAuthor().getAsTag() + " entered a code: " + code, MessageLevel.INFO);
+                if (IdleBot.linkCodes.containsKey(code)) {
+                    Player player = IdleBot.linkCodes.get(code);
+                    PersistentDataHandler.setData(player, DataValues.DISCORD_ID.key(), event.getAuthor().getId());
+                    channel.sendMessage("Successfully linked your Discord username to Minecraft username " + player.getDisplayName()).queue();
+                    message.addReaction("U+1F517").queue();
+                    Messenger.sendMessage(player, "Successfully linked your Minecraft username to Discord username " + event.getAuthor().getAsTag(), MessageLevel.INFO);
+                    IdleBot.linkCodes.remove(code);
+                    // Since the player just linked,
+                    setDefaultSettings(player);
+                } else {
+                    channel.sendMessage("Invalid Code. To get code type `/idlebot link` in Minecraft").queue();
+                }
+            } catch (NumberFormatException nfe) {
+                channel.sendMessage("Invalid Code. To get code type `/idlebot link` in Minecraft").queue();
+            }
         }
     }
 
     // This method is to set up default values for every player when they link their account
     private void setDefaultSettings(Player player) {
         PersistentDataHandler.setData(player, DataValues.AFK_TIME.key(), IdleBot.getConfigManager().DEFAULT_IDLE_TIME);
-        PersistentDataHandler.setData(player, DataValues.AUTO_AFK.key(), false);
+        PersistentDataHandler.setData(player, DataValues.AUTO_AFK.key(), true);
     }
 }
