@@ -81,11 +81,8 @@ public class PersistentDataHandler {
 
     public static void removeAllData(Player player) {
         PersistentDataContainer data = player.getPersistentDataContainer();
-        for (int i = 0; i < DataValues.values().length; i++) {
-            NamespacedKey key = new NamespacedKey(IdleBot.getPlugin(), DataValues.values()[i].key());
-//            if (data.has(key, PersistentDataType.INTEGER) || data.has(key, PersistentDataType.STRING)) {
-                data.remove(key);
-            // }
+        for (DataValues dataValue : DataValues.values()) {
+            data.remove(new NamespacedKey(IdleBot.getPlugin(), dataValue.key()));
         }
     }
 }

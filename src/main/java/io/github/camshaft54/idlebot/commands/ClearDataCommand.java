@@ -12,7 +12,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 
 public class ClearDataCommand implements IdleBotCommand {
-    private ArrayList<Player> players = new ArrayList<>();
+    private final ArrayList<Player> players = new ArrayList<>();
+    private String warningMessage = "WARNING: this command will clear all your data associated with IdleBot, type \"y\" to continue or \"n\" to cancel.";
 
     @Override
     public String getCommandName() {
@@ -26,11 +27,13 @@ public class ClearDataCommand implements IdleBotCommand {
 
     @Override
     public boolean runCommand(Player commandSender, String[] args) {
-        if (args[1] != null) {
+        if (args.length > 1) {
             if (commandSender.isOp()) {
                 if (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(args[1]))) {
+                    warningMessage = "WARNING: this command will clear all of " + args[1] + "'s data associated with IdleBot, type \"y\" to continue or \"n\" to cancel.";
                     players.add(Bukkit.getPlayer(args[1]));
                 } else if (args[1].equalsIgnoreCase("@a")) {
+                    warningMessage = "WARNING: this command will clear all of the data associated with IdleBot for ALL players, type \"y\" to continue or \"n\" to cancel.";
                     players.addAll(Bukkit.getOnlinePlayers());
                 } else {
                     return false;
@@ -53,7 +56,7 @@ public class ClearDataCommand implements IdleBotCommand {
         @NotNull
         @Override
         public String getPromptText(@NotNull ConversationContext conversationContext) {
-            return "WARNING: this command will clear all your data associated with IdleBot, type \"y\" to continue or \"n\" to cancel.";
+            return warningMessage;
         }
 
         @Nullable
@@ -70,7 +73,7 @@ public class ClearDataCommand implements IdleBotCommand {
         }
     }
 
-    private class YesPrompt extends MessagePrompt {
+    private static class YesPrompt extends MessagePrompt {
         @Nullable
         @Override
         protected Prompt getNextPrompt(@NotNull ConversationContext conversationContext) {
@@ -84,7 +87,7 @@ public class ClearDataCommand implements IdleBotCommand {
         }
     }
 
-    private class NoPrompt extends MessagePrompt {
+    private static class NoPrompt extends MessagePrompt {
         @Nullable
         @Override
         protected Prompt getNextPrompt(@NotNull ConversationContext conversationContext) {
