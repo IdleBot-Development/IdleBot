@@ -29,7 +29,7 @@ public class ClearDataCommand implements IdleBotCommand {
     public boolean runCommand(Player commandSender, String[] args) {
         if (args.length > 1) {
             if (commandSender.isOp()) {
-                if (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(args[1]))) {
+                if (Bukkit.getPlayer(args[1]) != null) {
                     warningMessage = "WARNING: this command will clear all of " + args[1] + "'s data associated with IdleBot, type \"y\" to continue or \"n\" to cancel.";
                     players.add(Bukkit.getPlayer(args[1]));
                 } else if (args[1].equalsIgnoreCase("@a")) {
