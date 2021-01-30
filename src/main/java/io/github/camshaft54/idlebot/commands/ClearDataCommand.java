@@ -2,7 +2,9 @@ package io.github.camshaft54.idlebot.commands;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
+import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.Bukkit;
 import org.bukkit.conversations.*;
 import org.bukkit.entity.Player;
@@ -26,9 +28,9 @@ public class ClearDataCommand implements IdleBotCommand {
     }
 
     @Override
-    public boolean runCommand(Player commandSender, String[] args) {
+    public boolean runCommand(Player player, String[] args) {
         if (args.length > 1) {
-            if (commandSender.isOp()) {
+            if (player.isOp()) {
                 if (Bukkit.getPlayer(args[1]) != null) {
                     warningMessage = "WARNING: this command will clear all of " + args[1] + "'s data associated with IdleBot, type \"y\" to continue or \"n\" to cancel.";
                     players.add(Bukkit.getPlayer(args[1]));
@@ -36,18 +38,20 @@ public class ClearDataCommand implements IdleBotCommand {
                     warningMessage = "WARNING: this command will clear all of the data associated with IdleBot for ALL players, type \"y\" to continue or \"n\" to cancel.";
                     players.addAll(Bukkit.getOnlinePlayers());
                 } else {
-                    return false;
+                    Messenger.sendMessage(player, "Cannot find player \"" + args[1] + "\"", MessageLevel.INCORRECT_COMMAND_USAGE);
+                    return true;
                 }
             } else {
-                return false;
+                Messenger.sendMessage(player, "You don't have permission to clear the data of other players!", MessageLevel.INCORRECT_COMMAND_USAGE);
+                return true;
             }
         } else {
-            players.add(commandSender);
+            players.add(player);
         }
         ConversationFactory factory = new ConversationFactory(IdleBot.getPlugin())
                 .withFirstPrompt(new WarningPrompt())
                 .withLocalEcho(false);
-        Conversation conversation = factory.buildConversation(commandSender);
+        Conversation conversation = factory.buildConversation(player);
         conversation.begin();
         return true;
     }

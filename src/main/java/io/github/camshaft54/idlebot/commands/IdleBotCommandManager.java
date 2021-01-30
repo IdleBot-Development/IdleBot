@@ -70,6 +70,4 @@ public class IdleBotCommandManager implements CommandExecutor {
         }
         return false;
     }
-
-
 }
