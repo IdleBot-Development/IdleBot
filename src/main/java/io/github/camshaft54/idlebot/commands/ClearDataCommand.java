@@ -6,12 +6,14 @@ import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.conversations.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ClearDataCommand implements IdleBotCommand {
     private final ArrayList<Player> players = new ArrayList<>();
@@ -24,7 +26,7 @@ public class ClearDataCommand implements IdleBotCommand {
 
     @Override
     public String getCommandUsage() {
-        return "/idlebot cleardata [player name (admin-only)]";
+        return "/idlebot cleardata [player name|@online|@offline]";
     }
 
     @Override
@@ -34,10 +36,22 @@ public class ClearDataCommand implements IdleBotCommand {
                 if (Bukkit.getPlayer(args[1]) != null) {
                     warningMessage = "WARNING: this command will clear all of " + args[1] + "'s data associated with IdleBot, type \"y\" to continue or \"n\" to cancel.";
                     players.add(Bukkit.getPlayer(args[1]));
-                } else if (args[1].equalsIgnoreCase("@a")) {
-                    warningMessage = "WARNING: this command will clear all of the data associated with IdleBot for ALL players, type \"y\" to continue or \"n\" to cancel.";
+                } else if (args[1].equalsIgnoreCase("@online")) {
+                    warningMessage = "WARNING: this command will clear all of the data associated with IdleBot for ALL players currently online, type \"y\" to continue or \"n\" to cancel.";
                     players.addAll(Bukkit.getOnlinePlayers());
-                } else {
+                } else if (args[1].equalsIgnoreCase("@offline")) {
+                    warningMessage = "WARNING: this command will clear all of the data associated with IdleBot for ALL players who have ever joined the server, type \"y\" to continue or \"n\" to cancel.";
+                    ArrayList<OfflinePlayer> allPlayers = new ArrayList<>(Arrays.asList(Bukkit.getOfflinePlayers()));
+                    allPlayers.forEach(offlinePlayer -> {
+                        Player onlinePlayer = offlinePlayer.getPlayer();
+                        if (onlinePlayer != null) {
+                            players.add(onlinePlayer);
+                            allPlayers.remove(offlinePlayer);
+                        }
+                    });
+                    // Do some JSON crap here
+                }
+                else {
                     Messenger.sendMessage(player, "Cannot find player \"" + args[1] + "\"", MessageLevel.INCORRECT_COMMAND_USAGE);
                     return true;
                 }
