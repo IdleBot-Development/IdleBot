@@ -19,6 +19,7 @@ package io.github.camshaft54.idlebot;
 
 import github.scarsz.configuralize.ParseException;
 import io.github.camshaft54.idlebot.commands.IdleBotCommandManager;
+import io.github.camshaft54.idlebot.commands.IdleBotTabCompleter;
 import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
 import io.github.camshaft54.idlebot.events.*;
 import io.github.camshaft54.idlebot.util.ConfigManager;
@@ -27,6 +28,7 @@ import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import lombok.Getter;
 import net.dv8tion.jda.api.JDA;
 import org.bukkit.Bukkit;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -61,7 +63,9 @@ public class IdleBot extends JavaPlugin {
         if (isEnabled()) {
             BukkitScheduler scheduler = getServer().getScheduler();
             PluginManager pluginManager = getServer().getPluginManager();
-            Objects.requireNonNull(this.getCommand("idlebot")).setExecutor(new IdleBotCommandManager());
+            PluginCommand idleBotCommand = Objects.requireNonNull(this.getCommand("idlebot"));
+            idleBotCommand.setExecutor(new IdleBotCommandManager());
+            idleBotCommand.setTabCompleter(new IdleBotTabCompleter());
             scheduler.runTaskTimer(this, new IdleChecker(), 20L, 20L); // Execute the idle checker every 20 ticks (1 second)
             scheduler.runTaskTimer(this, eventManager, 20L, 20L); // Check for all extra events (events that don't have official Bukkit events) every 20 ticks (1 second)
             pluginManager.registerEvents(new OnMovement(), this); // Register movement event
