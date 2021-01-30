@@ -43,6 +43,7 @@ public class IdleBotCommandManager implements CommandExecutor {
         idleBotCommands.add(new XPLevelCommand());
         idleBotCommands.add(new ChannelCommand());
         idleBotCommands.add(new LocationCommand());
+        idleBotCommands.add(new ClearDataCommand());
     }
 
     @Override

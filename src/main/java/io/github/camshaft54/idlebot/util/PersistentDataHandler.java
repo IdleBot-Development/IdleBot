@@ -18,6 +18,7 @@
 package io.github.camshaft54.idlebot.util;
 
 import io.github.camshaft54.idlebot.IdleBot;
+import io.github.camshaft54.idlebot.util.enums.DataValues;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -76,5 +77,15 @@ public class PersistentDataHandler {
     public static void removeData(Player player, String key) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         data.remove(new NamespacedKey(IdleBot.getPlugin(), key));
+    }
+
+    public static void removeAllData(Player player) {
+        PersistentDataContainer data = player.getPersistentDataContainer();
+        for (int i = 0; i < DataValues.values().length; i++) {
+            NamespacedKey key = new NamespacedKey(IdleBot.getPlugin(), DataValues.values()[i].key());
+//            if (data.has(key, PersistentDataType.INTEGER) || data.has(key, PersistentDataType.STRING)) {
+                data.remove(key);
+            // }
+        }
     }
 }
