@@ -27,11 +27,11 @@ import java.util.ArrayList;
 
 public class EventManager implements Runnable {
     // Lists to store the players who have already been pinged
-    public ArrayList<Player> inventoryFullPlayers = new ArrayList<>();
-    public ArrayList<Player> locationReachedPlayersX = new ArrayList<>();
-    public ArrayList<Player> locationReachedPlayersZ = new ArrayList<>();
-    public ArrayList<Player> damagedPlayers = new ArrayList<>();
-    public ArrayList<Player> XPLevelReachedPlayers = new ArrayList<>();
+    public final ArrayList<Player> inventoryFullPlayers = new ArrayList<>();
+    public final ArrayList<Player> locationReachedPlayersX = new ArrayList<>();
+    public final ArrayList<Player> locationReachedPlayersZ = new ArrayList<>();
+    public final ArrayList<Player> damagedPlayers = new ArrayList<>();
+    public final ArrayList<Player> XPLevelReachedPlayers = new ArrayList<>();
 
     private final ArrayList<IdleCheck> idleChecks = new ArrayList<>();
 

@@ -24,13 +24,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 
 public class IdleBotCommandManager implements CommandExecutor {
 
-    ArrayList<IdleBotCommand> idleBotCommands = new ArrayList<>();
+    final ArrayList<IdleBotCommand> idleBotCommands = new ArrayList<>();
 
     public IdleBotCommandManager() {
         // Add /idlebot commands to list of commands
@@ -48,7 +49,7 @@ public class IdleBotCommandManager implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String str, String[] args) {
+    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String str, String[] args) {
         if (!(commandSender instanceof Player)) {
             Messenger.sendMessage("This command can be run only by players!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;

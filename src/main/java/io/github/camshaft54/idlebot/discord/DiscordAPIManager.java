@@ -50,7 +50,6 @@ public class DiscordAPIManager {
         getChannel();
         Messenger.sendMessage("Successfully connected to Discord as " + bot.getSelfUser().getAsTag(), MessageLevel.INFO);
         Messenger.sendMessage("Open the following url to invite the bot: " + bot.getInviteUrl(), MessageLevel.INFO);
-        IdleBot.discordAPIIsReady = true;
     }
 
     private void setActivity() {

@@ -16,6 +16,7 @@ import java.util.Arrays;
 public class OnPlayerJoin implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
+        // Code to remove data if the player was offline when the command was run
         ArrayList<String> offlinePlayers = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(IdleBot.getPlugin().getDataFolder() + "/data.txt");
@@ -32,6 +33,12 @@ public class OnPlayerJoin implements Listener {
                 // TODO: REMOVE THE PLAYER FROM THE FILE!!!!
                 break;
             }
+        }
+
+        // Code to check for available update
+        if (e.getPlayer().isOp()) {
+            if (!IdleBot.getLocalVersion().equals(IdleBot.getLatestVersion()) && !(IdleBot.getLocalVersion() == null || IdleBot.getLatestVersion() == null))
+                Messenger.sendMessage(e.getPlayer(), "You are running an outdated version! (You are running version " + IdleBot.getLocalVersion() + " but the latest version is " + IdleBot.getLatestVersion() + ". Go to https://github.com/CamShaft54/IdleBot/releases to download a new version", MessageLevel.IMPORTANT);
         }
     }
 }

@@ -26,7 +26,6 @@ import io.github.camshaft54.idlebot.util.ConfigManager;
 import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import lombok.Getter;
-import net.dv8tion.jda.api.JDA;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
@@ -34,7 +33,12 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -44,11 +48,10 @@ public class IdleBot extends JavaPlugin {
     @Getter private static final EventManager eventManager = new EventManager();
     @Getter private static IdleBot plugin;
     @Getter private static DiscordAPIManager discordAPIManager;
-    public static boolean discordAPIIsReady = false;
-    public static HashMap<Integer, Player> linkCodes = new HashMap<>();
-    public static HashMap<Player, Integer> idlePlayers = new HashMap<>();
-
-    public JDA bot;
+    @Getter private static String localVersion;
+    @Getter private static String latestVersion;
+    public static final HashMap<Integer, Player> linkCodes = new HashMap<>();
+    public static final HashMap<Player, Integer> idlePlayers = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -73,6 +76,16 @@ public class IdleBot extends JavaPlugin {
             pluginManager.registerEvents(new OnDeath(), this); // Register death event
             pluginManager.registerEvents(new OnPlayerQuit(), this); // Register player quit event
             pluginManager.registerEvents(new OnPlayerJoin(), this); // Register player join event
+            try {
+                checkVersion();
+                if (localVersion.equals(latestVersion)) {
+                    Messenger.sendMessage("You are running the latest version! (" + localVersion + ")", MessageLevel.INFO);
+                } else {
+                    Messenger.sendMessage("You are running an outdated version! (You are running version " + localVersion + " but the latest version is " + latestVersion + "\nGo to https://github.com/CamShaft54/IdleBot/releases to download a new version", MessageLevel.IMPORTANT);
+                }
+            } catch (IOException e) {
+                Messenger.sendMessage("Error checking for latest version. You can probably ignore this.", MessageLevel.FATAL_ERROR);
+            }
             // Load JDA
             Messenger.sendMessage("Starting to load JDA", MessageLevel.INFO);
             discordAPIManager = new DiscordAPIManager(this);
@@ -87,6 +100,15 @@ public class IdleBot extends JavaPlugin {
 
     public void disablePlugin() {
         Bukkit.getPluginManager().disablePlugin(plugin);
+    }
+
+    public void checkVersion() throws IOException {
+        localVersion = getDescription().getVersion();
+        URL latestVersionURL = new URL("https://raw.githubusercontent.com/CamShaft54/IdleBot/master/.versions/latest.txt");
+        URLConnection latestVersionURLConnection = latestVersionURL.openConnection();
+        InputStream latestVersionInputStream = latestVersionURLConnection.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(latestVersionInputStream));
+        latestVersion = reader.readLine();
     }
 }
 

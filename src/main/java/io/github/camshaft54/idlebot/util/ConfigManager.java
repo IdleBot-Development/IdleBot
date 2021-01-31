@@ -31,7 +31,6 @@ import java.io.IOException;
 
 public class ConfigManager {
 
-    IdleBot plugin;
     @Getter private final File configFile;
 
     // Private variables for config values
@@ -43,13 +42,10 @@ public class ConfigManager {
     public final int MINIMUM_IDLE_TIME;
     public final int MAXIMUM_IDLE_TIME;
 
-    private DynamicConfig config;
-
     public ConfigManager(IdleBot plugin) throws IOException, ParseException {
-        this.plugin = plugin;
         configFile = new File(plugin.getDataFolder(), "config.yml");
         plugin.getDataFolder().mkdirs();
-        config = new DynamicConfig();
+        DynamicConfig config = new DynamicConfig();
         config.addSource(IdleBot.class, "config", getConfigFile());
         config.saveAllDefaults();
         config.loadAll();

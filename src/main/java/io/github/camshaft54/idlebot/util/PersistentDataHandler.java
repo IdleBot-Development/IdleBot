@@ -53,6 +53,7 @@ public class PersistentDataHandler {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     public static boolean getBooleanData(Player player, String key) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         try {
@@ -63,6 +64,7 @@ public class PersistentDataHandler {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     public static int getIntData(Player player, String key) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         try {
