@@ -42,7 +42,7 @@ public class LocationCommand implements IdleBotCommand {
                 }
                 PersistentDataHandler.setData(player, DataValues.LOCATION_Z_DESIRED.key(), coord);
             }
-            Messenger.sendMessage(player, "Set " + player.getDisplayName() + "'s desired location to " + args[1].toLowerCase() + "=" + args[2], MessageLevel.INFO);
+            Messenger.sendMessage(player, "Set your desired location to " + args[1].toLowerCase() + "=" + args[2], MessageLevel.INFO);
             return true;
         }
         return false;

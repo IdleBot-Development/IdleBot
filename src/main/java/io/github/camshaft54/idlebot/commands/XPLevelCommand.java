@@ -23,7 +23,7 @@ public class XPLevelCommand implements IdleBotCommand {
     public boolean runCommand(Player player, String[] args) {
         if (args.length >= 2 && CommandUtils.isInteger(args[1]) && Integer.parseInt(args[1]) > 0) {
             PersistentDataHandler.setData(player, DataValues.EXPERIENCE_LEVEL_DESIRED.key(), Integer.parseInt(args[1]));
-            Messenger.sendMessage(player, "Set " + player.getDisplayName() + "'s desired XP level to " + args[1], MessageLevel.INFO);
+            Messenger.sendMessage(player, "Set your desired XP level to " + args[1], MessageLevel.INFO);
             return true;
         }
         return false;

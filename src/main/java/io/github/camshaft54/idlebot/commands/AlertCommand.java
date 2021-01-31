@@ -66,11 +66,11 @@ public class AlertCommand implements IdleBotCommand {
         }
         if (args[2].equalsIgnoreCase("true")) {
             PersistentDataHandler.setData(player, dataKey, true);
-            Messenger.sendMessage(player, "Turned on " + args[1].toLowerCase() + " alerts for " + player.getDisplayName(), MessageLevel.INFO);
+            Messenger.sendMessage(player, "Turned on " + args[1].toLowerCase() + " alerts", MessageLevel.INFO);
             return true;
         } else if (args[2].equalsIgnoreCase("false")) {
             PersistentDataHandler.setData(player, dataKey, false);
-            Messenger.sendMessage(player, "Turned off " + args[1].toLowerCase() + " alerts for " + player.getDisplayName(), MessageLevel.INFO);
+            Messenger.sendMessage(player, "Turned off " + args[1].toLowerCase() + " alerts", MessageLevel.INFO);
             return true;
         }
         return false;

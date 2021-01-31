@@ -40,12 +40,12 @@ public class AFKModeCommand implements IdleBotCommand {
     public boolean runCommand(Player player, String[] args) {
         if (args.length >= 2 && args[1].equalsIgnoreCase("manual")) {
             PersistentDataHandler.setData(player, DataValues.AUTO_AFK.key(), false);
-            Messenger.sendMessage(player, "Set " + player.getDisplayName() + "'s afkmode to manual", MessageLevel.INFO);
+            Messenger.sendMessage(player, "Set your afkmode to manual", MessageLevel.INFO);
             return true;
         } else if (args.length >= 2 && args[1].equalsIgnoreCase("auto")) {
             PersistentDataHandler.setData(player, DataValues.AUTO_AFK.key(), true);
             PersistentDataHandler.setData(player, DataValues.IS_SET_AFK.key(), false);
-            Messenger.sendMessage(player, "Set " + player.getDisplayName() + "'s afkmode to auto", MessageLevel.INFO);
+            Messenger.sendMessage(player, "Set your afkmode to auto", MessageLevel.INFO);
             return true;
         }
         return false;

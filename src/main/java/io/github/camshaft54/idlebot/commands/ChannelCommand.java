@@ -23,11 +23,11 @@ public class ChannelCommand implements IdleBotCommand {
         if (args.length < 2) return false;
         if (args[1].equalsIgnoreCase("public")) {
             PersistentDataHandler.setData(player, DataValues.DIRECT_MESSAGE_MODE.key(), false);
-            Messenger.sendMessage(player, "Set " + player.getDisplayName() + "'s alerts channel to public", MessageLevel.INFO);
+            Messenger.sendMessage(player, "Set your alerts channel to public", MessageLevel.INFO);
             return true;
         } else if (args[1].equalsIgnoreCase("private")) {
             PersistentDataHandler.setData(player, DataValues.DIRECT_MESSAGE_MODE.key(), true);
-            Messenger.sendMessage(player, "Set " + player.getDisplayName() + "'s alerts channel to private", MessageLevel.INFO);
+            Messenger.sendMessage(player, "Set your alerts channel to private", MessageLevel.INFO);
             return true;
         }
         return false;

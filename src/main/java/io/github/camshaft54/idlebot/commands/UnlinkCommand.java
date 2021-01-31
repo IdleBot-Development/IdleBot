@@ -42,7 +42,7 @@ public class UnlinkCommand implements IdleBotCommand {
             return true;
         }
         PersistentDataHandler.removeData(player, DataValues.DISCORD_ID.key());
-        Messenger.sendMessage(player, "Unlinked " + player.getDisplayName() + "'s Discord username", MessageLevel.INFO);
+        Messenger.sendMessage(player, "Unlinked your Discord username", MessageLevel.INFO);
         return true;
     }
 }

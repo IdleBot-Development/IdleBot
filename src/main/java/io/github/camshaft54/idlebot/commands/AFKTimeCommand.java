@@ -41,7 +41,7 @@ public class AFKTimeCommand implements IdleBotCommand {
     public boolean runCommand(Player player, String[] args) {
         if (args.length >= 2 && CommandUtils.isInteger(args[1]) && Integer.parseInt(args[1]) >= IdleBot.getConfigManager().MINIMUM_IDLE_TIME && Integer.parseInt(args[1]) <= IdleBot.getConfigManager().MAXIMUM_IDLE_TIME) {
             PersistentDataHandler.setData(player, DataValues.AFK_TIME.key(), Integer.parseInt(args[1]));
-            Messenger.sendMessage(player, "Set " + player.getDisplayName() + "'s afktime to " + args[1], MessageLevel.INFO);
+            Messenger.sendMessage(player, "Set your afktime to " + args[1], MessageLevel.INFO);
             return true;
         }
         return false;

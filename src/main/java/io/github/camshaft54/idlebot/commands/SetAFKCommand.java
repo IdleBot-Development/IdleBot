@@ -23,12 +23,12 @@ public class SetAFKCommand implements IdleBotCommand {
     public boolean runCommand(Player player, String[] args) {
         if (args.length >= 2 && args[1].equalsIgnoreCase("true")) {
             PersistentDataHandler.setData(player, DataValues.IS_SET_AFK.key(), true);
-            Messenger.sendMessage(player, "Set " + player.getDisplayName() + "'s afk status to true", MessageLevel.INFO);
+            Messenger.sendMessage(player, "Set your afk status to true", MessageLevel.INFO);
             return true;
         } else if (args.length >= 2 && args[1].equalsIgnoreCase("false")) {
             PersistentDataHandler.setData(player, DataValues.IS_SET_AFK.key(), false);
             EventUtils.clearPlayerIdleStats(player);
-            Messenger.sendMessage(player, "Set " + player.getDisplayName() + "'s afk status to false", MessageLevel.INFO);
+            Messenger.sendMessage(player, "Set your afk status to false", MessageLevel.INFO);
             return true;
         }
         return false;
