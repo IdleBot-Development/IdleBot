@@ -44,6 +44,7 @@ public class IdleBotCommandManager implements CommandExecutor {
         idleBotCommands.add(new ChannelCommand());
         idleBotCommands.add(new LocationCommand());
         idleBotCommands.add(new ClearDataCommand());
+        idleBotCommands.add(new ViewSettingsCommand());
     }
 
     @Override
@@ -60,12 +61,9 @@ public class IdleBotCommandManager implements CommandExecutor {
         }
         for (IdleBotCommand eachCommand : idleBotCommands) {
             if (eachCommand.getCommandName().equalsIgnoreCase(args[0])) {
-                if (!eachCommand.runCommand(player, args)) {
+                if (!eachCommand.runCommand(player, args))
                     Messenger.sendMessage(player, "Command usage: " + eachCommand.getCommandUsage(), MessageLevel.INCORRECT_COMMAND_USAGE);
-                    return false;
-                } else {
-                    return true;
-                }
+                return true;
             }
         }
         return false;

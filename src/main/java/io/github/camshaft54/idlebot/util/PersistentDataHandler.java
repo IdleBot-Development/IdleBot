@@ -40,7 +40,7 @@ public class PersistentDataHandler {
     // Set "boolean" data (0 for false, 1 for true)
     public static void setData(Player player, String key, boolean value) {
         PersistentDataContainer data = player.getPersistentDataContainer();
-        data.set(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.INTEGER, (value) ? 1 : 0);
+        data.set(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.INTEGER, value ? 1 : 0);
     }
 
     public static String getStringData(Player player, String key) {
@@ -76,13 +76,16 @@ public class PersistentDataHandler {
     // Method to remove data by key from a player
     public static void removeData(Player player, String key) {
         PersistentDataContainer data = player.getPersistentDataContainer();
-        data.remove(new NamespacedKey(IdleBot.getPlugin(), key));
+        try {
+            data.remove(new NamespacedKey(IdleBot.getPlugin(), key));
+        } catch (NullPointerException npe) {
+            // The player didn't have the value set (nothing else to do)
+        }
     }
 
     public static void removeAllData(Player player) {
-        PersistentDataContainer data = player.getPersistentDataContainer();
         for (DataValues dataValue : DataValues.values()) {
-            data.remove(new NamespacedKey(IdleBot.getPlugin(), dataValue.key()));
+            removeData(player, dataValue.key());
         }
     }
 }

@@ -29,6 +29,7 @@ public class OnPlayerJoin implements Listener {
             if (offlinePlayers.contains(joinedPlayerUUID)) {
                 offlinePlayers.remove(offlinePlayer);
                 PersistentDataHandler.removeAllData(e.getPlayer());
+                // TODO: REMOVE THE PLAYER FROM THE FILE!!!!
                 break;
             }
         }
