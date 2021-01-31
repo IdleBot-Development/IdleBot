@@ -6,18 +6,20 @@ import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.conversations.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ClearDataCommand implements IdleBotCommand {
     private final ArrayList<Player> players = new ArrayList<>();
     private String warningMessage = "WARNING: this command will clear all your data associated with IdleBot, type \"y\" to continue or \"n\" to cancel.";
+    private String offlinePlayersString = "";
 
     @Override
     public String getCommandName() {
@@ -41,15 +43,17 @@ public class ClearDataCommand implements IdleBotCommand {
                     players.addAll(Bukkit.getOnlinePlayers());
                 } else if (args[1].equalsIgnoreCase("@offline")) {
                     warningMessage = "WARNING: this command will clear all of the data associated with IdleBot for ALL players who have ever joined the server, type \"y\" to continue or \"n\" to cancel.";
-                    ArrayList<OfflinePlayer> allPlayers = new ArrayList<>(Arrays.asList(Bukkit.getOfflinePlayers()));
-                    allPlayers.forEach(offlinePlayer -> {
+                    ArrayList<String> offlinePlayers = new ArrayList<>();
+                    new ArrayList<>(Arrays.asList(Bukkit.getOfflinePlayers())).forEach(offlinePlayer -> {
                         Player onlinePlayer = offlinePlayer.getPlayer();
                         if (onlinePlayer != null) {
                             players.add(onlinePlayer);
-                            allPlayers.remove(offlinePlayer);
+                        } else {
+                            offlinePlayers.add(offlinePlayer.getUniqueId().toString());
                         }
                     });
-                    // Do some JSON crap here
+                    offlinePlayersString = Arrays.toString(offlinePlayers.toArray());
+                    offlinePlayersString = offlinePlayersString.substring(1, offlinePlayersString.length() - 1).replace(" ", "") + ",";
                 }
                 else {
                     Messenger.sendMessage(player, "Cannot find player \"" + args[1] + "\"", MessageLevel.INCORRECT_COMMAND_USAGE);
@@ -84,6 +88,7 @@ public class ClearDataCommand implements IdleBotCommand {
                 for (Player player : players) {
                     PersistentDataHandler.removeAllData(player);
                 }
+                writeOfflinePlayersToFile();
                 return new YesPrompt();
             } else {
                 return new NoPrompt();
@@ -116,6 +121,20 @@ public class ClearDataCommand implements IdleBotCommand {
         @Override
         public String getPromptText(@NotNull ConversationContext conversationContext) {
             return "Request to clear data cancelled.";
+        }
+    }
+
+    private void writeOfflinePlayersToFile() {
+        if (offlinePlayersString.length() > 0) {
+            try {
+                FileWriter writer = new FileWriter(IdleBot.getPlugin().getDataFolder() + "/data.txt", true);
+                BufferedWriter bufferedWriter = new BufferedWriter(writer);
+                bufferedWriter.write(offlinePlayersString);
+                bufferedWriter.close();
+            } catch (Exception e) {
+                Messenger.sendMessage("Error writing to data file!", MessageLevel.FATAL_ERROR);
+                e.printStackTrace();
+            }
         }
     }
 }

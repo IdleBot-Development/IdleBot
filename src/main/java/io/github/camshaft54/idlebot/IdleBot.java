@@ -72,6 +72,7 @@ public class IdleBot extends JavaPlugin {
             pluginManager.registerEvents(new OnDamage(), this); // Register damage event
             pluginManager.registerEvents(new OnDeath(), this); // Register death event
             pluginManager.registerEvents(new OnPlayerQuit(), this); // Register player quit event
+            pluginManager.registerEvents(new OnPlayerJoin(), this); // Register player join event
             // Load JDA
             Messenger.sendMessage("Starting to load JDA", MessageLevel.INFO);
             discordAPIManager = new DiscordAPIManager(this);
