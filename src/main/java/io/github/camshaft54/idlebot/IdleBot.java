@@ -81,7 +81,7 @@ public class IdleBot extends JavaPlugin {
                 if (localVersion.equals(latestVersion)) {
                     Messenger.sendMessage("You are running the latest version! (" + localVersion + ")", MessageLevel.INFO);
                 } else {
-                    Messenger.sendMessage("You are running an outdated version! (You are running version " + localVersion + " but the latest version is " + latestVersion + "\nGo to https://github.com/CamShaft54/IdleBot/releases to download a new version", MessageLevel.IMPORTANT);
+                    Messenger.sendMessage("You are running an outdated version! (You are running version " + localVersion + " but the latest version is " + latestVersion + ")\nGo to https://github.com/CamShaft54/IdleBot/releases to download a new version", MessageLevel.IMPORTANT);
                 }
             } catch (IOException e) {
                 Messenger.sendMessage("Error checking for latest version. You can probably ignore this.", MessageLevel.FATAL_ERROR);
