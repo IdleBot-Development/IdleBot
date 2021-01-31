@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+@SuppressWarnings("ConstantConditions")
 public class IdleBotTabCompleter implements TabCompleter {
 
     @Nullable

@@ -56,10 +56,8 @@ public class IdleBotCommandManager implements CommandExecutor {
         }
         Player player = (Player) commandSender;
 
-        if (args.length <= 0) {
-            // send an information "packet"
-            return true;
-        }
+        if (args.length <= 0)
+            return false;
         for (IdleBotCommand eachCommand : idleBotCommands) {
             if (eachCommand.getCommandName().equalsIgnoreCase(args[0])) {
                 if (!eachCommand.runCommand(player, args))

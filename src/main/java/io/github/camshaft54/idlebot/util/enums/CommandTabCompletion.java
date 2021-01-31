@@ -13,6 +13,7 @@ public enum CommandTabCompletion {
     LOCATION(new String[]{"x", "z"}),
     AFK(new String[]{"true", "false"}),
     UNLINK(),
+    INFO(),
     XPLEVEL();
 
     @Getter final String[][] args;

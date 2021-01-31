@@ -44,6 +44,7 @@ public class ConfigManager {
 
     public ConfigManager(IdleBot plugin) throws IOException, ParseException {
         configFile = new File(plugin.getDataFolder(), "config.yml");
+        //noinspection ResultOfMethodCallIgnored
         plugin.getDataFolder().mkdirs();
         DynamicConfig config = new DynamicConfig();
         config.addSource(IdleBot.class, "config", getConfigFile());
