@@ -20,11 +20,16 @@ package io.github.camshaft54.idlebot.util;
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
+import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
 import org.bukkit.entity.Player;
 
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class EventUtils {
@@ -62,5 +67,21 @@ public class EventUtils {
         IdleBot.getEventManager().locationReachedPlayersX.remove(player);
         IdleBot.getEventManager().locationReachedPlayersZ.remove(player);
         IdleBot.getEventManager().XPLevelReachedPlayers.remove(player);
+    }
+
+    public static void saveListToDataFile(ArrayList<String> playerList, boolean append) {
+        String playersString = Arrays.toString(playerList.toArray());
+        playersString = playersString.substring(1, playersString.length() - 1).replace(" ", "") + ",";
+        if (!playersString.equals(",")) {
+            try {
+                FileWriter writer = new FileWriter(IdleBot.getPlugin().getDataFolder() + "/data.txt", append);
+                BufferedWriter bufferedWriter = new BufferedWriter(writer);
+                bufferedWriter.write(playersString);
+                bufferedWriter.close();
+            } catch (Exception e) {
+                Messenger.sendMessage("Error writing to data file!", MessageLevel.FATAL_ERROR);
+                e.printStackTrace();
+            }
+        }
     }
 }

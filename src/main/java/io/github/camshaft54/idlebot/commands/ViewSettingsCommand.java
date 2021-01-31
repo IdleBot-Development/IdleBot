@@ -25,7 +25,7 @@ public class ViewSettingsCommand implements IdleBotCommand {
     public boolean runCommand(Player player, String[] args) {
         Messenger.sendMessage(player, "Your current settings: ", MessageLevel.INFO);
         String discordID = PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key());
-        player.sendMessage("Account linked: " + (discordID == null ? "false" : ("true (" + Objects.requireNonNull(DiscordAPIManager.bot.getUserById(discordID)).getAsTag() + ")")));
+        player.sendMessage("Account linked: " + (discordID == null ? "false" : ("true (" + Objects.requireNonNull(DiscordAPIManager.bot.retrieveUserById(discordID)).complete().getAsTag() + ")")));
         player.sendMessage("Message channel: " + (PersistentDataHandler.getBooleanData(player, DataValues.DIRECT_MESSAGE_MODE.key()) ? "direct message" : "public channel"));
         player.sendMessage("AFK mode: " + (PersistentDataHandler.getBooleanData(player, DataValues.AUTO_AFK.key()) ? "auto" : ("manual (Set AFK: " + PersistentDataHandler.getBooleanData(player, DataValues.IS_SET_AFK.key()) + ")")));
         player.sendMessage("AFK time: " + PersistentDataHandler.getIntData(player, DataValues.AFK_TIME.key()));

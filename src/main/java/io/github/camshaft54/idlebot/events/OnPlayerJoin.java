@@ -1,6 +1,7 @@
 package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
+import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
@@ -9,9 +10,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class OnPlayerJoin implements Listener {
     @EventHandler
@@ -19,9 +22,14 @@ public class OnPlayerJoin implements Listener {
         // Code to remove data if the player was offline when the command was run
         ArrayList<String> offlinePlayers = new ArrayList<>();
         try {
-            FileReader fileReader = new FileReader(IdleBot.getPlugin().getDataFolder() + "/data.txt");
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            offlinePlayers = (ArrayList<String>) Arrays.asList(bufferedReader.readLine().split(","));
+            if (new File(IdleBot.getPlugin().getDataFolder() + "/data.txt").exists()) {
+                FileReader fileReader = new FileReader(IdleBot.getPlugin().getDataFolder() + "/data.txt");
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+                offlinePlayers = (ArrayList<String>) Arrays.asList(bufferedReader.readLine().split(","));
+                bufferedReader.close();
+                // Remove duplicates in ArrayList
+                offlinePlayers = (ArrayList<String>) offlinePlayers.stream().distinct().collect(Collectors.toList());
+            }
         } catch (Exception exception) {
             Messenger.sendMessage("Error reading data file!", MessageLevel.FATAL_ERROR);
         }
@@ -30,7 +38,7 @@ public class OnPlayerJoin implements Listener {
             if (offlinePlayers.contains(joinedPlayerUUID)) {
                 offlinePlayers.remove(offlinePlayer);
                 PersistentDataHandler.removeAllData(e.getPlayer());
-                // TODO: REMOVE THE PLAYER FROM THE FILE!!!!
+                EventUtils.saveListToDataFile(offlinePlayers, false);
                 break;
             }
         }
