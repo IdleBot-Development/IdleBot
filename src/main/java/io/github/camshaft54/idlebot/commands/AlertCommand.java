@@ -18,8 +18,10 @@
 package io.github.camshaft54.idlebot.commands;
 
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
+import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
+import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
 
 @SuppressWarnings("SpellCheckingInspection")
@@ -64,9 +66,11 @@ public class AlertCommand implements IdleBotCommand {
         }
         if (args[2].equalsIgnoreCase("true")) {
             PersistentDataHandler.setData(player, dataKey, true);
+            Messenger.sendMessage(player, "Turned on " + args[1].toLowerCase() + " alerts for " + player.getDisplayName(), MessageLevel.INFO);
             return true;
         } else if (args[2].equalsIgnoreCase("false")) {
             PersistentDataHandler.setData(player, dataKey, false);
+            Messenger.sendMessage(player, "Turned off " + args[1].toLowerCase() + " alerts for " + player.getDisplayName(), MessageLevel.INFO);
             return true;
         }
         return false;

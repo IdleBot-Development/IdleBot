@@ -2,8 +2,10 @@ package io.github.camshaft54.idlebot.commands;
 
 import io.github.camshaft54.idlebot.util.CommandUtils;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
+import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
+import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
 
 public class LocationCommand implements IdleBotCommand {
@@ -40,6 +42,7 @@ public class LocationCommand implements IdleBotCommand {
                 }
                 PersistentDataHandler.setData(player, DataValues.LOCATION_Z_DESIRED.key(), coord);
             }
+            Messenger.sendMessage(player, "Set " + player.getDisplayName() + "'s desired location to " + args[1].toLowerCase() + "=" + args[2], MessageLevel.INFO);
             return true;
         }
         return false;
