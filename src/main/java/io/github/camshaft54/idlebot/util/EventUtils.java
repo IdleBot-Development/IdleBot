@@ -1,5 +1,5 @@
 /*
- *    Copyright (C) 2020 Camshaft54, MetalTurtle18
+ *    Copyright (C) 2020-2021 Camshaft54, MetalTurtle18
  *
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
