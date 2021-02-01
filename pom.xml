@@ -6,7 +6,7 @@
 
     <groupId>io.github.camshaft54</groupId>
     <artifactId>IdleBot</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
     <build>
         <plugins>
             <plugin>
@@ -47,6 +47,11 @@
         <repository>
             <id>scarsz</id>
             <url>https://nexus.scarsz.me/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>jcenter</id>
+            <name>jcenter-bintray</name>
+            <url>https://jcenter.bintray.com</url>
         </repository>
     </repositories>
 
