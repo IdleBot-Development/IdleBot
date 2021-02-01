@@ -74,7 +74,7 @@ public class EventUtils {
         playersString = playersString.substring(1, playersString.length() - 1).replace(" ", "") + ",";
         if (!playersString.equals(",")) {
             try {
-                FileWriter writer = new FileWriter(IdleBot.getPlugin().getDataFolder() + "/data.txt", append);
+                FileWriter writer = new FileWriter(IdleBot.getPlugin().getDataFolder() + "/OfflinePlayersWhoNeedToHaveTheirDataCleared.txt", append);
                 BufferedWriter bufferedWriter = new BufferedWriter(writer);
                 bufferedWriter.write(playersString);
                 bufferedWriter.close();

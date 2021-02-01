@@ -39,8 +39,8 @@ public class OnPlayerJoin implements Listener {
         // Code to remove data if the player was offline when the command was run
         ArrayList<String> offlinePlayers = new ArrayList<>();
         try {
-            if (new File(IdleBot.getPlugin().getDataFolder() + "/data.txt").exists()) {
-                FileReader fileReader = new FileReader(IdleBot.getPlugin().getDataFolder() + "/data.txt");
+            if (new File(IdleBot.getPlugin().getDataFolder() + "/OfflinePlayersWhoNeedToHaveTheirDataCleared.txt").exists()) {
+                FileReader fileReader = new FileReader(IdleBot.getPlugin().getDataFolder() + "/OfflinePlayersWhoNeedToHaveTheirDataCleared.txt");
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
                 offlinePlayers = (ArrayList<String>) Arrays.asList(bufferedReader.readLine().split(","));
                 bufferedReader.close();
