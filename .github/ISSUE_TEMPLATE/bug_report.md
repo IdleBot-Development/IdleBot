@@ -8,6 +8,8 @@ assignees: ''
 ---
 
 **THIS REPORT IS FOR *SERVER ADMINISTRATORS.* IF YOU ARE A PLAYER, PLEASE CONTACT YOUR SERVER BEFORE MAKING A BUG REPORT.** Thank you
+
+
 **To Reproduce**
 Steps to reproduce the behavior (please modify to fit your report):
 1. Run command '...'
