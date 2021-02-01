@@ -47,7 +47,7 @@ public class OnPlayerJoin implements Listener {
                 Messenger.sendMessage("about to get line in file", MessageLevel.INFO);
                 String rawFileData = bufferedReader.readLine();
                 Messenger.sendMessage("converting string to arraylist", MessageLevel.INFO);
-                offlinePlayers = (ArrayList<String>) Arrays.asList(rawFileData.substring(0, rawFileData.length()-1).split(","));
+                offlinePlayers = new ArrayList<>(Arrays.asList(rawFileData.substring(0, rawFileData.length()-1).split(",")));
                 Messenger.sendMessage("close bufferedReader", MessageLevel.INFO);
                 bufferedReader.close();
                 // Remove duplicates in ArrayList
