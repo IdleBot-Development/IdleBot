@@ -43,6 +43,7 @@ public class DiscordAPIManager {
             bot.awaitReady();
         } catch (LoginException | InterruptedException e) {
             Messenger.sendMessage("Failed to initialize JDA!", MessageLevel.FATAL_ERROR);
+            e.printStackTrace();
             plugin.disablePlugin();
         }
         bot.addEventListener(new DiscordMessageEvent());

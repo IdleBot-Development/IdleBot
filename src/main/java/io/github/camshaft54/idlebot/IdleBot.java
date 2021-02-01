@@ -61,6 +61,7 @@ public class IdleBot extends JavaPlugin {
         }
         catch (IOException | ParseException e) {
             Messenger.sendMessage("Plugin configuration load failed! Plugin disabled. Try to fix the configuration file and try again or get support!", MessageLevel.FATAL_ERROR);
+            e.printStackTrace();
             disablePlugin();
         }
         if (isEnabled()) {
@@ -85,6 +86,7 @@ public class IdleBot extends JavaPlugin {
                 }
             } catch (IOException e) {
                 Messenger.sendMessage("Error checking for latest version. You can probably ignore this.", MessageLevel.FATAL_ERROR);
+                e.printStackTrace();
             }
             // Load JDA
             Messenger.sendMessage("Starting to load JDA", MessageLevel.INFO);

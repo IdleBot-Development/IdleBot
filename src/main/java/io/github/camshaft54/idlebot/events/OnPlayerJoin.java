@@ -40,18 +40,12 @@ public class OnPlayerJoin implements Listener {
         ArrayList<String> offlinePlayers = new ArrayList<>();
         try {
             if (new File(IdleBot.getPlugin().getDataFolder() + "/OfflinePlayersWhoNeedToHaveTheirDataCleared.txt").exists()) {
-                Messenger.sendMessage("about to get file reader", MessageLevel.INFO);
                 FileReader fileReader = new FileReader(IdleBot.getPlugin().getDataFolder() + "/OfflinePlayersWhoNeedToHaveTheirDataCleared.txt");
-                Messenger.sendMessage("about to get buffered reader", MessageLevel.INFO);
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
-                Messenger.sendMessage("about to get line in file", MessageLevel.INFO);
                 String rawFileData = bufferedReader.readLine();
-                Messenger.sendMessage("converting string to arraylist", MessageLevel.INFO);
                 offlinePlayers = new ArrayList<>(Arrays.asList(rawFileData.substring(0, rawFileData.length()-1).split(",")));
-                Messenger.sendMessage("close bufferedReader", MessageLevel.INFO);
                 bufferedReader.close();
                 // Remove duplicates in ArrayList
-                Messenger.sendMessage("remove duplicates", MessageLevel.INFO);
                 offlinePlayers = (ArrayList<String>) offlinePlayers.stream().distinct().collect(Collectors.toList());
             }
         } catch (Exception exception) {
