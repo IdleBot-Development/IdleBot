@@ -51,13 +51,13 @@ public class ViewSettingsCommand implements IdleBotCommand {
         player.sendMessage(ChatColor.AQUA + "Death alert: " + PersistentDataHandler.getBooleanData(player, DataValues.DEATH_ALERT.key()));
         boolean locationAlertX = PersistentDataHandler.getBooleanData(player, DataValues.LOCATION_ALERT_X.key());
         int locationX = PersistentDataHandler.getIntData(player, DataValues.LOCATION_X_DESIRED.key());
-        player.sendMessage(ChatColor.AQUA + "Location alert (X): " + locationAlertX + (locationAlertX ? (locationX == -1 ? "" : (" (" + locationX + ")")) : ""));
+        player.sendMessage(ChatColor.AQUA + "Location alert (X): " + locationAlertX + (locationAlertX ? (locationX == -1 ? " (no location set)" : (" (" + locationX + ")")) : ""));
         boolean locationAlertZ = PersistentDataHandler.getBooleanData(player, DataValues.LOCATION_ALERT_Z.key());
         int locationZ = PersistentDataHandler.getIntData(player, DataValues.LOCATION_Z_DESIRED.key());
-        player.sendMessage(ChatColor.AQUA + "Location alert (Z): " + locationAlertZ + (locationAlertZ ? (locationZ == -1 ? "" : (" (" + locationZ + ")")) : ""));
+        player.sendMessage(ChatColor.AQUA + "Location alert (Z): " + locationAlertZ + (locationAlertZ ? (locationZ == -1 ? " (no location set)" : (" (" + locationZ + ")")) : ""));
         boolean xpAlert = PersistentDataHandler.getBooleanData(player, DataValues.EXPERIENCE_ALERT.key());
         int xpLevel = PersistentDataHandler.getIntData(player, DataValues.EXPERIENCE_LEVEL_DESIRED.key());
-        player.sendMessage(ChatColor.AQUA + "Experience alert: " + xpAlert + (xpAlert ? (xpLevel == -1 ? "" : " (" + xpLevel + ")") : ""));
+        player.sendMessage(ChatColor.AQUA + "Experience alert: " + xpAlert + (xpAlert ? (xpLevel == -1 ? " (no XP level set)" : " (" + xpLevel + ")") : ""));
         player.sendMessage(ChatColor.AQUA + "Inventory fill alert: " + PersistentDataHandler.getBooleanData(player, DataValues.INVENTORY_FULL_ALERT.key()));
         return true;
     }

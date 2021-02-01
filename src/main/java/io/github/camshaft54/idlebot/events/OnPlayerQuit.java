@@ -18,6 +18,10 @@
 package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
+import io.github.camshaft54.idlebot.util.EventUtils;
+import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.enums.DataValues;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -26,6 +30,9 @@ public class OnPlayerQuit implements Listener {
     // If player leaves game, remove them from playersIdling and the other condition hashmaps
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent e) { // TODO: There is probably more stuff to reset when the player leaves
-        IdleBot.idlePlayers.remove(e.getPlayer());
+        Player player = e.getPlayer();
+        IdleBot.idlePlayers.remove(player);
+        EventUtils.clearPlayerIdleStats(player);
+        PersistentDataHandler.setData(player, DataValues.IS_SET_AFK.key(), false);
     }
 }
