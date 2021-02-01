@@ -19,10 +19,8 @@ package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.EventUtils;
-import io.github.camshaft54.idlebot.util.Messenger;
 import io.github.camshaft54.idlebot.util.PersistentDataHandler;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
-import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -33,7 +31,7 @@ public class IdleChecker implements Runnable {
             if (PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key()) != null) {
                 /* If the player:
                  * Is not already idle
-                 * Is in the list of idle players (not in auto mode)`
+                 * Is in the list of idle players (not in auto mode)
                  */
                 if (!EventUtils.isIdle(player) && IdleBot.idlePlayers.containsKey(player)) {
                     IdleBot.idlePlayers.put(player, IdleBot.idlePlayers.get(player) + 1); // Increase by one
@@ -45,10 +43,9 @@ public class IdleChecker implements Runnable {
                 else if (!EventUtils.isIdle(player) && PersistentDataHandler.getBooleanData(player, DataValues.AUTO_AFK.key())) {
                     IdleBot.idlePlayers.put(player, 0);
                 }
-                // TODO: Debugging message
-                if (EventUtils.isIdle(player)) {
-                    Messenger.sendMessage(player.getDisplayName() + " is idle.", MessageLevel.INFO);
-                }
+//                if (EventUtils.isIdle(player)) {
+//                    Messenger.sendMessage(player.getDisplayName() + " is idle.", MessageLevel.INFO);
+//                }
             }
         }
     }
