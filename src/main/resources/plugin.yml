@@ -1,5 +1,5 @@
 name: IdleBot
-version: 0.2.4
+version: 0.2.5
 main: io.github.camshaft54.idlebot.IdleBot
 api-version: "1.16"
 commands:
