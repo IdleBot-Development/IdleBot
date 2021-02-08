@@ -41,12 +41,10 @@ public class IdleBotTabCompleter implements TabCompleter {
             for (CommandTabCompletion cmd : CommandTabCompletion.values()) {
                 completions.add(cmd.name().toLowerCase());
             }
-        } else if (args.length == 2) {
-            if (CommandTabCompletion.get(args[0]) != null && CommandTabCompletion.get(args[0]).getArgs().length > 0) {
+        } else if (CommandTabCompletion.get(args[0]) != null) {
+            if (args.length == 2 && CommandTabCompletion.get(args[0]).getArgs().length > 0) {
                 completions.addAll(Arrays.asList(CommandTabCompletion.get(args[0]).getArgs()[0]));
-            }
-        } else if (args.length == 3) {
-            if (CommandTabCompletion.get(args[0]) != null && CommandTabCompletion.get(args[0]).getArgs().length > 1) {
+            } else if (args.length == 3 && CommandTabCompletion.get(args[0]).getArgs().length > 1) {
                 completions.addAll(Arrays.asList(CommandTabCompletion.get(args[0]).getArgs()[1]));
             }
         }

@@ -63,8 +63,8 @@ public class OnPlayerJoin implements Listener {
         }
 
         // Code to check for available update
-        if (e.getPlayer().isOp()) {
-            if (!IdleBot.getLocalVersion().equals(IdleBot.getLatestVersion()) && !(IdleBot.getLocalVersion() == null || IdleBot.getLatestVersion() == null))
+        if (e.getPlayer().isOp() && !IdleBot.getLocalVersion().equals(IdleBot.getLatestVersion())
+                && !(IdleBot.getLocalVersion() == null || IdleBot.getLatestVersion() == null)) {
                 Messenger.sendMessage(e.getPlayer(), "You are running an outdated version! (You are running version " + IdleBot.getLocalVersion() + " but the latest version is " + IdleBot.getLatestVersion() + ". Go to https://github.com/CamShaft54/IdleBot/releases to download a new version", MessageLevel.IMPORTANT);
         }
     }
