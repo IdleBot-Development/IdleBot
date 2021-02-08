@@ -42,7 +42,7 @@ public class LocationCommand implements IdleBotCommand {
         if (args.length < 3 || (!args[1].equalsIgnoreCase("x") && !args[1].equalsIgnoreCase("z"))) {
             return false;
         }
-        if (CommandUtils.isInteger(args[2]) && args[2].length() <= 9 && Integer.parseInt(args[2]) >= -50_000_000 && Integer.parseInt(args[2]) <= 50_000_000) {
+        if (CommandUtils.isInteger(args[2]) && Integer.parseInt(args[2]) >= -50_000_000 && Integer.parseInt(args[2]) <= 50_000_000) {
             int coord = Integer.parseInt(args[2]);
             if (args[1].equalsIgnoreCase("x")) {
                 if ((int) player.getLocation().getX() < coord) {

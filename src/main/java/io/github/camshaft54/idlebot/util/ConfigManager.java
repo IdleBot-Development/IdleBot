@@ -52,14 +52,26 @@ public class ConfigManager {
         config.loadAll();
         BOT_TOKEN = config.getString("botToken");
         CHANNEL_ID = config.getString("channelID");
+        if (BOT_TOKEN.equals("<Bot Token Here>") || CHANNEL_ID.equals("<Channel ID Here>"))
+            invalidateConfig("botToken and/or channelToken need to be set in config.yml.", plugin);
         ACTIVITY_TYPE = config.getString("customBotActivity.type");
         ACTIVITY_MESSAGE = config.getString("customBotActivity.message");
-        DEFAULT_IDLE_TIME = config.getInt("idleTime.defaultIdleTime");
-        MINIMUM_IDLE_TIME = config.getInt("idleTime.minimumIdleTime");
-        MAXIMUM_IDLE_TIME = config.getInt("idleTime.maximumIdleTime");
-        if (BOT_TOKEN.equals("<Bot Token Here>") || CHANNEL_ID.equals("<Channel ID Here>")) {
-            Messenger.sendMessage("Plugin configuration file invalid! botToken and/or channelToken need to be set in config.yml.", MessageLevel.FATAL_ERROR);
-            plugin.disablePlugin();
-        }
+        String maximumIdleTimeString = config.getString("idleTime.maximumIdleTime");
+        if (!CommandUtils.isInteger(maximumIdleTimeString) || Integer.parseInt(maximumIdleTimeString) < 5 || Integer.parseInt(maximumIdleTimeString) > 86400)
+            invalidateConfig("Invalid maximumIdleTime.", plugin);
+        MAXIMUM_IDLE_TIME = Integer.parseInt(maximumIdleTimeString);
+        String minimumIdleTimeString = config.getString("idleTime.minimumIdleTime");
+        if (!CommandUtils.isInteger(minimumIdleTimeString) || Integer.parseInt(minimumIdleTimeString) < 5 || Integer.parseInt(minimumIdleTimeString) > 86400)
+            invalidateConfig("Invalid minimumIdleTime.", plugin);
+        MINIMUM_IDLE_TIME = Integer.parseInt(minimumIdleTimeString);
+        String defaultIdleTimeString = config.getString("idleTime.defaultIdleTime");
+        if (!CommandUtils.isInteger(defaultIdleTimeString) || Integer.parseInt(defaultIdleTimeString) < MINIMUM_IDLE_TIME || Integer.parseInt(defaultIdleTimeString) > MAXIMUM_IDLE_TIME)
+            invalidateConfig("Invalid defaultIdleTime.", plugin);
+        DEFAULT_IDLE_TIME = Integer.parseInt(defaultIdleTimeString);
+    }
+
+    private void invalidateConfig(String reason, IdleBot plugin) {
+        Messenger.sendMessage("Plugin configuration file invalid! " + reason, MessageLevel.FATAL_ERROR);
+        plugin.disablePlugin();
     }
 }
