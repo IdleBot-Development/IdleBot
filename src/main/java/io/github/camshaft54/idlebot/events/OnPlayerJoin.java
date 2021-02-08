@@ -54,7 +54,7 @@ public class OnPlayerJoin implements Listener {
         }
         String joinedPlayerUUID = e.getPlayer().getUniqueId().toString();
         for (String offlinePlayer : offlinePlayers) {
-            if (offlinePlayers.contains(joinedPlayerUUID)) {
+            if (joinedPlayerUUID.equals(offlinePlayer)) {
                 offlinePlayers.remove(offlinePlayer);
                 PersistentDataHandler.removeAllData(e.getPlayer());
                 EventUtils.saveListToDataFile(offlinePlayers, false);
