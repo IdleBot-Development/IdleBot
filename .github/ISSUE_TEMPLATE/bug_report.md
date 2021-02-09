@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Create a report to help us improve IdleBot
-title: "Concise Description of Bug Here"
+title: "[BUG] Concise Description of Bug Here"
 labels: bug
 assignees: ''
 ---
