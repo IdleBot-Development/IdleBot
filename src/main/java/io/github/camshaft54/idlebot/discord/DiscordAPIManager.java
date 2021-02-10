@@ -65,6 +65,8 @@ public class DiscordAPIManager {
             case "LISTENING":
                 presence.setPresence(Activity.listening(config.ACTIVITY_MESSAGE), false);
                 break;
+            default:
+                break;
         }
     }
 
