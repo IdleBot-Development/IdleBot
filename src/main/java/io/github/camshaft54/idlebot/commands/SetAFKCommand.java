@@ -33,7 +33,7 @@ public class SetAFKCommand implements IdleBotCommand {
 
     @Override
     public String getCommandUsage() {
-        return "/idlebot afk <true|false>";
+        return "/idlebot afk [true|false]";
     }
 
     @Override
@@ -48,6 +48,7 @@ public class SetAFKCommand implements IdleBotCommand {
             MessageHelper.sendMessage(player, "Set your afk status to false", MessageLevel.INFO);
             return true;
         }
-        return false;
+        PersistentDataUtils.setData(player, DataValues.IS_SET_AFK.key(), !PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK.key()));
+        return true;
     }
 }
