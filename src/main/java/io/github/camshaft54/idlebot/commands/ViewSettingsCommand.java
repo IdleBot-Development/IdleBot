@@ -18,7 +18,6 @@
 package io.github.camshaft54.idlebot.commands;
 
 import io.github.camshaft54.idlebot.IdleBot;
-import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.MessageHelper;
 import io.github.camshaft54.idlebot.util.PersistentDataUtils;
