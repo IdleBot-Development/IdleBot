@@ -17,6 +17,7 @@
 
 package io.github.camshaft54.idlebot.commands;
 
+import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.MessageHelper;
@@ -44,7 +45,7 @@ public class ViewSettingsCommand implements IdleBotCommand {
     public boolean runCommand(Player player, String[] args) {
         MessageHelper.sendMessage(player, "Your current settings: ", MessageLevel.INFO);
         String discordID = PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID.key());
-        player.sendMessage(ChatColor.AQUA + "Account linked: " + (discordID == null ? "false" : ("true (" + Objects.requireNonNull(DiscordAPIManager.bot.retrieveUserById(discordID)).complete().getAsTag() + ")")));
+        player.sendMessage(ChatColor.AQUA + "Account linked: " + (discordID == null ? "false" : ("true (" + Objects.requireNonNull(IdleBot.getDiscordAPIManager().bot.retrieveUserById(discordID)).complete().getAsTag() + ")")));
         player.sendMessage(ChatColor.AQUA + "Message channel: " + (PersistentDataUtils.getBooleanData(player, DataValues.DIRECT_MESSAGE_MODE.key()) ? "direct message" : "public channel"));
         player.sendMessage(ChatColor.AQUA + "AFK mode: " + (PersistentDataUtils.getBooleanData(player, DataValues.AUTO_AFK.key()) ? "auto" : ("manual (Set AFK: " + PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK.key()) + ")")));
         player.sendMessage(ChatColor.AQUA + "AFK time: " + PersistentDataUtils.getIntData(player, DataValues.AFK_TIME.key()));

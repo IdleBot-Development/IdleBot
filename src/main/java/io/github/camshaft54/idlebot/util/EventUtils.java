@@ -52,7 +52,7 @@ public class EventUtils {
                     .setColor(Color.RED);
             MessageBuilder mb = new MessageBuilder().append("<@!").append(discordID).append(">").setEmbed(eb.build());
             if (PersistentDataUtils.getBooleanData(player, DataValues.DIRECT_MESSAGE_MODE.key())) {
-                Objects.requireNonNull(DiscordAPIManager.bot.getUserById(Objects.requireNonNull(PersistentDataUtils.getStringData(player,
+                Objects.requireNonNull(IdleBot.getDiscordAPIManager().bot.getUserById(Objects.requireNonNull(PersistentDataUtils.getStringData(player,
                         DataValues.DISCORD_ID.key())))).openPrivateChannel().queue(channel -> channel.sendMessage(mb.build()));
             } else {
                 DiscordAPIManager.channel.sendMessage(mb.build()).queue();

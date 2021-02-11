@@ -47,7 +47,7 @@ public class LinkCommand implements IdleBotCommand {
             return true;
         }
         Random rng = new Random();
-        String botName = DiscordAPIManager.bot.getSelfUser().getAsTag();
+        String botName = IdleBot.getDiscordAPIManager().bot.getSelfUser().getAsTag();
         int code;
         do {
             code = rng.nextInt(999);

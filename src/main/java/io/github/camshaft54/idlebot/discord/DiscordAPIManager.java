@@ -32,7 +32,7 @@ import javax.security.auth.login.LoginException;
 public class DiscordAPIManager {
     private final ConfigManager config;
     private final IdleBot plugin;
-    public static JDA bot;
+    public JDA bot;
     public static TextChannel channel;
 
     public DiscordAPIManager(IdleBot plugin) {
