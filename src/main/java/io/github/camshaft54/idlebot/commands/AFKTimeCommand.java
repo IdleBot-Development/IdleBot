@@ -39,6 +39,10 @@ public class AFKTimeCommand implements IdleBotCommand {
 
     @Override
     public boolean runCommand(Player player, String[] args) {
+        if (!IdleBot.getConfigManager().AUTO_AFK_ENABLED) {
+            MessageHelper.sendMessage(player, "You are not allowed to use auto AFK on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
+            return true;
+        }
         if (args.length >= 2 && CommandUtils.isInteger(args[1]) && Integer.parseInt(args[1]) >= IdleBot.getConfigManager().MINIMUM_IDLE_TIME && Integer.parseInt(args[1]) <= IdleBot.getConfigManager().MAXIMUM_IDLE_TIME) {
             PersistentDataUtils.setData(player, DataValues.AFK_TIME.key(), Integer.parseInt(args[1]));
             MessageHelper.sendMessage(player, "Set your afktime to " + args[1], MessageLevel.INFO);

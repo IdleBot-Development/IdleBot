@@ -76,13 +76,13 @@ public class ConfigManager {
         PUBLIC_CHANNEL_MESSAGES_ENABLED = config.getBooleanElse("messageChannels.publicChannelMessagesEnabled", true);
         PRIVATE_CHANNEL_MESSAGES_ENABLED = config.getBooleanElse("messageChannels.privateChannelMessagesEnabled", true);
         DEFAULT_MESSAGE_CHANNEL = config.getStringElse("messageChannels.defaultMessageChannel", "public");
-        if ((DEFAULT_MESSAGE_CHANNEL.equals("public") && !PUBLIC_CHANNEL_MESSAGES_ENABLED) || (DEFAULT_MESSAGE_CHANNEL.equals("private") && !PRIVATE_CHANNEL_MESSAGES_ENABLED))
+        if ((DEFAULT_MESSAGE_CHANNEL.equals("public") && !PUBLIC_CHANNEL_MESSAGES_ENABLED) || (DEFAULT_MESSAGE_CHANNEL.equals("private") && !PRIVATE_CHANNEL_MESSAGES_ENABLED) || !(DEFAULT_MESSAGE_CHANNEL.equals("private") || DEFAULT_MESSAGE_CHANNEL.equals("public")))
             invalidateConfig("messageChannels are invalid.");
 
         AUTO_AFK_ENABLED = config.getBooleanElse("AFKMode.autoAFKEnabled", true);
         MANUAL_AFK_ENABLED = config.getBooleanElse("AFKMode.manualAFKEnabled", true);
         DEFAULT_AFK_MODE = config.getStringElse("AFKMode.defaultAFKMode", "auto");
-        if ((DEFAULT_AFK_MODE.equals("auto") && !AUTO_AFK_ENABLED) || (DEFAULT_AFK_MODE.equals("manual") && !MANUAL_AFK_ENABLED))
+        if ((DEFAULT_AFK_MODE.equals("auto") && !AUTO_AFK_ENABLED) || (DEFAULT_AFK_MODE.equals("manual") && !MANUAL_AFK_ENABLED) || !(DEFAULT_AFK_MODE.equals("auto") || DEFAULT_AFK_MODE.equals("manual")))
             invalidateConfig("AFKMode settings invalid");
     }
 

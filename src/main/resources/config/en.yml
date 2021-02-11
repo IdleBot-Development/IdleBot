@@ -19,13 +19,13 @@ messageChannels:
   publicChannelMessagesEnabled: true
   # Should players be allowed to have alerts sent to a private channel | default: true
   privateChannelMessagesEnabled: true
-  # The default message channel to set for players when they first link their account | default: public
+  # The default message channel to set for players when they first link their account | default: public | options: [public, private]
   defaultMessageChannel: public
 
 customBotActivity:
-  # The type of activity in the bot's Discord status. Can be WATCHING, PLAYING, or LISTENING. Set to "none" to disable | default: watching
+  # The type of activity in the bot's Discord status | default: watching | options: [watching, listening, playing, none]
   type: watching
-  # The second part of the bot's Discord status. For example, if this says "idle players" the bot's status could be "Watching idle players" | default" idle players
+  # The second part of the bot's Discord status. For example, if this says "idle players" the bot's status could be "Watching idle players" | default: idle players
   message: idle players
 
 AFKMode:
@@ -33,7 +33,7 @@ AFKMode:
   autoAFKEnabled: true
   # Should players be allowed to go AFK by typing a command | default: true
   manualAFKEnabled: true
-  # The default mode for players to go AFK | default: auto
+  # The default mode for players to go AFK | default: auto | options: [auto, manual]
   defaultAFKMode: auto
 
 idleTime:

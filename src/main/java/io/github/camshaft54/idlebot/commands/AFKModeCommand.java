@@ -17,6 +17,8 @@
 
 package io.github.camshaft54.idlebot.commands;
 
+import io.github.camshaft54.idlebot.IdleBot;
+import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.MessageHelper;
 import io.github.camshaft54.idlebot.util.PersistentDataUtils;
@@ -39,10 +41,19 @@ public class AFKModeCommand implements IdleBotCommand {
     @Override
     public boolean runCommand(Player player, String[] args) {
         if (args.length >= 2 && args[1].equalsIgnoreCase("manual")) {
+            if (!IdleBot.getConfigManager().MANUAL_AFK_ENABLED) {
+                MessageHelper.sendMessage(player, "You are not allowed to use manual AFK on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
+                return true;
+            }
             PersistentDataUtils.setData(player, DataValues.AUTO_AFK.key(), false);
+            EventUtils.clearPlayerIdleStats(player);
             MessageHelper.sendMessage(player, "Set your afkmode to manual", MessageLevel.INFO);
             return true;
         } else if (args.length >= 2 && args[1].equalsIgnoreCase("auto")) {
+            if (!IdleBot.getConfigManager().AUTO_AFK_ENABLED) {
+                MessageHelper.sendMessage(player, "You are not allowed to use auto AFK on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
+                return true;
+            }
             PersistentDataUtils.setData(player, DataValues.AUTO_AFK.key(), true);
             PersistentDataUtils.setData(player, DataValues.IS_SET_AFK.key(), false);
             MessageHelper.sendMessage(player, "Set your afkmode to auto", MessageLevel.INFO);

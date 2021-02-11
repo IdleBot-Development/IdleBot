@@ -17,6 +17,7 @@
 
 package io.github.camshaft54.idlebot.commands;
 
+import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.MessageHelper;
@@ -38,17 +39,22 @@ public class SetAFKCommand implements IdleBotCommand {
 
     @Override
     public boolean runCommand(Player player, String[] args) {
+        if (!IdleBot.getConfigManager().MANUAL_AFK_ENABLED) {
+            MessageHelper.sendMessage(player, "You are not allowed to use manual AFK on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
+            return true;
+        }
         if (args.length >= 2 && args[1].equalsIgnoreCase("true")) {
             PersistentDataUtils.setData(player, DataValues.IS_SET_AFK.key(), true);
             MessageHelper.sendMessage(player, "Set your afk status to true", MessageLevel.INFO);
-            return true;
         } else if (args.length >= 2 && args[1].equalsIgnoreCase("false")) {
             PersistentDataUtils.setData(player, DataValues.IS_SET_AFK.key(), false);
-            EventUtils.clearPlayerIdleStats(player);
             MessageHelper.sendMessage(player, "Set your afk status to false", MessageLevel.INFO);
-            return true;
+        } else {
+            PersistentDataUtils.setData(player, DataValues.IS_SET_AFK.key(), !PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK.key()));
+            MessageHelper.sendMessage(player, "Set your afk status to " + PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK.key()), MessageLevel.INFO);
         }
-        PersistentDataUtils.setData(player, DataValues.IS_SET_AFK.key(), !PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK.key()));
+        PersistentDataUtils.setData(player, DataValues.AUTO_AFK.key(), false);
+        EventUtils.clearPlayerIdleStats(player);
         return true;
     }
 }

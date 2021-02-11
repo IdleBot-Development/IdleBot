@@ -17,6 +17,7 @@
 
 package io.github.camshaft54.idlebot.commands;
 
+import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
 import io.github.camshaft54.idlebot.util.MessageHelper;
 import io.github.camshaft54.idlebot.util.PersistentDataUtils;
@@ -39,10 +40,18 @@ public class ChannelCommand implements IdleBotCommand {
     public boolean runCommand(Player player, String[] args) {
         if (args.length < 2) return false;
         if (args[1].equalsIgnoreCase("public")) {
+            if (!IdleBot.getConfigManager().PUBLIC_CHANNEL_MESSAGES_ENABLED) {
+                MessageHelper.sendMessage(player, "You are not allowed to use a public channel on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
+                return true;
+            }
             PersistentDataUtils.setData(player, DataValues.DIRECT_MESSAGE_MODE.key(), false);
             MessageHelper.sendMessage(player, "Set your alerts channel to public", MessageLevel.INFO);
             return true;
         } else if (args[1].equalsIgnoreCase("private")) {
+            if (!IdleBot.getConfigManager().PRIVATE_CHANNEL_MESSAGES_ENABLED) {
+                MessageHelper.sendMessage(player, "You are not allowed to use a private channel on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
+                return true;
+            }
             PersistentDataUtils.setData(player, DataValues.DIRECT_MESSAGE_MODE.key(), true);
             MessageHelper.sendMessage(player, "Set your alerts channel to private", MessageLevel.INFO);
             return true;
