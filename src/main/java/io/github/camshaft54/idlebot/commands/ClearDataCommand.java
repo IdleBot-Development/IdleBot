@@ -20,8 +20,8 @@ package io.github.camshaft54.idlebot.commands;
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
-import io.github.camshaft54.idlebot.util.Messenger;
-import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.MessageHelper;
+import io.github.camshaft54.idlebot.util.PersistentDataUtils;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.Bukkit;
 import org.bukkit.conversations.*;
@@ -69,11 +69,11 @@ public class ClearDataCommand implements IdleBotCommand {
                     });
                 }
                 else {
-                    Messenger.sendMessage(player, "Cannot find player \"" + args[1] + "\"", MessageLevel.INCORRECT_COMMAND_USAGE);
+                    MessageHelper.sendMessage(player, "Cannot find player \"" + args[1] + "\"", MessageLevel.INCORRECT_COMMAND_USAGE);
                     return true;
                 }
             } else {
-                Messenger.sendMessage(player, "You don't have permission to clear the data of other players!", MessageLevel.INCORRECT_COMMAND_USAGE);
+                MessageHelper.sendMessage(player, "You don't have permission to clear the data of other players!", MessageLevel.INCORRECT_COMMAND_USAGE);
                 return true;
             }
         } else {
@@ -99,7 +99,7 @@ public class ClearDataCommand implements IdleBotCommand {
         public Prompt acceptInput(@NotNull ConversationContext conversationContext, @Nullable String s) {
             if (s != null && (s.equalsIgnoreCase("y") || s.equalsIgnoreCase("yes"))) {
                 for (Player player : players) {
-                    PersistentDataHandler.removeAllData(player);
+                    PersistentDataUtils.removeAllData(player);
                 }
                 EventUtils.saveListToDataFile(offlinePlayers, true);
                 return new YesPrompt();

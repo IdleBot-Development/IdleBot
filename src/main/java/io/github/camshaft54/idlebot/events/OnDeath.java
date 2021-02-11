@@ -18,8 +18,8 @@
 package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.util.EventUtils;
-import io.github.camshaft54.idlebot.util.Messenger;
-import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.MessageHelper;
+import io.github.camshaft54.idlebot.util.PersistentDataUtils;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.Location;
@@ -33,8 +33,8 @@ public class OnDeath implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
-        if (EventUtils.isIdle(player) && PersistentDataHandler.getBooleanData(player, DataValues.DEATH_ALERT.key())) {
-            Messenger.sendMessage(player.getDisplayName() + " is idle and dead!", MessageLevel.INFO);
+        if (EventUtils.isIdle(player) && PersistentDataUtils.getBooleanData(player, DataValues.DEATH_ALERT.key())) {
+            MessageHelper.sendMessage(player.getDisplayName() + " is idle and dead!", MessageLevel.INFO);
             EventUtils.sendPlayerMessage(player, player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").");
         }
     }

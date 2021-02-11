@@ -2,38 +2,44 @@
 # More information and help can be found here(insert link)
 # Comments refer to the option BELOW them
 
-#                        dddddddd
-#  IIIIIIIIII            d::::::dlllllll                     BBBBBBBBBBBBBBBBB                             tttt
-#  I::::::::I            d::::::dl:::::l                     B::::::::::::::::B                         ttt:::t
-#  I::::::::I            d::::::dl:::::l                     B::::::BBBBBB:::::B                        t:::::t
-#  II::::::II            d:::::d l:::::l                     BB:::::B     B:::::B                       t:::::t
-#    I::::I      ddddddddd:::::d  l::::l     eeeeeeeeeeee      B::::B     B:::::B   ooooooooooo   ttttttt:::::ttttttt
-#    I::::I    dd::::::::::::::d  l::::l   ee::::::::::::ee    B::::B     B:::::B oo:::::::::::oo t:::::::::::::::::t
-#    I::::I   d::::::::::::::::d  l::::l  e::::::eeeee:::::ee  B::::BBBBBB:::::B o:::::::::::::::ot:::::::::::::::::t
-#    I::::I  d:::::::ddddd:::::d  l::::l e::::::e     e:::::e  B:::::::::::::BB  o:::::ooooo:::::otttttt:::::::tttttt
-#    I::::I  d::::::d    d:::::d  l::::l e:::::::eeeee::::::e  B::::BBBBBB:::::B o::::o     o::::o      t:::::t
-#    I::::I  d:::::d     d:::::d  l::::l e:::::::::::::::::e   B::::B     B:::::Bo::::o     o::::o      t:::::t
-#    I::::I  d:::::d     d:::::d  l::::l e::::::eeeeeeeeeee    B::::B     B:::::Bo::::o     o::::o      t:::::t
-#    I::::I  d:::::d     d:::::d  l::::l e:::::::e             B::::B     B:::::Bo::::o     o::::o      t:::::t    tttttt
-#  II::::::IId::::::ddddd::::::ddl::::::le::::::::e          BB:::::BBBBBB::::::Bo:::::ooooo:::::o      t::::::tttt:::::t
-#  I::::::::I d:::::::::::::::::dl::::::l e::::::::eeeeeeee  B:::::::::::::::::B o:::::::::::::::o      tt::::::::::::::t
-#  I::::::::I  d:::::::::ddd::::dl::::::l  ee:::::::::::::e  B::::::::::::::::B   oo:::::::::::oo         tt:::::::::::tt
-#  IIIIIIIIII   ddddddddd   dddddllllllll    eeeeeeeeeeeeee  BBBBBBBBBBBBBBBBB      ooooooooooo             ttttttttttt
+#    _____    _ _      ____        _
+#   |_   _|  | | |    |  _ \      | |
+#     | |  __| | | ___| |_) | ___ | |_
+#     | | / _` | |/ _ \  _ < / _ \| __|
+#    _| || (_| | |  __/ |_) | (_) | |_
+#   |_____\__,_|_|\___|____/ \___/ \__|
 
 # This is the token you get from your application in the Discord Developer Portal: https://discord.com/developers/applications | DO NOT INCLUDE THE <>
 botToken: <Bot Token Here>
 # This is the ID of the Discord channel you want the bot to send messages to | DO NOT INCLUDE THE <>
 channelID: <Channel ID Here>
+
+messageChannels:
+  # Should players be allowed to have alerts sent to a public channel | default: true
+  publicChannelMessagesEnabled: true
+  # Should players be allowed to have alerts sent to a private channel | default: true
+  privateChannelMessagesEnabled: true
+  # The default message channel to set for players when they first link their account | default: public
+  defaultMessageChannel: public
+
 customBotActivity:
-  # The type of activity in the bot's Discord status. Can be WATCHING, PLAYING, or LISTENING. Set to "none" to disable
-  type: WATCHING
-  # The second part of the bot's Discord status. For example, if this says "idle players" the bot's status could be "Watching idle players"
+  # The type of activity in the bot's Discord status. Can be WATCHING, PLAYING, or LISTENING. Set to "none" to disable | default: watching
+  type: watching
+  # The second part of the bot's Discord status. For example, if this says "idle players" the bot's status could be "Watching idle players" | default" idle players
   message: idle players
-# These values are in seconds
+
+AFKMode:
+  # Should players be allowed to go AFK just by standing still | default: true
+  autoAFKEnabled: true
+  # Should players be allowed to go AFK by typing a command | default: true
+  manualAFKEnabled: true
+  # The default mode for players to go AFK | default: auto
+  defaultAFKMode: auto
+
 idleTime:
-  # The default idle time for players who do not set their own | this must be between minimum and maximum idle time set below minimum of 5 seconds
+  # (s) The default idle time for players who do not set their own | this must be between minimum and maximum idle time set below minimum of 5 seconds | default: 120
   defaultIdleTime: 120
-  # The minimum idle time a player can set for themself | you can set this to a minimum of 5 seconds
+  # (s) The minimum idle time a player can set for themself | you can set this to a minimum of 5 seconds | default: 20
   minimumIdleTime: 20
-  # The maximum idle time a player can set for themself | you can set this to a maximum of 86400 seconds (1 day)
+  # (s) The maximum idle time a player can set for themself | you can set this to a maximum of 86400 seconds (1 day) | default: 600
   maximumIdleTime: 600

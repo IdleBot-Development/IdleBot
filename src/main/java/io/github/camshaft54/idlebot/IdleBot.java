@@ -23,7 +23,7 @@ import io.github.camshaft54.idlebot.commands.IdleBotTabCompleter;
 import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
 import io.github.camshaft54.idlebot.events.*;
 import io.github.camshaft54.idlebot.util.ConfigManager;
-import io.github.camshaft54.idlebot.util.Messenger;
+import io.github.camshaft54.idlebot.util.MessageHelper;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -60,7 +60,7 @@ public class IdleBot extends JavaPlugin {
             configManager = new ConfigManager(this);
         }
         catch (IOException | ParseException e) {
-            Messenger.sendMessage("Plugin configuration load failed! Plugin disabled. Try to fix the configuration file and try again or get support!", MessageLevel.FATAL_ERROR);
+            MessageHelper.sendMessage("Plugin configuration load failed! Plugin disabled. Try to fix the configuration file and try again or get support!", MessageLevel.FATAL_ERROR);
             e.printStackTrace();
             disablePlugin();
         }
@@ -80,24 +80,24 @@ public class IdleBot extends JavaPlugin {
             try {
                 checkVersion();
                 if (localVersion.equals(latestVersion)) {
-                    Messenger.sendMessage("You are running the latest version! (" + localVersion + ")", MessageLevel.INFO);
+                    MessageHelper.sendMessage("You are running the latest version! (" + localVersion + ")", MessageLevel.INFO);
                 } else {
-                    Messenger.sendMessage("You are running an outdated version! (You are running version " + localVersion + " but the latest version is " + latestVersion + ")\nGo to https://www.spigotmc.org/resources/idlebot-step-up-your-afk-game.88778/ to download a new version", MessageLevel.IMPORTANT);
+                    MessageHelper.sendMessage("You are running an outdated version! (You are running version " + localVersion + " but the latest version is " + latestVersion + ")\nGo to https://www.spigotmc.org/resources/idlebot-step-up-your-afk-game.88778/ to download a new version", MessageLevel.IMPORTANT);
                 }
             } catch (IOException e) {
-                Messenger.sendMessage("Error checking for latest version. You can probably ignore this.", MessageLevel.FATAL_ERROR);
+                MessageHelper.sendMessage("Error checking for latest version. You can probably ignore this.", MessageLevel.FATAL_ERROR);
                 e.printStackTrace();
             }
             // Load JDA
-            Messenger.sendMessage("Starting to load JDA", MessageLevel.INFO);
+            MessageHelper.sendMessage("Starting to load JDA", MessageLevel.INFO);
             discordAPIManager = new DiscordAPIManager(this);
-            Messenger.sendMessage("Plugin successfully loaded", MessageLevel.INFO);
+            MessageHelper.sendMessage("Plugin successfully loaded", MessageLevel.INFO);
         }
     }
 
     @Override
     public void onDisable() {
-        Messenger.sendMessage("All data saved. Plugin safely closed!", MessageLevel.INFO);
+        MessageHelper.sendMessage("All data saved. Plugin safely closed!", MessageLevel.INFO);
     }
 
     public void disablePlugin() {

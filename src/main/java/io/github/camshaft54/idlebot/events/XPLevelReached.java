@@ -20,8 +20,8 @@ package io.github.camshaft54.idlebot.events;
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.IdleCheck;
-import io.github.camshaft54.idlebot.util.Messenger;
-import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.MessageHelper;
+import io.github.camshaft54.idlebot.util.PersistentDataUtils;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
@@ -34,10 +34,10 @@ public class XPLevelReached implements IdleCheck {
 
     // Checks if player has reached a certain xp level and sends them a message if they have
     public void check(Player player) {
-        int levelDesired = PersistentDataHandler.getIntData(player, DataValues.EXPERIENCE_LEVEL_DESIRED.key());
+        int levelDesired = PersistentDataUtils.getIntData(player, DataValues.EXPERIENCE_LEVEL_DESIRED.key());
         if (levelDesired == -1) return;
         if (player.getLevel() >= levelDesired && !IdleBot.getEventManager().XPLevelReachedPlayers.contains(player)) {
-            Messenger.sendMessage(player.getDisplayName() + " is idle and reached the desired Z coordinate!", MessageLevel.INFO);
+            MessageHelper.sendMessage(player.getDisplayName() + " is idle and reached the desired Z coordinate!", MessageLevel.INFO);
             EventUtils.sendPlayerMessage(player, player.getDisplayName() + " is at the desired XP level! ");
             IdleBot.getEventManager().XPLevelReachedPlayers.add(player);
         }

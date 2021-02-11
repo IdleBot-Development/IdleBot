@@ -19,7 +19,7 @@ package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.util.EventUtils;
 import io.github.camshaft54.idlebot.util.IdleCheck;
-import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.PersistentDataUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -46,7 +46,7 @@ public class EventManager implements Runnable {
     public void run() {
         Bukkit.getOnlinePlayers().forEach(player ->
             idleChecks.forEach(check -> {
-                if (PersistentDataHandler.getBooleanData(player, check.getDataValue()) && EventUtils.isIdle(player))
+                if (PersistentDataUtils.getBooleanData(player, check.getDataValue()) && EventUtils.isIdle(player))
                     check.check(player);
             })
         );

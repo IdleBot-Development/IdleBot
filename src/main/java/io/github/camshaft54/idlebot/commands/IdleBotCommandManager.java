@@ -18,7 +18,7 @@
 package io.github.camshaft54.idlebot.commands;
 
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
-import io.github.camshaft54.idlebot.util.Messenger;
+import io.github.camshaft54.idlebot.util.MessageHelper;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 public class IdleBotCommandManager implements CommandExecutor {
 
-    final ArrayList<IdleBotCommand> idleBotCommands = new ArrayList<>();
+    private final ArrayList<IdleBotCommand> idleBotCommands = new ArrayList<>();
 
     public IdleBotCommandManager() {
         // Add /idlebot commands to list of commands
@@ -51,7 +51,7 @@ public class IdleBotCommandManager implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String str, String[] args) {
         if (!(commandSender instanceof Player)) {
-            Messenger.sendMessage("This command can be run only by players!", MessageLevel.INCORRECT_COMMAND_USAGE);
+            MessageHelper.sendMessage("This command can be run only by players!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }
         Player player = (Player) commandSender;
@@ -61,7 +61,7 @@ public class IdleBotCommandManager implements CommandExecutor {
         for (IdleBotCommand eachCommand : idleBotCommands) {
             if (eachCommand.getCommandName().equalsIgnoreCase(args[0])) {
                 if (!eachCommand.runCommand(player, args))
-                    Messenger.sendMessage(player, "Command usage: " + eachCommand.getCommandUsage(), MessageLevel.INCORRECT_COMMAND_USAGE);
+                    MessageHelper.sendMessage(player, "Command usage: " + eachCommand.getCommandUsage(), MessageLevel.INCORRECT_COMMAND_USAGE);
                 return true;
             }
         }

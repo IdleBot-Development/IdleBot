@@ -18,8 +18,8 @@
 package io.github.camshaft54.idlebot.commands;
 
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
-import io.github.camshaft54.idlebot.util.Messenger;
-import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.MessageHelper;
+import io.github.camshaft54.idlebot.util.PersistentDataUtils;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
@@ -39,13 +39,13 @@ public class AFKModeCommand implements IdleBotCommand {
     @Override
     public boolean runCommand(Player player, String[] args) {
         if (args.length >= 2 && args[1].equalsIgnoreCase("manual")) {
-            PersistentDataHandler.setData(player, DataValues.AUTO_AFK.key(), false);
-            Messenger.sendMessage(player, "Set your afkmode to manual", MessageLevel.INFO);
+            PersistentDataUtils.setData(player, DataValues.AUTO_AFK.key(), false);
+            MessageHelper.sendMessage(player, "Set your afkmode to manual", MessageLevel.INFO);
             return true;
         } else if (args.length >= 2 && args[1].equalsIgnoreCase("auto")) {
-            PersistentDataHandler.setData(player, DataValues.AUTO_AFK.key(), true);
-            PersistentDataHandler.setData(player, DataValues.IS_SET_AFK.key(), false);
-            Messenger.sendMessage(player, "Set your afkmode to auto", MessageLevel.INFO);
+            PersistentDataUtils.setData(player, DataValues.AUTO_AFK.key(), true);
+            PersistentDataUtils.setData(player, DataValues.IS_SET_AFK.key(), false);
+            MessageHelper.sendMessage(player, "Set your afkmode to auto", MessageLevel.INFO);
             return true;
         }
         return false;

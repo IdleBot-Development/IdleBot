@@ -36,23 +36,23 @@ public class EventUtils {
     // Check if a player is idle based on the player's settings and the time they have spent idle
     public static boolean isIdle(Player player) {
         int time = (IdleBot.idlePlayers.get(player) != null) ? IdleBot.idlePlayers.get(player) : -1;
-        boolean autoAFK = PersistentDataHandler.getBooleanData(player, DataValues.AUTO_AFK.key());
-        boolean setafk = PersistentDataHandler.getBooleanData(player, DataValues.IS_SET_AFK.key());
-        int afktime = PersistentDataHandler.getIntData(player, DataValues.AFK_TIME.key());
+        boolean autoAFK = PersistentDataUtils.getBooleanData(player, DataValues.AUTO_AFK.key());
+        boolean setafk = PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK.key());
+        int afktime = PersistentDataUtils.getIntData(player, DataValues.AFK_TIME.key());
         return (!autoAFK && setafk) || (time != -1 && afktime <= time);
     }
 
     // Sends player a message on Discord, if player has linked account
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void sendPlayerMessage(Player player, String message) {
-        String discordID = PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key());
+        String discordID = PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID.key());
         if (discordID != null) {
             EmbedBuilder eb = new EmbedBuilder().setAuthor(player.getDisplayName(), null, "https://minotar.net/helm/" + player.getUniqueId())
                     .setTitle(message)
                     .setColor(Color.RED);
             MessageBuilder mb = new MessageBuilder().append("<@!").append(discordID).append(">").setEmbed(eb.build());
-            if (PersistentDataHandler.getBooleanData(player, DataValues.DIRECT_MESSAGE_MODE.key())) {
-                Objects.requireNonNull(DiscordAPIManager.bot.getUserById(Objects.requireNonNull(PersistentDataHandler.getStringData(player,
+            if (PersistentDataUtils.getBooleanData(player, DataValues.DIRECT_MESSAGE_MODE.key())) {
+                Objects.requireNonNull(DiscordAPIManager.bot.getUserById(Objects.requireNonNull(PersistentDataUtils.getStringData(player,
                         DataValues.DISCORD_ID.key())))).openPrivateChannel().queue(channel -> channel.sendMessage(mb.build()));
             } else {
                 DiscordAPIManager.channel.sendMessage(mb.build()).queue();
@@ -79,7 +79,7 @@ public class EventUtils {
                 bufferedWriter.write(playersString);
                 bufferedWriter.close();
             } catch (Exception e) {
-                Messenger.sendMessage("Error writing to data file!", MessageLevel.FATAL_ERROR);
+                MessageHelper.sendMessage("Error writing to data file!", MessageLevel.FATAL_ERROR);
                 e.printStackTrace();
             }
         }

@@ -18,8 +18,8 @@
 package io.github.camshaft54.idlebot.discord;
 
 import io.github.camshaft54.idlebot.IdleBot;
-import io.github.camshaft54.idlebot.util.Messenger;
-import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.MessageHelper;
+import io.github.camshaft54.idlebot.util.PersistentDataUtils;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import net.dv8tion.jda.api.entities.ChannelType;
@@ -37,13 +37,13 @@ public class DiscordMessageEvent extends ListenerAdapter {
             MessageChannel channel = event.getChannel();
             try {
                 int code = Integer.parseInt(message.getContentRaw());
-                Messenger.sendMessage(event.getAuthor().getAsTag() + " entered a code: " + code, MessageLevel.INFO);
+                MessageHelper.sendMessage(event.getAuthor().getAsTag() + " entered a code: " + code, MessageLevel.INFO);
                 if (IdleBot.linkCodes.containsKey(code)) {
                     Player player = IdleBot.linkCodes.get(code);
-                    PersistentDataHandler.setData(player, DataValues.DISCORD_ID.key(), event.getAuthor().getId());
+                    PersistentDataUtils.setData(player, DataValues.DISCORD_ID.key(), event.getAuthor().getId());
                     channel.sendMessage("Successfully linked your Discord username to Minecraft username " + player.getDisplayName()).queue();
                     message.addReaction("U+1F517").queue();
-                    Messenger.sendMessage(player, "Successfully linked your Minecraft username to Discord username " + event.getAuthor().getAsTag(), MessageLevel.INFO);
+                    MessageHelper.sendMessage(player, "Successfully linked your Minecraft username to Discord username " + event.getAuthor().getAsTag(), MessageLevel.INFO);
                     IdleBot.linkCodes.remove(code);
                     // Since the player just linked,
                     setDefaultSettings(player);
@@ -59,7 +59,7 @@ public class DiscordMessageEvent extends ListenerAdapter {
 
     // This method is to set up default values for every player when they link their account
     private void setDefaultSettings(Player player) {
-        PersistentDataHandler.setData(player, DataValues.AFK_TIME.key(), IdleBot.getConfigManager().DEFAULT_IDLE_TIME);
-        PersistentDataHandler.setData(player, DataValues.AUTO_AFK.key(), true);
+        PersistentDataUtils.setData(player, DataValues.AFK_TIME.key(), IdleBot.getConfigManager().DEFAULT_IDLE_TIME);
+        PersistentDataUtils.setData(player, DataValues.AUTO_AFK.key(), true);
     }
 }

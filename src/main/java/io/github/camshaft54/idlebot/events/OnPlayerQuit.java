@@ -19,7 +19,7 @@ package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.EventUtils;
-import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.PersistentDataUtils;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,6 +33,6 @@ public class OnPlayerQuit implements Listener {
         Player player = e.getPlayer();
         IdleBot.idlePlayers.remove(player);
         EventUtils.clearPlayerIdleStats(player);
-        PersistentDataHandler.setData(player, DataValues.IS_SET_AFK.key(), false);
+        PersistentDataUtils.setData(player, DataValues.IS_SET_AFK.key(), false);
     }
 }

@@ -34,7 +34,7 @@
 package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.util.EventUtils;
-import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.PersistentDataUtils;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -56,7 +56,7 @@ public class OnMovement implements Listener {
         if (to.getPitch() != from.getPitch() || to.getYaw() != from.getYaw()) {
             Player player = e.getPlayer();
 //            Messenger.sendMessage(player.getDisplayName() + " stopped being idle.", MessageLevel.INFO);
-            if (!PersistentDataHandler.getBooleanData(player, DataValues.IS_SET_AFK.key()))
+            if (!PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK.key()))
                 EventUtils.clearPlayerIdleStats(player);
         }
     }

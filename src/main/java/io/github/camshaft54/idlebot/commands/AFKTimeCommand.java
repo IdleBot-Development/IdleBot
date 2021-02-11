@@ -20,8 +20,8 @@ package io.github.camshaft54.idlebot.commands;
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.CommandUtils;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
-import io.github.camshaft54.idlebot.util.Messenger;
-import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.MessageHelper;
+import io.github.camshaft54.idlebot.util.PersistentDataUtils;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
@@ -40,8 +40,8 @@ public class AFKTimeCommand implements IdleBotCommand {
     @Override
     public boolean runCommand(Player player, String[] args) {
         if (args.length >= 2 && CommandUtils.isInteger(args[1]) && Integer.parseInt(args[1]) >= IdleBot.getConfigManager().MINIMUM_IDLE_TIME && Integer.parseInt(args[1]) <= IdleBot.getConfigManager().MAXIMUM_IDLE_TIME) {
-            PersistentDataHandler.setData(player, DataValues.AFK_TIME.key(), Integer.parseInt(args[1]));
-            Messenger.sendMessage(player, "Set your afktime to " + args[1], MessageLevel.INFO);
+            PersistentDataUtils.setData(player, DataValues.AFK_TIME.key(), Integer.parseInt(args[1]));
+            MessageHelper.sendMessage(player, "Set your afktime to " + args[1], MessageLevel.INFO);
             return true;
         }
         return false;

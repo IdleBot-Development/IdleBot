@@ -18,8 +18,8 @@
 package io.github.camshaft54.idlebot.commands;
 
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
-import io.github.camshaft54.idlebot.util.Messenger;
-import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.MessageHelper;
+import io.github.camshaft54.idlebot.util.PersistentDataUtils;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
@@ -37,12 +37,12 @@ public class UnlinkCommand implements IdleBotCommand {
 
     @Override
     public boolean runCommand(Player player, String[] args) {
-        if (PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key()) == null) { // If they are not linked
-            Messenger.sendMessage(player, "Your account isn't linked so you can't unlink it!", MessageLevel.INCORRECT_COMMAND_USAGE);
+        if (PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID.key()) == null) { // If they are not linked
+            MessageHelper.sendMessage(player, "Your account isn't linked so you can't unlink it!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }
-        PersistentDataHandler.removeData(player, DataValues.DISCORD_ID.key());
-        Messenger.sendMessage(player, "Unlinked your Discord username", MessageLevel.INFO);
+        PersistentDataUtils.removeData(player, DataValues.DISCORD_ID.key());
+        MessageHelper.sendMessage(player, "Unlinked your Discord username", MessageLevel.INFO);
         return true;
     }
 }

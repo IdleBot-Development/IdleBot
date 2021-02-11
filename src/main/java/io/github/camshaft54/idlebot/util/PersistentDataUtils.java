@@ -24,7 +24,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-public class PersistentDataHandler {
+public class PersistentDataUtils {
 
     // Overload method to set String or Integer
     public static void setData(Player player, String key, String value) {

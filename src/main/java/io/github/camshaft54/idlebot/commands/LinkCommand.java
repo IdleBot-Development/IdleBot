@@ -20,8 +20,8 @@ package io.github.camshaft54.idlebot.commands;
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
-import io.github.camshaft54.idlebot.util.Messenger;
-import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.MessageHelper;
+import io.github.camshaft54.idlebot.util.PersistentDataUtils;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
@@ -43,7 +43,7 @@ public class LinkCommand implements IdleBotCommand {
     @Override
     public boolean runCommand(Player player, String[] args) {
         if (playerIsLinked(player)) {
-            Messenger.sendMessage(player, "Your account is already linked!", MessageLevel.INCORRECT_COMMAND_USAGE);
+            MessageHelper.sendMessage(player, "Your account is already linked!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }
         Random rng = new Random();
@@ -52,7 +52,7 @@ public class LinkCommand implements IdleBotCommand {
         do {
             code = rng.nextInt(999);
         } while (isDuplicateToken(code) || code < 100);
-        Messenger.sendMessage(player, "Your link code is " + code + ". Send this code in a private message to " + botName + " to link your account.", MessageLevel.IMPORTANT);
+        MessageHelper.sendMessage(player, "Your link code is " + code + ". Send this code in a private message to " + botName + " to link your account.", MessageLevel.IMPORTANT);
         IdleBot.linkCodes.put(code, player);
         return true;
     }
@@ -65,6 +65,6 @@ public class LinkCommand implements IdleBotCommand {
     }
 
     private boolean playerIsLinked(Player player) {
-        return PersistentDataHandler.getStringData(player, DataValues.DISCORD_ID.key()) != null; // Returns true if the player already has an account linked
+        return PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID.key()) != null; // Returns true if the player already has an account linked
     }
 }

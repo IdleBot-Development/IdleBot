@@ -19,8 +19,8 @@ package io.github.camshaft54.idlebot.events;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.EventUtils;
-import io.github.camshaft54.idlebot.util.Messenger;
-import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.MessageHelper;
+import io.github.camshaft54.idlebot.util.PersistentDataUtils;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -49,14 +49,14 @@ public class OnPlayerJoin implements Listener {
                 offlinePlayers = (ArrayList<String>) offlinePlayers.stream().distinct().collect(Collectors.toList());
             }
         } catch (Exception exception) {
-            Messenger.sendMessage("Error reading data file!", MessageLevel.FATAL_ERROR);
+            MessageHelper.sendMessage("Error reading data file!", MessageLevel.FATAL_ERROR);
             exception.printStackTrace();
         }
         String joinedPlayerUUID = e.getPlayer().getUniqueId().toString();
         for (String offlinePlayer : offlinePlayers) {
             if (joinedPlayerUUID.equals(offlinePlayer)) {
                 offlinePlayers.remove(offlinePlayer);
-                PersistentDataHandler.removeAllData(e.getPlayer());
+                PersistentDataUtils.removeAllData(e.getPlayer());
                 EventUtils.saveListToDataFile(offlinePlayers, false);
                 break;
             }
@@ -65,7 +65,7 @@ public class OnPlayerJoin implements Listener {
         // Code to check for available update
         if (e.getPlayer().isOp() && !IdleBot.getLocalVersion().equals(IdleBot.getLatestVersion())
                 && !(IdleBot.getLocalVersion() == null || IdleBot.getLatestVersion() == null)) {
-                Messenger.sendMessage(e.getPlayer(), "You are running an outdated version! (You are running version " + IdleBot.getLocalVersion() + " but the latest version is " + IdleBot.getLatestVersion() + ". Go to https://www.spigotmc.org/resources/idlebot-step-up-your-afk-game.88778/ to download a new version", MessageLevel.IMPORTANT);
+                MessageHelper.sendMessage(e.getPlayer(), "You are running an outdated version! (You are running version " + IdleBot.getLocalVersion() + " but the latest version is " + IdleBot.getLatestVersion() + ". Go to https://www.spigotmc.org/resources/idlebot-step-up-your-afk-game.88778/ to download a new version", MessageLevel.IMPORTANT);
         }
     }
 }

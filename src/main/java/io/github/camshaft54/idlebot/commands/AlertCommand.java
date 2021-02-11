@@ -18,8 +18,8 @@
 package io.github.camshaft54.idlebot.commands;
 
 import io.github.camshaft54.idlebot.util.IdleBotCommand;
-import io.github.camshaft54.idlebot.util.Messenger;
-import io.github.camshaft54.idlebot.util.PersistentDataHandler;
+import io.github.camshaft54.idlebot.util.MessageHelper;
+import io.github.camshaft54.idlebot.util.PersistentDataUtils;
 import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
@@ -65,12 +65,12 @@ public class AlertCommand implements IdleBotCommand {
                 return false;
         }
         if (args[2].equalsIgnoreCase("true")) {
-            PersistentDataHandler.setData(player, dataKey, true);
-            Messenger.sendMessage(player, "Turned on " + args[1].toLowerCase() + " alerts", MessageLevel.INFO);
+            PersistentDataUtils.setData(player, dataKey, true);
+            MessageHelper.sendMessage(player, "Turned on " + args[1].toLowerCase() + " alerts", MessageLevel.INFO);
             return true;
         } else if (args[2].equalsIgnoreCase("false")) {
-            PersistentDataHandler.setData(player, dataKey, false);
-            Messenger.sendMessage(player, "Turned off " + args[1].toLowerCase() + " alerts", MessageLevel.INFO);
+            PersistentDataUtils.setData(player, dataKey, false);
+            MessageHelper.sendMessage(player, "Turned off " + args[1].toLowerCase() + " alerts", MessageLevel.INFO);
             return true;
         }
         return false;

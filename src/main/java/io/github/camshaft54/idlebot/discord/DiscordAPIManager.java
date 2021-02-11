@@ -19,7 +19,7 @@ package io.github.camshaft54.idlebot.discord;
 
 import io.github.camshaft54.idlebot.IdleBot;
 import io.github.camshaft54.idlebot.util.ConfigManager;
-import io.github.camshaft54.idlebot.util.Messenger;
+import io.github.camshaft54.idlebot.util.MessageHelper;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -42,20 +42,20 @@ public class DiscordAPIManager {
             bot = JDABuilder.createDefault(config.BOT_TOKEN).build();
             bot.awaitReady();
         } catch (LoginException | InterruptedException e) {
-            Messenger.sendMessage("Failed to initialize JDA!", MessageLevel.FATAL_ERROR);
+            MessageHelper.sendMessage("Failed to initialize JDA!", MessageLevel.FATAL_ERROR);
             e.printStackTrace();
             plugin.disablePlugin();
         }
         bot.addEventListener(new DiscordMessageEvent());
         setActivity();
         getChannel();
-        Messenger.sendMessage("Successfully connected to Discord as " + bot.getSelfUser().getAsTag(), MessageLevel.INFO);
-        Messenger.sendMessage("Open the following url to invite the bot: " + bot.getInviteUrl(), MessageLevel.INFO);
+        MessageHelper.sendMessage("Successfully connected to Discord as " + bot.getSelfUser().getAsTag(), MessageLevel.INFO);
+        MessageHelper.sendMessage("Open the following url to invite the bot: " + bot.getInviteUrl(), MessageLevel.INFO);
     }
 
     private void setActivity() {
         Presence presence = bot.getPresence();
-        switch (config.ACTIVITY_TYPE) {
+        switch (config.ACTIVITY_TYPE.toUpperCase()) {
             case "WATCHING":
                 presence.setPresence(Activity.watching(config.ACTIVITY_MESSAGE), false);
                 break;
@@ -74,7 +74,7 @@ public class DiscordAPIManager {
         if (bot.getTextChannelById(config.CHANNEL_ID) != null) {
             channel = bot.getTextChannelById(config.CHANNEL_ID);
         } else {
-            Messenger.sendMessage("Invalid Discord channel specified in config", MessageLevel.FATAL_ERROR);
+            MessageHelper.sendMessage("Invalid Discord channel specified in config", MessageLevel.FATAL_ERROR);
             plugin.disablePlugin();
         }
     }
