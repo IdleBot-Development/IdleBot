@@ -41,7 +41,7 @@ public class UnlinkCommand implements IdleBotCommand {
             MessageHelper.sendMessage(player, "Your account isn't linked so you can't unlink it!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }
-        PersistentDataUtils.removeData(player, DataValues.DISCORD_ID.key());
+        PersistentDataUtils.removeAllData(player);
         MessageHelper.sendMessage(player, "Unlinked your Discord username", MessageLevel.INFO);
         return true;
     }

@@ -35,7 +35,7 @@ public class OnDeath implements Listener {
         Player player = e.getEntity();
         if (EventUtils.isIdle(player) && PersistentDataUtils.getBooleanData(player, DataValues.DEATH_ALERT.key())) {
             MessageHelper.sendMessage(player.getDisplayName() + " is idle and dead!", MessageLevel.INFO);
-            EventUtils.sendPlayerMessage(player, player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").");
+            EventUtils.sendPlayerMessage(player, player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").", player.getDisplayName() + " died!");
         }
     }
 

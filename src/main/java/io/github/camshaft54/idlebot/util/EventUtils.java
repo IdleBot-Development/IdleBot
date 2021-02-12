@@ -23,6 +23,7 @@ import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.User;
 import org.bukkit.entity.Player;
 
 import java.awt.*;
@@ -44,16 +45,18 @@ public class EventUtils {
 
     // Sends player a message on Discord, if player has linked account
     @SuppressWarnings("ResultOfMethodCallIgnored")
-    public static void sendPlayerMessage(Player player, String message) {
+    public static void sendPlayerMessage(Player player, String message, String previewMessage) {
         String discordID = PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID.key());
         if (discordID != null) {
             EmbedBuilder eb = new EmbedBuilder().setAuthor(player.getDisplayName(), null, "https://minotar.net/helm/" + player.getUniqueId())
                     .setTitle(message)
                     .setColor(Color.RED);
-            MessageBuilder mb = new MessageBuilder().append("<@!").append(discordID).append(">").setEmbed(eb.build());
+            MessageBuilder mb = new MessageBuilder().append("<@!").append(discordID).append(">, ").append(previewMessage).setEmbed(eb.build());
             if (PersistentDataUtils.getBooleanData(player, DataValues.DIRECT_MESSAGE_MODE.key())) {
-                Objects.requireNonNull(IdleBot.getDiscordAPIManager().bot.getUserById(Objects.requireNonNull(PersistentDataUtils.getStringData(player,
-                        DataValues.DISCORD_ID.key())))).openPrivateChannel().queue(channel -> channel.sendMessage(mb.build()));
+                IdleBot.getDiscordAPIManager().bot.retrieveUserById(
+                        Objects.requireNonNull(PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID.key())))
+                        .queue(user -> user.openPrivateChannel()
+                                .queue(channel -> channel.sendMessage(mb.build())));
             } else {
                 DiscordAPIManager.channel.sendMessage(mb.build()).queue();
             }
