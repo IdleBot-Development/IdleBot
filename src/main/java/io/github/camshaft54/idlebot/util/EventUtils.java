@@ -23,7 +23,6 @@ import io.github.camshaft54.idlebot.util.enums.DataValues;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
-import net.dv8tion.jda.api.entities.User;
 import org.bukkit.entity.Player;
 
 import java.awt.*;
@@ -44,7 +43,6 @@ public class EventUtils {
     }
 
     // Sends player a message on Discord, if player has linked account
-    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static void sendPlayerMessage(Player player, String message, String previewMessage) {
         String discordID = PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID.key());
         if (discordID != null) {
@@ -55,8 +53,7 @@ public class EventUtils {
             if (PersistentDataUtils.getBooleanData(player, DataValues.DIRECT_MESSAGE_MODE.key())) {
                 IdleBot.getDiscordAPIManager().bot.retrieveUserById(
                         Objects.requireNonNull(PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID.key())))
-                        .queue(user -> user.openPrivateChannel()
-                                .queue(channel -> channel.sendMessage(mb.build())));
+                        .queue(user -> user.openPrivateChannel().queue(channel -> channel.sendMessage(mb.build()).queue()));
             } else {
                 DiscordAPIManager.channel.sendMessage(mb.build()).queue();
             }
