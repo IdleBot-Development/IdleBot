@@ -52,7 +52,6 @@ public class DiscordMessageEvent extends ListenerAdapter {
                 }
             } catch (NumberFormatException nfe) {
                 channel.sendMessage("Invalid Code. To get code type `/idlebot link` in Minecraft").queue();
-                nfe.printStackTrace();
             }
         }
     }
