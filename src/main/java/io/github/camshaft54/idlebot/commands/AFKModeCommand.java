@@ -35,7 +35,7 @@ public class AFKModeCommand implements IdleBotCommand {
 
     @Override
     public String getCommandUsage() {
-        return "/idlebot afkmode <auto|manual>";
+        return "/idlebot afkmode <auto | manual>";
     }
 
     @Override

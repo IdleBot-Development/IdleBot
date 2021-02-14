@@ -44,7 +44,7 @@ public class ClearDataCommand implements IdleBotCommand {
 
     @Override
     public String getCommandUsage() {
-        return "/idlebot cleardata [player name|@online|@offline]";
+        return "/idlebot cleardata [player name | @online | @offline]";
     }
 
     @Override

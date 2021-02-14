@@ -34,7 +34,7 @@ public class SetAFKCommand implements IdleBotCommand {
 
     @Override
     public String getCommandUsage() {
-        return "/idlebot afk [true|false]";
+        return "/idlebot afk [true | false]";
     }
 
     @Override

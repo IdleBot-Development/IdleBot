@@ -33,7 +33,7 @@ public class ChannelCommand implements IdleBotCommand {
 
     @Override
     public String getCommandUsage() {
-        return "/idlebot channel <public|private>";
+        return "/idlebot channel <public | private>";
     }
 
     @Override

@@ -33,7 +33,7 @@ public class AlertCommand implements IdleBotCommand {
 
     @Override
     public String getCommandUsage() {
-        return "/idlebot alert <damage|death|xlocation|zlocation|xp|inventory> <true|false>";
+        return "/idlebot alert <damage | death | xlocation | zlocation | xp | inventory> <true | false>";
     }
 
     @Override
