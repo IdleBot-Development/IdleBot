@@ -52,7 +52,7 @@ public class EventUtils {
             MessageBuilder mb = new MessageBuilder().append("<@!").append(discordID).append(">, ").append(previewMessage).setEmbed(eb.build());
             if (PersistentDataUtils.getBooleanData(player, DataValues.DIRECT_MESSAGE_MODE.key())) {
                 IdleBot.getDiscordAPIManager().bot.retrieveUserById(
-                        Objects.requireNonNull(PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID.key())))
+                        Objects.requireNonNull(PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID.key())), false)
                         .queue(user -> user.openPrivateChannel().queue(channel -> channel.sendMessage(mb.build()).queue()));
             } else {
                 DiscordAPIManager.channel.sendMessage(mb.build()).queue();
