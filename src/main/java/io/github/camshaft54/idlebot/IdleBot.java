@@ -24,6 +24,7 @@ import io.github.camshaft54.idlebot.discord.DiscordAPIManager;
 import io.github.camshaft54.idlebot.events.*;
 import io.github.camshaft54.idlebot.util.ConfigManager;
 import io.github.camshaft54.idlebot.util.MessageHelper;
+import io.github.camshaft54.idlebot.util.UpdateChecker;
 import io.github.camshaft54.idlebot.util.enums.MessageLevel;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -77,17 +78,14 @@ public class IdleBot extends JavaPlugin {
             pluginManager.registerEvents(new OnDeath(), this); // Register death event
             pluginManager.registerEvents(new OnPlayerQuit(), this); // Register player quit event
             pluginManager.registerEvents(new OnPlayerJoin(), this); // Register player join event
-            try {
-                checkVersion();
-                if (localVersion.equals(latestVersion)) {
+            localVersion = this.getDescription().getVersion();
+            new UpdateChecker(this).getVersion(version -> {
+                latestVersion = version;
+                if (localVersion.equals(latestVersion))
                     MessageHelper.sendMessage("You are running the latest version! (" + localVersion + ")", MessageLevel.INFO);
-                } else {
+                else
                     MessageHelper.sendMessage("You are running an outdated version! (You are running version " + localVersion + " but the latest version is " + latestVersion + ")\nGo to https://www.spigotmc.org/resources/idlebot-step-up-your-afk-game.88778/ to download a new version", MessageLevel.IMPORTANT);
-                }
-            } catch (IOException e) {
-                MessageHelper.sendMessage("Error checking for latest version. You can probably ignore this.", MessageLevel.FATAL_ERROR);
-                e.printStackTrace();
-            }
+            });
             // Load JDA
             MessageHelper.sendMessage("Starting to load JDA", MessageLevel.INFO);
             discordAPIManager = new DiscordAPIManager(this);
@@ -102,15 +100,6 @@ public class IdleBot extends JavaPlugin {
 
     public void disablePlugin() {
         Bukkit.getPluginManager().disablePlugin(plugin);
-    }
-
-    public void checkVersion() throws IOException {
-        localVersion = getDescription().getVersion();
-        URL latestVersionURL = new URL("https://raw.githubusercontent.com/CamShaft54/IdleBot/master/.versions/latest.txt");
-        URLConnection latestVersionURLConnection = latestVersionURL.openConnection();
-        InputStream latestVersionInputStream = latestVersionURLConnection.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(latestVersionInputStream));
-        latestVersion = reader.readLine();
     }
 }
 
