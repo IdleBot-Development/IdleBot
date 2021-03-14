@@ -48,6 +48,7 @@ public class ConfigManager {
     public final boolean PRIVATE_CHANNEL_MESSAGES_ENABLED;
     public final boolean AUTO_AFK_ENABLED;
     public final boolean MANUAL_AFK_ENABLED;
+    public final boolean DISCORDSRV_MODE;
 
     public ConfigManager(IdleBot plugin) throws IOException, ParseException {
         this.plugin = plugin;
@@ -59,13 +60,9 @@ public class ConfigManager {
         config.saveAllDefaults();
         config.loadAll();
 
-        BOT_TOKEN = config.getStringElse("botToken", "<Bot Token Here>");
-        CHANNEL_ID = config.getStringElse("channelID", "<Channel ID Here>");
-        if (BOT_TOKEN.equals("<Bot Token Here>") || CHANNEL_ID.equals("<Channel ID Here>"))
-            invalidateConfig("botToken and/or channelToken need to be set in config.yml.");
-
         ACTIVITY_TYPE = config.getStringElse("customBotActivity.type", "watching");
         ACTIVITY_MESSAGE = config.getStringElse("customBotActivity.message", "idle players");
+        DISCORDSRV_MODE = config.getBooleanElse("discordSRV", false);
 
         MAXIMUM_IDLE_TIME = config.getIntElse("idleTime.maximumIdleTime", 120);
         MINIMUM_IDLE_TIME = config.getIntElse("idleTime.minimumIdleTime", 20);
@@ -84,6 +81,11 @@ public class ConfigManager {
         DEFAULT_AFK_MODE = config.getStringElse("AFKMode.defaultAFKMode", "auto");
         if ((DEFAULT_AFK_MODE.equals("auto") && !AUTO_AFK_ENABLED) || (DEFAULT_AFK_MODE.equals("manual") && !MANUAL_AFK_ENABLED) || !(DEFAULT_AFK_MODE.equals("auto") || DEFAULT_AFK_MODE.equals("manual")))
             invalidateConfig("AFKMode settings invalid");
+
+        BOT_TOKEN = config.getStringElse("botToken", "<Bot Token Here>");
+        CHANNEL_ID = config.getStringElse("channelID", "<Channel ID Here>");
+        if (BOT_TOKEN.equals("<Bot Token Here>") || (CHANNEL_ID.equals("<Channel ID Here>") && PUBLIC_CHANNEL_MESSAGES_ENABLED))
+            invalidateConfig("botToken and/or channelToken need to be set in config.yml.");
     }
 
     private void invalidateConfig(String reason) {

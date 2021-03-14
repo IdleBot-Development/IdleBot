@@ -11,8 +11,10 @@
 
 # This is the token you get from your application in the Discord Developer Portal: https://discord.com/developers/applications | DO NOT INCLUDE THE <>
 botToken: <Bot Token Here>
-# This is the ID of the Discord channel you want the bot to send messages to | DO NOT INCLUDE THE <>
+# This is the ID of the Discord channel you want the bot to send messages to | DO NOT INCLUDE THE <> | Not needed if publicChannelMessagesEnabled is set to false
 channelID: <Channel ID Here>
+# Do you want this plugin to rely on DiscordSRV for account linking? (Recommended if you are using DiscordSRV)
+discordSRV: false
 
 messageChannels:
   # Should players be allowed to have alerts sent to a public channel | default: true
