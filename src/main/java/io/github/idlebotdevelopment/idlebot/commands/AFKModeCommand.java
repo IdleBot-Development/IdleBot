@@ -45,7 +45,7 @@ public class AFKModeCommand implements IdleBotCommand {
                 MessageHelper.sendMessage(player, "You are not allowed to use manual AFK on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
                 return true;
             }
-            PersistentDataUtils.setData(player, DataValues.AUTO_AFK.key(), false);
+            PersistentDataUtils.setData(player, DataValues.AUTO_AFK, false);
             EventUtils.clearPlayerIdleStats(player);
             MessageHelper.sendMessage(player, "Set your afkmode to manual", MessageLevel.INFO);
             return true;
@@ -54,8 +54,8 @@ public class AFKModeCommand implements IdleBotCommand {
                 MessageHelper.sendMessage(player, "You are not allowed to use auto AFK on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
                 return true;
             }
-            PersistentDataUtils.setData(player, DataValues.AUTO_AFK.key(), true);
-            PersistentDataUtils.setData(player, DataValues.IS_SET_AFK.key(), false);
+            PersistentDataUtils.setData(player, DataValues.AUTO_AFK, true);
+            PersistentDataUtils.setData(player, DataValues.IS_SET_AFK, false);
             MessageHelper.sendMessage(player, "Set your afkmode to auto", MessageLevel.INFO);
             return true;
         }

@@ -27,26 +27,26 @@ import org.bukkit.persistence.PersistentDataType;
 public class PersistentDataUtils {
 
     // Overload method to set String or Integer
-    public static void setData(Player player, String key, String value) {
+    public static void setData(Player player, DataValues key, String value) {
         PersistentDataContainer data = player.getPersistentDataContainer();
-        data.set(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.STRING, value);
+        data.set(new NamespacedKey(IdleBot.getPlugin(), key.key()), PersistentDataType.STRING, value);
     }
 
-    public static void setData(Player player, String key, int value) {
+    public static void setData(Player player, DataValues key, int value) {
         PersistentDataContainer data = player.getPersistentDataContainer();
-        data.set(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.INTEGER, value);
+        data.set(new NamespacedKey(IdleBot.getPlugin(), key.key()), PersistentDataType.INTEGER, value);
     }
 
     // Set "boolean" data (0 for false, 1 for true)
-    public static void setData(Player player, String key, boolean value) {
+    public static void setData(Player player, DataValues key, boolean value) {
         PersistentDataContainer data = player.getPersistentDataContainer();
-        data.set(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.INTEGER, value ? 1 : 0);
+        data.set(new NamespacedKey(IdleBot.getPlugin(), key.key()), PersistentDataType.INTEGER, value ? 1 : 0);
     }
 
-    public static String getStringData(Player player, String key) {
+    public static String getStringData(Player player, DataValues key) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         try {
-            return data.get(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.STRING);
+            return data.get(new NamespacedKey(IdleBot.getPlugin(), key.key()), PersistentDataType.STRING);
         }
         catch (NullPointerException npe) {
             return null;
@@ -54,10 +54,10 @@ public class PersistentDataUtils {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public static boolean getBooleanData(Player player, String key) {
+    public static boolean getBooleanData(Player player, DataValues key) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         try {
-            return data.get(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.INTEGER) == 1;
+            return data.get(new NamespacedKey(IdleBot.getPlugin(), key.key()), PersistentDataType.INTEGER) == 1;
         }
         catch (NullPointerException npe) {
             return false;
@@ -65,10 +65,10 @@ public class PersistentDataUtils {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public static int getIntData(Player player, String key) {
+    public static int getIntData(Player player, DataValues key) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         try {
-            return data.get(new NamespacedKey(IdleBot.getPlugin(), key), PersistentDataType.INTEGER);
+            return data.get(new NamespacedKey(IdleBot.getPlugin(), key.key()), PersistentDataType.INTEGER);
         }
         catch (NullPointerException npe) {
             return -1;
@@ -76,10 +76,10 @@ public class PersistentDataUtils {
     }
 
     // Method to remove data by key from a player
-    public static void removeData(Player player, String key) {
+    public static void removeData(Player player, DataValues key) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         try {
-            data.remove(new NamespacedKey(IdleBot.getPlugin(), key));
+            data.remove(new NamespacedKey(IdleBot.getPlugin(), key.key()));
         } catch (NullPointerException npe) {
             // The player didn't have the value set (nothing else to do)
         }
@@ -87,7 +87,7 @@ public class PersistentDataUtils {
 
     public static void removeAllData(Player player) {
         for (DataValues dataValue : DataValues.values()) {
-            removeData(player, dataValue.key());
+            removeData(player, dataValue);
         }
     }
 }

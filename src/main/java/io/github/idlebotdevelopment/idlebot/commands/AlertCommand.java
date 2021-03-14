@@ -38,28 +38,28 @@ public class AlertCommand implements IdleBotCommand {
 
     @Override
     public boolean runCommand(Player player, String[] args) {
-        String dataKey;
+        DataValues dataKey;
         if (args.length < 3) {
             return false;
         }
         switch (args[1].toLowerCase()) {
             case "damage":
-                dataKey = DataValues.DAMAGE_ALERT.key();
+                dataKey = DataValues.DAMAGE_ALERT;
                 break;
             case "death":
-                dataKey = DataValues.DEATH_ALERT.key();
+                dataKey = DataValues.DEATH_ALERT;
                 break;
             case "xlocation":
-                dataKey = DataValues.LOCATION_ALERT_X.key();
+                dataKey = DataValues.LOCATION_ALERT_X;
                 break;
             case "zlocation":
-                dataKey = DataValues.LOCATION_ALERT_Z.key();
+                dataKey = DataValues.LOCATION_ALERT_Z;
                 break;
             case "xp":
-                dataKey = DataValues.EXPERIENCE_ALERT.key();
+                dataKey = DataValues.EXPERIENCE_ALERT;
                 break;
             case "inventory":
-                dataKey = DataValues.INVENTORY_FULL_ALERT.key();
+                dataKey = DataValues.INVENTORY_FULL_ALERT;
                 break;
             default:
                 return false;

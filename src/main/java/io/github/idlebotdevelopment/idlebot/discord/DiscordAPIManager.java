@@ -20,12 +20,15 @@ package io.github.idlebotdevelopment.idlebot.discord;
 import io.github.idlebotdevelopment.idlebot.IdleBot;
 import io.github.idlebotdevelopment.idlebot.util.ConfigManager;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
+import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.managers.Presence;
+import org.bukkit.entity.Player;
 
 import javax.security.auth.login.LoginException;
 
@@ -70,6 +73,15 @@ public class DiscordAPIManager {
         } else {
             MessageHelper.sendMessage("Invalid Discord channel specified in config", MessageLevel.FATAL_ERROR);
             plugin.disablePlugin();
+        }
+    }
+
+    public static String getPlayerID(Player player) {
+        if (IdleBot.getConfigManager().DISCORDSRV_MODE) {
+            // Do DiscordSRV stuff
+            return "";
+        } else {
+            return PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID);
         }
     }
 }

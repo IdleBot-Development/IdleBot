@@ -37,7 +37,7 @@ public class UnlinkCommand implements IdleBotCommand {
 
     @Override
     public boolean runCommand(Player player, String[] args) {
-        if (PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID.key()) == null) { // If they are not linked
+        if (PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID) == null) { // If they are not linked
             MessageHelper.sendMessage(player, "Your account isn't linked so you can't unlink it!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }

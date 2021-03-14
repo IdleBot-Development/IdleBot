@@ -30,14 +30,14 @@ import org.bukkit.entity.Player;
 
 public class XLocationReached implements IdleCheck {
     @Override
-    public String getDataValue() {
-        return DataValues.LOCATION_ALERT_X.key();
+    public DataValues getDataValue() {
+        return DataValues.LOCATION_ALERT_X;
     }
 
     // Sends a player a message if they have reached their desired location
     public void check(Player player) {
-        String direction = PersistentDataUtils.getStringData(player, DataValues.LOCATION_X_DIRECTION.key());
-        int desiredLocation = PersistentDataUtils.getIntData(player, DataValues.LOCATION_X_DESIRED.key());
+        String direction = PersistentDataUtils.getStringData(player, DataValues.LOCATION_X_DIRECTION);
+        int desiredLocation = PersistentDataUtils.getIntData(player, DataValues.LOCATION_X_DESIRED);
         double playerLocation = player.getLocation().getX();
         if (direction != null && !IdleBot.getEventManager().locationReachedPlayersX.contains(player) && ((direction.equals("e") && playerLocation >= desiredLocation) || (direction.equals("w") && playerLocation <= desiredLocation))) {
             Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and reached the desired X coordinate!");

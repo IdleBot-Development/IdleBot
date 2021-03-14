@@ -28,14 +28,14 @@ import org.bukkit.entity.Player;
 
 public class ZLocationReached implements IdleCheck {
     @Override
-    public String getDataValue() {
-        return DataValues.LOCATION_ALERT_Z.key();
+    public DataValues getDataValue() {
+        return DataValues.LOCATION_ALERT_Z;
     }
 
     // Sends a player a message if they have reached their desired location
     public void check(Player player) {
-        String direction = PersistentDataUtils.getStringData(player, DataValues.LOCATION_Z_DIRECTION.key());
-        int desiredLocation = PersistentDataUtils.getIntData(player, DataValues.LOCATION_Z_DESIRED.key());
+        String direction = PersistentDataUtils.getStringData(player, DataValues.LOCATION_Z_DIRECTION);
+        int desiredLocation = PersistentDataUtils.getIntData(player, DataValues.LOCATION_Z_DESIRED);
         double playerLocation = player.getLocation().getZ();
         if (direction != null && !IdleBot.getEventManager().locationReachedPlayersZ.contains(player) && ((direction.equals("s") && playerLocation >= desiredLocation) || (direction.equals("n") && playerLocation <= desiredLocation))) {
             MessageHelper.sendMessage(player.getDisplayName() + " is idle and reached the desired Z coordinate!", MessageLevel.INFO);

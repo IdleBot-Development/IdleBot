@@ -28,13 +28,13 @@ import org.bukkit.entity.Player;
 
 public class XPLevelReached implements IdleCheck {
     @Override
-    public String getDataValue() {
-        return DataValues.EXPERIENCE_ALERT.key();
+    public DataValues getDataValue() {
+        return DataValues.EXPERIENCE_ALERT;
     }
 
     // Checks if player has reached a certain xp level and sends them a message if they have
     public void check(Player player) {
-        int levelDesired = PersistentDataUtils.getIntData(player, DataValues.EXPERIENCE_LEVEL_DESIRED.key());
+        int levelDesired = PersistentDataUtils.getIntData(player, DataValues.EXPERIENCE_LEVEL_DESIRED);
         if (levelDesired == -1) return;
         if (player.getLevel() >= levelDesired && !IdleBot.getEventManager().XPLevelReachedPlayers.contains(player)) {
             MessageHelper.sendMessage(player.getDisplayName() + " is idle and at the desired XP level!", MessageLevel.INFO);

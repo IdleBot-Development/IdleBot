@@ -27,8 +27,8 @@ import org.bukkit.entity.Player;
 
 public class InventoryFull implements IdleCheck {
     @Override
-    public String getDataValue() {
-        return DataValues.INVENTORY_FULL_ALERT.key();
+    public DataValues getDataValue() {
+        return DataValues.INVENTORY_FULL_ALERT;
     }
 
     public void check(Player player) {

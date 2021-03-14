@@ -22,7 +22,11 @@ import java.math.BigInteger;
 public class CommandUtils {
     public static boolean isInteger(String str) {
         if (str.length() > 11) return false;
-        BigInteger bigInt = new BigInteger(str);
-        return bigInt.bitCount() <= 32;
+        try {
+            BigInteger bigInt = new BigInteger(str);
+            return bigInt.bitCount() <= 32;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

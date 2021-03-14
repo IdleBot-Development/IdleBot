@@ -33,6 +33,6 @@ public class OnPlayerQuit implements Listener {
         Player player = e.getPlayer();
         IdleBot.idlePlayers.remove(player);
         EventUtils.clearPlayerIdleStats(player);
-        PersistentDataUtils.setData(player, DataValues.IS_SET_AFK.key(), false);
+        PersistentDataUtils.setData(player, DataValues.IS_SET_AFK, false);
     }
 }

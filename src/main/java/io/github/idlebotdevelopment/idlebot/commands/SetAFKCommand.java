@@ -44,16 +44,16 @@ public class SetAFKCommand implements IdleBotCommand {
             return true;
         }
         if (args.length >= 2 && args[1].equalsIgnoreCase("true")) {
-            PersistentDataUtils.setData(player, DataValues.IS_SET_AFK.key(), true);
+            PersistentDataUtils.setData(player, DataValues.IS_SET_AFK, true);
             MessageHelper.sendMessage(player, "Set your afk status to true", MessageLevel.INFO);
         } else if (args.length >= 2 && args[1].equalsIgnoreCase("false")) {
-            PersistentDataUtils.setData(player, DataValues.IS_SET_AFK.key(), false);
+            PersistentDataUtils.setData(player, DataValues.IS_SET_AFK, false);
             MessageHelper.sendMessage(player, "Set your afk status to false", MessageLevel.INFO);
         } else {
-            PersistentDataUtils.setData(player, DataValues.IS_SET_AFK.key(), !PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK.key()));
-            MessageHelper.sendMessage(player, "Set your afk status to " + PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK.key()), MessageLevel.INFO);
+            PersistentDataUtils.setData(player, DataValues.IS_SET_AFK, !PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK));
+            MessageHelper.sendMessage(player, "Set your afk status to " + PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK), MessageLevel.INFO);
         }
-        PersistentDataUtils.setData(player, DataValues.AUTO_AFK.key(), false);
+        PersistentDataUtils.setData(player, DataValues.AUTO_AFK, false);
         EventUtils.clearPlayerIdleStats(player);
         return true;
     }

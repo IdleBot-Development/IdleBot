@@ -46,18 +46,18 @@ public class LocationCommand implements IdleBotCommand {
             int coord = Integer.parseInt(args[2]);
             if (args[1].equalsIgnoreCase("x")) {
                 if ((int) player.getLocation().getX() < coord) {
-                    PersistentDataUtils.setData(player, DataValues.LOCATION_X_DIRECTION.key(), "e");
+                    PersistentDataUtils.setData(player, DataValues.LOCATION_X_DIRECTION, "e");
                 } else {
-                    PersistentDataUtils.setData(player, DataValues.LOCATION_X_DIRECTION.key(), "w");
+                    PersistentDataUtils.setData(player, DataValues.LOCATION_X_DIRECTION, "w");
                 }
-                PersistentDataUtils.setData(player, DataValues.LOCATION_X_DESIRED.key(), coord);
+                PersistentDataUtils.setData(player, DataValues.LOCATION_X_DESIRED, coord);
             } else {
                 if ((int) player.getLocation().getZ() < coord) {
-                    PersistentDataUtils.setData(player, DataValues.LOCATION_Z_DIRECTION.key(), "s");
+                    PersistentDataUtils.setData(player, DataValues.LOCATION_Z_DIRECTION, "s");
                 } else {
-                    PersistentDataUtils.setData(player, DataValues.LOCATION_Z_DIRECTION.key(), "n");
+                    PersistentDataUtils.setData(player, DataValues.LOCATION_Z_DIRECTION, "n");
                 }
-                PersistentDataUtils.setData(player, DataValues.LOCATION_Z_DESIRED.key(), coord);
+                PersistentDataUtils.setData(player, DataValues.LOCATION_Z_DESIRED, coord);
             }
             MessageHelper.sendMessage(player, "Set your desired location to " + args[1].toLowerCase() + "=" + args[2], MessageLevel.INFO);
             return true;

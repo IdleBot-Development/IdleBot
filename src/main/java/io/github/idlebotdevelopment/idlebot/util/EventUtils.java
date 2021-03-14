@@ -36,23 +36,23 @@ public class EventUtils {
     // Check if a player is idle based on the player's settings and the time they have spent idle
     public static boolean isIdle(Player player) {
         int time = (IdleBot.idlePlayers.get(player) != null) ? IdleBot.idlePlayers.get(player) : -1;
-        boolean autoAFK = PersistentDataUtils.getBooleanData(player, DataValues.AUTO_AFK.key());
-        boolean setafk = PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK.key());
-        int afktime = PersistentDataUtils.getIntData(player, DataValues.AFK_TIME.key());
+        boolean autoAFK = PersistentDataUtils.getBooleanData(player, DataValues.AUTO_AFK);
+        boolean setafk = PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK);
+        int afktime = PersistentDataUtils.getIntData(player, DataValues.AFK_TIME);
         return (!autoAFK && setafk) || (time != -1 && afktime <= time);
     }
 
     // Sends player a message on Discord, if player has linked account
     public static void sendPlayerMessage(Player player, String message, String previewMessage) {
-        String discordID = PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID.key());
+        String discordID = PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID);
         if (discordID != null) {
             EmbedBuilder eb = new EmbedBuilder().setAuthor(player.getDisplayName(), null, "https://minotar.net/helm/" + player.getUniqueId())
                     .setTitle(message)
                     .setColor(Color.RED);
             MessageBuilder mb = new MessageBuilder().append("<@!").append(discordID).append(">, ").append(previewMessage).setEmbed(eb.build());
-            if (PersistentDataUtils.getBooleanData(player, DataValues.DIRECT_MESSAGE_MODE.key())) {
+            if (PersistentDataUtils.getBooleanData(player, DataValues.DIRECT_MESSAGE_MODE)) {
                 IdleBot.getDiscordAPIManager().bot.retrieveUserById(
-                        Objects.requireNonNull(PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID.key())), false)
+                        Objects.requireNonNull(PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID)), false)
                         .queue(user -> user.openPrivateChannel().queue(channel -> channel.sendMessage(mb.build()).queue()));
             } else {
                 DiscordAPIManager.channel.sendMessage(mb.build()).queue();

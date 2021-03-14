@@ -33,7 +33,7 @@ public class OnDeath implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
-        if (EventUtils.isIdle(player) && PersistentDataUtils.getBooleanData(player, DataValues.DEATH_ALERT.key())) {
+        if (EventUtils.isIdle(player) && PersistentDataUtils.getBooleanData(player, DataValues.DEATH_ALERT)) {
             MessageHelper.sendMessage(player.getDisplayName() + " is idle and dead!", MessageLevel.INFO);
             EventUtils.sendPlayerMessage(player, player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").", player.getDisplayName() + " died!");
         }

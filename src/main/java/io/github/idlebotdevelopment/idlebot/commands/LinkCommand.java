@@ -64,6 +64,6 @@ public class LinkCommand implements IdleBotCommand {
     }
 
     private boolean playerIsLinked(Player player) {
-        return PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID.key()) != null; // Returns true if the player already has an account linked
+        return PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID) != null; // Returns true if the player already has an account linked
     }
 }

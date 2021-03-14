@@ -36,7 +36,7 @@ public class OnDamage implements Listener {
     public void onDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
-            if (EventUtils.isIdle(player) && !IdleBot.getEventManager().damagedPlayers.contains(player) && PersistentDataUtils.getBooleanData(player, DataValues.DAMAGE_ALERT.key())) {
+            if (EventUtils.isIdle(player) && !IdleBot.getEventManager().damagedPlayers.contains(player) && PersistentDataUtils.getBooleanData(player, DataValues.DAMAGE_ALERT)) {
                 MessageHelper.sendMessage(player.getDisplayName() + " is idle and taking damage!", MessageLevel.INFO);
                 EventUtils.sendPlayerMessage(player, player.getDisplayName() + " is taking damage " + " (" + StringUtils.capitalize(e.getCause().name()) + ").", player.getDisplayName() + " is taking damage!");
                 IdleBot.getEventManager().damagedPlayers.add(player);
