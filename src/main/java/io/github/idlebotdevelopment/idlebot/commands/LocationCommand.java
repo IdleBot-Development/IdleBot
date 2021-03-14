@@ -21,7 +21,7 @@ import io.github.idlebotdevelopment.idlebot.util.CommandUtils;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
 
@@ -46,18 +46,18 @@ public class LocationCommand implements IdleBotCommand {
             int coord = Integer.parseInt(args[2]);
             if (args[1].equalsIgnoreCase("x")) {
                 if ((int) player.getLocation().getX() < coord) {
-                    PersistentDataUtils.setData(player, DataValues.LOCATION_X_DIRECTION, "e");
+                    PersistentDataUtils.setData(player, DataValue.LOCATION_X_DIRECTION, "e");
                 } else {
-                    PersistentDataUtils.setData(player, DataValues.LOCATION_X_DIRECTION, "w");
+                    PersistentDataUtils.setData(player, DataValue.LOCATION_X_DIRECTION, "w");
                 }
-                PersistentDataUtils.setData(player, DataValues.LOCATION_X_DESIRED, coord);
+                PersistentDataUtils.setData(player, DataValue.LOCATION_X_DESIRED, coord);
             } else {
                 if ((int) player.getLocation().getZ() < coord) {
-                    PersistentDataUtils.setData(player, DataValues.LOCATION_Z_DIRECTION, "s");
+                    PersistentDataUtils.setData(player, DataValue.LOCATION_Z_DIRECTION, "s");
                 } else {
-                    PersistentDataUtils.setData(player, DataValues.LOCATION_Z_DIRECTION, "n");
+                    PersistentDataUtils.setData(player, DataValue.LOCATION_Z_DIRECTION, "n");
                 }
-                PersistentDataUtils.setData(player, DataValues.LOCATION_Z_DESIRED, coord);
+                PersistentDataUtils.setData(player, DataValue.LOCATION_Z_DESIRED, coord);
             }
             MessageHelper.sendMessage(player, "Set your desired location to " + args[1].toLowerCase() + "=" + args[2], MessageLevel.INFO);
             return true;

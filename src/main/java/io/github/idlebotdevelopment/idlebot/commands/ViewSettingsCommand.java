@@ -21,7 +21,7 @@ import io.github.idlebotdevelopment.idlebot.IdleBot;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -43,27 +43,27 @@ public class ViewSettingsCommand implements IdleBotCommand {
     @Override
     public boolean runCommand(Player player, String[] args) {
         MessageHelper.sendMessage(player, "Your current settings: ", MessageLevel.INFO);
-        String discordID = PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID);
+        String discordID = PersistentDataUtils.getStringData(player, DataValue.DISCORD_ID);
         if (discordID == null) {
             player.sendMessage(ChatColor.AQUA + "Account linked: false");
             return true;
         }
         Objects.requireNonNull(IdleBot.getDiscordAPIManager().bot.retrieveUserById(discordID, false)).queue(u -> player.sendMessage(ChatColor.AQUA + "Account linked: true (" + u.getAsTag() + ")"));
-        player.sendMessage(ChatColor.AQUA + "Message channel: " + (PersistentDataUtils.getBooleanData(player, DataValues.DIRECT_MESSAGE_MODE) ? "direct message" : "public channel"));
-        player.sendMessage(ChatColor.AQUA + "AFK mode: " + (PersistentDataUtils.getBooleanData(player, DataValues.AUTO_AFK) ? "auto" : ("manual (Set AFK: " + PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK) + ")")));
-        player.sendMessage(ChatColor.AQUA + "AFK time: " + PersistentDataUtils.getIntData(player, DataValues.AFK_TIME));
-        player.sendMessage(ChatColor.AQUA + "Damage alert: " + PersistentDataUtils.getBooleanData(player, DataValues.DAMAGE_ALERT));
-        player.sendMessage(ChatColor.AQUA + "Death alert: " + PersistentDataUtils.getBooleanData(player, DataValues.DEATH_ALERT));
-        boolean locationAlertX = PersistentDataUtils.getBooleanData(player, DataValues.LOCATION_ALERT_X);
-        int locationX = PersistentDataUtils.getIntData(player, DataValues.LOCATION_X_DESIRED);
+        player.sendMessage(ChatColor.AQUA + "Message channel: " + (PersistentDataUtils.getBooleanData(player, DataValue.DIRECT_MESSAGE_MODE) ? "direct message" : "public channel"));
+        player.sendMessage(ChatColor.AQUA + "AFK mode: " + (PersistentDataUtils.getBooleanData(player, DataValue.AUTO_AFK) ? "auto" : ("manual (Set AFK: " + PersistentDataUtils.getBooleanData(player, DataValue.IS_SET_AFK) + ")")));
+        player.sendMessage(ChatColor.AQUA + "AFK time: " + PersistentDataUtils.getIntData(player, DataValue.AFK_TIME));
+        player.sendMessage(ChatColor.AQUA + "Damage alert: " + PersistentDataUtils.getBooleanData(player, DataValue.DAMAGE_ALERT));
+        player.sendMessage(ChatColor.AQUA + "Death alert: " + PersistentDataUtils.getBooleanData(player, DataValue.DEATH_ALERT));
+        boolean locationAlertX = PersistentDataUtils.getBooleanData(player, DataValue.LOCATION_ALERT_X);
+        int locationX = PersistentDataUtils.getIntData(player, DataValue.LOCATION_X_DESIRED);
         player.sendMessage(ChatColor.AQUA + "Location alert (X): " + locationAlertX + (locationAlertX ? (locationX == -1 ? " (no location set)" : (" (" + locationX + ")")) : ""));
-        boolean locationAlertZ = PersistentDataUtils.getBooleanData(player, DataValues.LOCATION_ALERT_Z);
-        int locationZ = PersistentDataUtils.getIntData(player, DataValues.LOCATION_Z_DESIRED);
+        boolean locationAlertZ = PersistentDataUtils.getBooleanData(player, DataValue.LOCATION_ALERT_Z);
+        int locationZ = PersistentDataUtils.getIntData(player, DataValue.LOCATION_Z_DESIRED);
         player.sendMessage(ChatColor.AQUA + "Location alert (Z): " + locationAlertZ + (locationAlertZ ? (locationZ == -1 ? " (no location set)" : (" (" + locationZ + ")")) : ""));
-        boolean xpAlert = PersistentDataUtils.getBooleanData(player, DataValues.EXPERIENCE_ALERT);
-        int xpLevel = PersistentDataUtils.getIntData(player, DataValues.EXPERIENCE_LEVEL_DESIRED);
+        boolean xpAlert = PersistentDataUtils.getBooleanData(player, DataValue.EXPERIENCE_ALERT);
+        int xpLevel = PersistentDataUtils.getIntData(player, DataValue.EXPERIENCE_LEVEL_DESIRED);
         player.sendMessage(ChatColor.AQUA + "Experience alert: " + xpAlert + (xpAlert ? (xpLevel == -1 ? " (no XP level set)" : " (" + xpLevel + ")") : ""));
-        player.sendMessage(ChatColor.AQUA + "Inventory fill alert: " + PersistentDataUtils.getBooleanData(player, DataValues.INVENTORY_FULL_ALERT));
+        player.sendMessage(ChatColor.AQUA + "Inventory fill alert: " + PersistentDataUtils.getBooleanData(player, DataValue.INVENTORY_FULL_ALERT));
         return true;
     }
 }

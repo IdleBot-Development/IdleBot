@@ -35,7 +35,7 @@ package io.github.idlebotdevelopment.idlebot.events;
 
 import io.github.idlebotdevelopment.idlebot.util.EventUtils;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -56,7 +56,7 @@ public class OnMovement implements Listener {
         if (to.getPitch() != from.getPitch() || to.getYaw() != from.getYaw()) {
             Player player = e.getPlayer();
 //            Messenger.sendMessage(player.getDisplayName() + " stopped being idle.", MessageLevel.INFO);
-            if (!PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK))
+            if (!PersistentDataUtils.getBooleanData(player, DataValue.IS_SET_AFK))
                 EventUtils.clearPlayerIdleStats(player);
         }
     }

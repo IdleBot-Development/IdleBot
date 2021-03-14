@@ -20,7 +20,7 @@ package io.github.idlebotdevelopment.idlebot.events;
 import io.github.idlebotdevelopment.idlebot.IdleBot;
 import io.github.idlebotdevelopment.idlebot.util.EventUtils;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -33,6 +33,6 @@ public class OnPlayerQuit implements Listener {
         Player player = e.getPlayer();
         IdleBot.idlePlayers.remove(player);
         EventUtils.clearPlayerIdleStats(player);
-        PersistentDataUtils.setData(player, DataValues.IS_SET_AFK, false);
+        PersistentDataUtils.setData(player, DataValue.IS_SET_AFK, false);
     }
 }

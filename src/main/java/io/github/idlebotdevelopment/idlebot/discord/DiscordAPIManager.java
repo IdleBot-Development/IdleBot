@@ -21,7 +21,7 @@ import io.github.idlebotdevelopment.idlebot.IdleBot;
 import io.github.idlebotdevelopment.idlebot.util.ConfigManager;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -81,7 +81,7 @@ public class DiscordAPIManager {
             // Do DiscordSRV stuff
             return "";
         } else {
-            return PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID);
+            return PersistentDataUtils.getStringData(player, DataValue.DISCORD_ID);
         }
     }
 }

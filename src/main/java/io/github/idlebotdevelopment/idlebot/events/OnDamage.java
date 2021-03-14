@@ -21,7 +21,7 @@ import io.github.idlebotdevelopment.idlebot.IdleBot;
 import io.github.idlebotdevelopment.idlebot.util.EventUtils;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
@@ -36,7 +36,7 @@ public class OnDamage implements Listener {
     public void onDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
-            if (EventUtils.isIdle(player) && !IdleBot.getEventManager().damagedPlayers.contains(player) && PersistentDataUtils.getBooleanData(player, DataValues.DAMAGE_ALERT)) {
+            if (EventUtils.isIdle(player) && !IdleBot.getEventManager().damagedPlayers.contains(player) && PersistentDataUtils.getBooleanData(player, DataValue.DAMAGE_ALERT)) {
                 MessageHelper.sendMessage(player.getDisplayName() + " is idle and taking damage!", MessageLevel.INFO);
                 EventUtils.sendPlayerMessage(player, player.getDisplayName() + " is taking damage " + " (" + StringUtils.capitalize(e.getCause().name()) + ").", player.getDisplayName() + " is taking damage!");
                 IdleBot.getEventManager().damagedPlayers.add(player);

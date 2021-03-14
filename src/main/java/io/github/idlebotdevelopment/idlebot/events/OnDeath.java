@@ -20,7 +20,7 @@ package io.github.idlebotdevelopment.idlebot.events;
 import io.github.idlebotdevelopment.idlebot.util.EventUtils;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -33,7 +33,7 @@ public class OnDeath implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
-        if (EventUtils.isIdle(player) && PersistentDataUtils.getBooleanData(player, DataValues.DEATH_ALERT)) {
+        if (EventUtils.isIdle(player) && PersistentDataUtils.getBooleanData(player, DataValue.DEATH_ALERT)) {
             MessageHelper.sendMessage(player.getDisplayName() + " is idle and dead!", MessageLevel.INFO);
             EventUtils.sendPlayerMessage(player, player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").", player.getDisplayName() + " died!");
         }

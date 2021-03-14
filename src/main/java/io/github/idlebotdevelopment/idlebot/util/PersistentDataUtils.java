@@ -18,7 +18,7 @@
 package io.github.idlebotdevelopment.idlebot.util;
 
 import io.github.idlebotdevelopment.idlebot.IdleBot;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -27,23 +27,23 @@ import org.bukkit.persistence.PersistentDataType;
 public class PersistentDataUtils {
 
     // Overload method to set String or Integer
-    public static void setData(Player player, DataValues key, String value) {
+    public static void setData(Player player, DataValue key, String value) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         data.set(new NamespacedKey(IdleBot.getPlugin(), key.key()), PersistentDataType.STRING, value);
     }
 
-    public static void setData(Player player, DataValues key, int value) {
+    public static void setData(Player player, DataValue key, int value) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         data.set(new NamespacedKey(IdleBot.getPlugin(), key.key()), PersistentDataType.INTEGER, value);
     }
 
     // Set "boolean" data (0 for false, 1 for true)
-    public static void setData(Player player, DataValues key, boolean value) {
+    public static void setData(Player player, DataValue key, boolean value) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         data.set(new NamespacedKey(IdleBot.getPlugin(), key.key()), PersistentDataType.INTEGER, value ? 1 : 0);
     }
 
-    public static String getStringData(Player player, DataValues key) {
+    public static String getStringData(Player player, DataValue key) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         try {
             return data.get(new NamespacedKey(IdleBot.getPlugin(), key.key()), PersistentDataType.STRING);
@@ -54,7 +54,7 @@ public class PersistentDataUtils {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public static boolean getBooleanData(Player player, DataValues key) {
+    public static boolean getBooleanData(Player player, DataValue key) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         try {
             return data.get(new NamespacedKey(IdleBot.getPlugin(), key.key()), PersistentDataType.INTEGER) == 1;
@@ -65,7 +65,7 @@ public class PersistentDataUtils {
     }
 
     @SuppressWarnings("ConstantConditions")
-    public static int getIntData(Player player, DataValues key) {
+    public static int getIntData(Player player, DataValue key) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         try {
             return data.get(new NamespacedKey(IdleBot.getPlugin(), key.key()), PersistentDataType.INTEGER);
@@ -76,7 +76,7 @@ public class PersistentDataUtils {
     }
 
     // Method to remove data by key from a player
-    public static void removeData(Player player, DataValues key) {
+    public static void removeData(Player player, DataValue key) {
         PersistentDataContainer data = player.getPersistentDataContainer();
         try {
             data.remove(new NamespacedKey(IdleBot.getPlugin(), key.key()));
@@ -86,7 +86,7 @@ public class PersistentDataUtils {
     }
 
     public static void removeAllData(Player player) {
-        for (DataValues dataValue : DataValues.values()) {
+        for (DataValue dataValue : DataValue.values()) {
             removeData(player, dataValue);
         }
     }

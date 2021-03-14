@@ -20,7 +20,7 @@ package io.github.idlebotdevelopment.idlebot.commands;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
 
@@ -37,7 +37,7 @@ public class UnlinkCommand implements IdleBotCommand {
 
     @Override
     public boolean runCommand(Player player, String[] args) {
-        if (PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID) == null) { // If they are not linked
+        if (PersistentDataUtils.getStringData(player, DataValue.DISCORD_ID) == null) { // If they are not linked
             MessageHelper.sendMessage(player, "Your account isn't linked so you can't unlink it!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }

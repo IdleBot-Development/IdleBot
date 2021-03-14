@@ -22,7 +22,7 @@ import io.github.idlebotdevelopment.idlebot.util.EventUtils;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
 
@@ -44,16 +44,16 @@ public class SetAFKCommand implements IdleBotCommand {
             return true;
         }
         if (args.length >= 2 && args[1].equalsIgnoreCase("true")) {
-            PersistentDataUtils.setData(player, DataValues.IS_SET_AFK, true);
+            PersistentDataUtils.setData(player, DataValue.IS_SET_AFK, true);
             MessageHelper.sendMessage(player, "Set your afk status to true", MessageLevel.INFO);
         } else if (args.length >= 2 && args[1].equalsIgnoreCase("false")) {
-            PersistentDataUtils.setData(player, DataValues.IS_SET_AFK, false);
+            PersistentDataUtils.setData(player, DataValue.IS_SET_AFK, false);
             MessageHelper.sendMessage(player, "Set your afk status to false", MessageLevel.INFO);
         } else {
-            PersistentDataUtils.setData(player, DataValues.IS_SET_AFK, !PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK));
-            MessageHelper.sendMessage(player, "Set your afk status to " + PersistentDataUtils.getBooleanData(player, DataValues.IS_SET_AFK), MessageLevel.INFO);
+            PersistentDataUtils.setData(player, DataValue.IS_SET_AFK, !PersistentDataUtils.getBooleanData(player, DataValue.IS_SET_AFK));
+            MessageHelper.sendMessage(player, "Set your afk status to " + PersistentDataUtils.getBooleanData(player, DataValue.IS_SET_AFK), MessageLevel.INFO);
         }
-        PersistentDataUtils.setData(player, DataValues.AUTO_AFK, false);
+        PersistentDataUtils.setData(player, DataValue.AUTO_AFK, false);
         EventUtils.clearPlayerIdleStats(player);
         return true;
     }

@@ -20,7 +20,7 @@ package io.github.idlebotdevelopment.idlebot.events;
 import io.github.idlebotdevelopment.idlebot.IdleBot;
 import io.github.idlebotdevelopment.idlebot.util.EventUtils;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -28,7 +28,7 @@ public class IdleChecker implements Runnable {
 
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            if (PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID) != null) {
+            if (PersistentDataUtils.getStringData(player, DataValue.DISCORD_ID) != null) {
                 /* If the player:
                  * Is not already idle
                  * Is in the list of idle players (not in auto mode)
@@ -40,7 +40,7 @@ public class IdleChecker implements Runnable {
                  * Is not already idle
                  * Has auto afk mode on
                  */
-                else if (!EventUtils.isIdle(player) && PersistentDataUtils.getBooleanData(player, DataValues.AUTO_AFK)) {
+                else if (!EventUtils.isIdle(player) && PersistentDataUtils.getBooleanData(player, DataValue.AUTO_AFK)) {
                     IdleBot.idlePlayers.put(player, 0);
                 }
             }

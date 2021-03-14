@@ -20,7 +20,7 @@ package io.github.idlebotdevelopment.idlebot.commands;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
 
@@ -38,28 +38,28 @@ public class AlertCommand implements IdleBotCommand {
 
     @Override
     public boolean runCommand(Player player, String[] args) {
-        DataValues dataKey;
+        DataValue dataKey;
         if (args.length < 3) {
             return false;
         }
         switch (args[1].toLowerCase()) {
             case "damage":
-                dataKey = DataValues.DAMAGE_ALERT;
+                dataKey = DataValue.DAMAGE_ALERT;
                 break;
             case "death":
-                dataKey = DataValues.DEATH_ALERT;
+                dataKey = DataValue.DEATH_ALERT;
                 break;
             case "xlocation":
-                dataKey = DataValues.LOCATION_ALERT_X;
+                dataKey = DataValue.LOCATION_ALERT_X;
                 break;
             case "zlocation":
-                dataKey = DataValues.LOCATION_ALERT_Z;
+                dataKey = DataValue.LOCATION_ALERT_Z;
                 break;
             case "xp":
-                dataKey = DataValues.EXPERIENCE_ALERT;
+                dataKey = DataValue.EXPERIENCE_ALERT;
                 break;
             case "inventory":
-                dataKey = DataValues.INVENTORY_FULL_ALERT;
+                dataKey = DataValue.INVENTORY_FULL_ALERT;
                 break;
             default:
                 return false;

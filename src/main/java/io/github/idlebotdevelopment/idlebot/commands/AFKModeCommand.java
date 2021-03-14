@@ -22,7 +22,7 @@ import io.github.idlebotdevelopment.idlebot.util.EventUtils;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
 
@@ -45,7 +45,7 @@ public class AFKModeCommand implements IdleBotCommand {
                 MessageHelper.sendMessage(player, "You are not allowed to use manual AFK on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
                 return true;
             }
-            PersistentDataUtils.setData(player, DataValues.AUTO_AFK, false);
+            PersistentDataUtils.setData(player, DataValue.AUTO_AFK, false);
             EventUtils.clearPlayerIdleStats(player);
             MessageHelper.sendMessage(player, "Set your afkmode to manual", MessageLevel.INFO);
             return true;
@@ -54,8 +54,8 @@ public class AFKModeCommand implements IdleBotCommand {
                 MessageHelper.sendMessage(player, "You are not allowed to use auto AFK on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
                 return true;
             }
-            PersistentDataUtils.setData(player, DataValues.AUTO_AFK, true);
-            PersistentDataUtils.setData(player, DataValues.IS_SET_AFK, false);
+            PersistentDataUtils.setData(player, DataValue.AUTO_AFK, true);
+            PersistentDataUtils.setData(player, DataValue.IS_SET_AFK, false);
             MessageHelper.sendMessage(player, "Set your afkmode to auto", MessageLevel.INFO);
             return true;
         }

@@ -21,14 +21,14 @@ import io.github.idlebotdevelopment.idlebot.IdleBot;
 import io.github.idlebotdevelopment.idlebot.util.EventUtils;
 import io.github.idlebotdevelopment.idlebot.util.IdleCheck;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
 
 public class InventoryFull implements IdleCheck {
     @Override
-    public DataValues getDataValue() {
-        return DataValues.INVENTORY_FULL_ALERT;
+    public DataValue getDataValue() {
+        return DataValue.INVENTORY_FULL_ALERT;
     }
 
     public void check(Player player) {

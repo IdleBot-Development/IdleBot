@@ -17,10 +17,10 @@
 
 package io.github.idlebotdevelopment.idlebot.util;
 
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import org.bukkit.entity.Player;
 
 public interface IdleCheck {
-    DataValues getDataValue();
+    DataValue getDataValue();
     void check(Player player);
 }

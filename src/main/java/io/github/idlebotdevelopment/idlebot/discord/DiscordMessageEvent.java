@@ -20,7 +20,7 @@ package io.github.idlebotdevelopment.idlebot.discord;
 import io.github.idlebotdevelopment.idlebot.IdleBot;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import net.dv8tion.jda.api.entities.ChannelType;
 import net.dv8tion.jda.api.entities.Message;
@@ -40,7 +40,7 @@ public class DiscordMessageEvent extends ListenerAdapter {
                 MessageHelper.sendMessage(event.getAuthor().getAsTag() + " entered a code: " + code, MessageLevel.INFO);
                 if (IdleBot.linkCodes.containsKey(code)) {
                     Player player = IdleBot.linkCodes.get(code);
-                    PersistentDataUtils.setData(player, DataValues.DISCORD_ID, event.getAuthor().getId());
+                    PersistentDataUtils.setData(player, DataValue.DISCORD_ID, event.getAuthor().getId());
                     channel.sendMessage("Successfully linked your Discord username to Minecraft username " + player.getDisplayName()).queue();
                     message.addReaction("U+1F517").queue();
                     MessageHelper.sendMessage(player, "Successfully linked your Minecraft username to Discord username " + event.getAuthor().getAsTag(), MessageLevel.INFO);
@@ -58,8 +58,8 @@ public class DiscordMessageEvent extends ListenerAdapter {
 
     // This method is to set up default values for every player when they link their account
     private void setDefaultSettings(Player player) {
-        PersistentDataUtils.setData(player, DataValues.AFK_TIME, IdleBot.getConfigManager().DEFAULT_IDLE_TIME);
-        PersistentDataUtils.setData(player, DataValues.AUTO_AFK, IdleBot.getConfigManager().DEFAULT_AFK_MODE.equals("auto"));
-        PersistentDataUtils.setData(player, DataValues.DIRECT_MESSAGE_MODE, IdleBot.getConfigManager().DEFAULT_MESSAGE_CHANNEL.equals("private"));
+        PersistentDataUtils.setData(player, DataValue.AFK_TIME, IdleBot.getConfigManager().DEFAULT_IDLE_TIME);
+        PersistentDataUtils.setData(player, DataValue.AUTO_AFK, IdleBot.getConfigManager().DEFAULT_AFK_MODE.equals("auto"));
+        PersistentDataUtils.setData(player, DataValue.DIRECT_MESSAGE_MODE, IdleBot.getConfigManager().DEFAULT_MESSAGE_CHANNEL.equals("private"));
     }
 }

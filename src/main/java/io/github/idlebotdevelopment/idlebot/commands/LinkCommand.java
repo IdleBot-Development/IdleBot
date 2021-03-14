@@ -21,7 +21,7 @@ import io.github.idlebotdevelopment.idlebot.IdleBot;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
 
@@ -64,6 +64,6 @@ public class LinkCommand implements IdleBotCommand {
     }
 
     private boolean playerIsLinked(Player player) {
-        return PersistentDataUtils.getStringData(player, DataValues.DISCORD_ID) != null; // Returns true if the player already has an account linked
+        return PersistentDataUtils.getStringData(player, DataValue.DISCORD_ID) != null; // Returns true if the player already has an account linked
     }
 }

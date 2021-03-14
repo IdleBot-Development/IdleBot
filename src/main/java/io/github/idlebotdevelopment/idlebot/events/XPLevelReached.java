@@ -22,19 +22,19 @@ import io.github.idlebotdevelopment.idlebot.util.EventUtils;
 import io.github.idlebotdevelopment.idlebot.util.IdleCheck;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
 
 public class XPLevelReached implements IdleCheck {
     @Override
-    public DataValues getDataValue() {
-        return DataValues.EXPERIENCE_ALERT;
+    public DataValue getDataValue() {
+        return DataValue.EXPERIENCE_ALERT;
     }
 
     // Checks if player has reached a certain xp level and sends them a message if they have
     public void check(Player player) {
-        int levelDesired = PersistentDataUtils.getIntData(player, DataValues.EXPERIENCE_LEVEL_DESIRED);
+        int levelDesired = PersistentDataUtils.getIntData(player, DataValue.EXPERIENCE_LEVEL_DESIRED);
         if (levelDesired == -1) return;
         if (player.getLevel() >= levelDesired && !IdleBot.getEventManager().XPLevelReachedPlayers.contains(player)) {
             MessageHelper.sendMessage(player.getDisplayName() + " is idle and at the desired XP level!", MessageLevel.INFO);

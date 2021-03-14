@@ -18,7 +18,7 @@
 package io.github.idlebotdevelopment.idlebot.util.enums;
 
 @SuppressWarnings("SpellCheckingInspection")
-public enum DataValues {
+public enum DataValue {
     AFK_TIME("afktime"),
     AUTO_AFK("autoafk"),
     DISCORD_ID("discordid"),
@@ -38,7 +38,7 @@ public enum DataValues {
 
     private final String key;
 
-    DataValues(String key) {
+    DataValue(String key) {
         this.key = key;
     }
 

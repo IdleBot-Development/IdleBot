@@ -21,7 +21,7 @@ import io.github.idlebotdevelopment.idlebot.IdleBot;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
-import io.github.idlebotdevelopment.idlebot.util.enums.DataValues;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
 
@@ -44,7 +44,7 @@ public class ChannelCommand implements IdleBotCommand {
                 MessageHelper.sendMessage(player, "You are not allowed to use a public channel on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
                 return true;
             }
-            PersistentDataUtils.setData(player, DataValues.DIRECT_MESSAGE_MODE, false);
+            PersistentDataUtils.setData(player, DataValue.DIRECT_MESSAGE_MODE, false);
             MessageHelper.sendMessage(player, "Set your alerts channel to public", MessageLevel.INFO);
             return true;
         } else if (args[1].equalsIgnoreCase("private")) {
@@ -52,7 +52,7 @@ public class ChannelCommand implements IdleBotCommand {
                 MessageHelper.sendMessage(player, "You are not allowed to use a private channel on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
                 return true;
             }
-            PersistentDataUtils.setData(player, DataValues.DIRECT_MESSAGE_MODE, true);
+            PersistentDataUtils.setData(player, DataValue.DIRECT_MESSAGE_MODE, true);
             MessageHelper.sendMessage(player, "Set your alerts channel to private", MessageLevel.INFO);
             return true;
         }
