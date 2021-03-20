@@ -57,7 +57,7 @@ public class DiscordMessageEvent extends ListenerAdapter {
     }
 
     // This method is to set up default values for every player when they link their account
-    private void setDefaultSettings(Player player) {
+    public static void setDefaultSettings(Player player) {
         PersistentDataUtils.setData(player, DataValue.AFK_TIME, IdleBot.getConfigManager().DEFAULT_IDLE_TIME);
         PersistentDataUtils.setData(player, DataValue.AUTO_AFK, IdleBot.getConfigManager().DEFAULT_AFK_MODE.equals("auto"));
         PersistentDataUtils.setData(player, DataValue.DIRECT_MESSAGE_MODE, IdleBot.getConfigManager().DEFAULT_MESSAGE_CHANNEL.equals("private"));

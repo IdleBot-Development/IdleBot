@@ -9,7 +9,7 @@
 #    _| || (_| | |  __/ |_) | (_) | |_
 #   |_____\__,_|_|\___|____/ \___/ \__|
 
-# This is the token you get from your application in the Discord Developer Portal: https://discord.com/developers/applications | DO NOT INCLUDE THE <>
+# This is the token you get from your application in the Discord Developer Portal: https://discord.com/developers/applications | DO NOT INCLUDE THE <> | Ignored if discordSRV is true
 botToken: <Bot Token Here>
 # This is the ID of the Discord channel you want the bot to send messages to | DO NOT INCLUDE THE <> | Not needed if publicChannelMessagesEnabled is set to false
 channelID: <Channel ID Here>
@@ -24,6 +24,7 @@ messageChannels:
   # The default message channel to set for players when they first link their account | default: public | options: [public, private]
   defaultMessageChannel: public
 
+# Category ignored if discordSRV is true
 customBotActivity:
   # The type of activity in the bot's Discord status | default: watching | options: [watching, listening, playing, none]
   type: watching

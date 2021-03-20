@@ -18,6 +18,7 @@
 package io.github.idlebotdevelopment.idlebot;
 
 import github.scarsz.configuralize.ParseException;
+import github.scarsz.discordsrv.DiscordSRV;
 import io.github.idlebotdevelopment.idlebot.commands.IdleBotCommandManager;
 import io.github.idlebotdevelopment.idlebot.commands.IdleBotTabCompleter;
 import io.github.idlebotdevelopment.idlebot.discord.DiscordAPIManager;
@@ -37,6 +38,7 @@ import org.bukkit.scheduler.BukkitScheduler;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.concurrent.Callable;
 
 public class IdleBot extends JavaPlugin {
 
@@ -82,9 +84,14 @@ public class IdleBot extends JavaPlugin {
                     MessageHelper.sendMessage("You are running an outdated version! (You are running version " + localVersion + " but the latest version is " + latestVersion + ")\nGo to https://www.spigotmc.org/resources/idlebot-step-up-your-afk-game.88778/ to download a new version", MessageLevel.IMPORTANT);
             });
             // Load JDA
-            MessageHelper.sendMessage("Starting to load JDA", MessageLevel.INFO);
-            discordAPIManager = new DiscordAPIManager(this);
-            MessageHelper.sendMessage("Plugin successfully loaded", MessageLevel.INFO);
+            if (configManager.DISCORDSRV_MODE) {
+                MessageHelper.sendMessage("Connecting to DiscordSRV plugin", MessageLevel.INFO);
+                DiscordSRV.api.subscribe(new DiscordSRVEvents(this));
+            } else {
+                MessageHelper.sendMessage("Starting to load JDA", MessageLevel.INFO);
+                discordAPIManager = new DiscordAPIManager(this, false);
+                MessageHelper.sendMessage("Plugin successfully loaded", MessageLevel.INFO);
+            }
         }
     }
 
@@ -94,7 +101,19 @@ public class IdleBot extends JavaPlugin {
     }
 
     public void disablePlugin() {
-        Bukkit.getPluginManager().disablePlugin(plugin);
+        //Bukkit.getPluginManager().disablePlugin(plugin);
+        //Bukkit.getScheduler().callSyncMethod(this, new DisablePlugin());
+        Bukkit.getScheduler().callSyncMethod(this, new Callable<>() {
+            @Override
+            public Object call() {
+                Bukkit.getPluginManager().disablePlugin(IdleBot.getPlugin());
+                return this;
+            }
+        });
+    }
+
+    public void setDiscordAPIManager(DiscordAPIManager api) {
+        discordAPIManager = api;
     }
 }
 

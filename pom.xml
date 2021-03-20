@@ -49,6 +49,10 @@
             <url>https://nexus.scarsz.me/content/groups/public/</url>
         </repository>
         <repository>
+            <id>Scarsz-Nexus</id>
+            <url>https://nexus.scarsz.me/content/groups/public/</url>
+        </repository>
+        <repository>
             <id>jcenter</id>
             <name>jcenter-bintray</name>
             <url>https://jcenter.bintray.com</url>
@@ -72,6 +76,12 @@
             <groupId>github.scarsz</groupId>
             <artifactId>configuralize</artifactId>
             <version>1.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.discordsrv</groupId>
+            <artifactId>discordsrv</artifactId>
+            <version>1.21.1</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.dv8tion</groupId>

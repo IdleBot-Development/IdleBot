@@ -2,6 +2,7 @@ name: IdleBot
 version: 1.1.1
 main: io.github.idlebotdevelopment.idlebot.IdleBot
 api-version: "1.16"
+softdepend: [DiscordSRV]
 commands:
   idlebot:
     description: The main command to control and use this plugin

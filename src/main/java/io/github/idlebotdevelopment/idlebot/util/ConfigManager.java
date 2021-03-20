@@ -68,13 +68,13 @@ public class ConfigManager {
         MINIMUM_IDLE_TIME = config.getIntElse("idleTime.minimumIdleTime", 20);
         DEFAULT_IDLE_TIME = config.getIntElse("idleTime.defaultIdleTime", 600);
         if (MAXIMUM_IDLE_TIME <= MINIMUM_IDLE_TIME || DEFAULT_IDLE_TIME < MINIMUM_IDLE_TIME || DEFAULT_IDLE_TIME > MAXIMUM_IDLE_TIME)
-            invalidateConfig("idleTimes are invalid.");
+            invalidateConfig("idleTimes are invalid");
 
         PUBLIC_CHANNEL_MESSAGES_ENABLED = config.getBooleanElse("messageChannels.publicChannelMessagesEnabled", true);
         PRIVATE_CHANNEL_MESSAGES_ENABLED = config.getBooleanElse("messageChannels.privateChannelMessagesEnabled", true);
         DEFAULT_MESSAGE_CHANNEL = config.getStringElse("messageChannels.defaultMessageChannel", "public");
         if ((DEFAULT_MESSAGE_CHANNEL.equals("public") && !PUBLIC_CHANNEL_MESSAGES_ENABLED) || (DEFAULT_MESSAGE_CHANNEL.equals("private") && !PRIVATE_CHANNEL_MESSAGES_ENABLED) || !(DEFAULT_MESSAGE_CHANNEL.equals("private") || DEFAULT_MESSAGE_CHANNEL.equals("public")))
-            invalidateConfig("messageChannels are invalid.");
+            invalidateConfig("messageChannels are invalid");
 
         AUTO_AFK_ENABLED = config.getBooleanElse("AFKMode.autoAFKEnabled", true);
         MANUAL_AFK_ENABLED = config.getBooleanElse("AFKMode.manualAFKEnabled", true);
@@ -84,8 +84,10 @@ public class ConfigManager {
 
         BOT_TOKEN = config.getStringElse("botToken", "<Bot Token Here>");
         CHANNEL_ID = config.getStringElse("channelID", "<Channel ID Here>");
-        if (BOT_TOKEN.equals("<Bot Token Here>") || (CHANNEL_ID.equals("<Channel ID Here>") && PUBLIC_CHANNEL_MESSAGES_ENABLED))
-            invalidateConfig("botToken and/or channelToken need to be set in config.yml.");
+        if (BOT_TOKEN.equals("<Bot Token Here>") && !DISCORDSRV_MODE)
+            invalidateConfig("botToken needs to be set in config.yml");
+        if (CHANNEL_ID.equals("<Channel ID Here>") && PUBLIC_CHANNEL_MESSAGES_ENABLED)
+            invalidateConfig("channelID needs to be set in config.yml");
     }
 
     private void invalidateConfig(String reason) {
