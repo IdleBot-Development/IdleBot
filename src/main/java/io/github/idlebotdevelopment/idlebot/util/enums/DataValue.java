@@ -23,16 +23,17 @@ public enum DataValue {
     AUTO_AFK("autoafk"),
     DISCORD_ID("discordid"),
     IS_SET_AFK("setafk"),
+    ADVANCEMENT_ALERT("advancementalert"),
     DAMAGE_ALERT("damagealert"),
     DEATH_ALERT("deathalert"),
+    EXPERIENCE_ALERT("xpalert"),
+    EXPERIENCE_LEVEL_DESIRED("xpleveldesired"),
     LOCATION_ALERT_X("locationcheckx"),
     LOCATION_ALERT_Z("locationcheckz"),
     LOCATION_X_DESIRED("locationx"),
     LOCATION_Z_DESIRED("locationz"),
     LOCATION_X_DIRECTION("locationxdir"), // e/w; example: player is at x = 100, wants alert x = 500, value = "e"
     LOCATION_Z_DIRECTION("locationzdir"), // s/n; example: player is at z = 100, wants alert z = -500, value = "n"
-    EXPERIENCE_ALERT("xpalert"),
-    EXPERIENCE_LEVEL_DESIRED("xpleveldesired"),
     INVENTORY_FULL_ALERT("inventoryalert"),
     DIRECT_MESSAGE_MODE("dmmode");
 

@@ -75,6 +75,7 @@ public class IdleBot extends JavaPlugin {
             pluginManager.registerEvents(new OnDeath(), this); // Register death event
             pluginManager.registerEvents(new OnPlayerQuit(), this); // Register player quit event
             pluginManager.registerEvents(new OnPlayerJoin(), this); // Register player join event
+            pluginManager.registerEvents(new OnAdvancementDone(), this); // Register player advancement done event
             localVersion = this.getDescription().getVersion();
             new UpdateChecker(this).getVersion(version -> {
                 latestVersion = version;
@@ -101,8 +102,8 @@ public class IdleBot extends JavaPlugin {
     }
 
     public void disablePlugin() {
-        //Bukkit.getPluginManager().disablePlugin(plugin);
-        //Bukkit.getScheduler().callSyncMethod(this, new DisablePlugin());
+        // Bukkit.getPluginManager().disablePlugin(plugin);
+        // Bukkit.getScheduler().callSyncMethod(this, new DisablePlugin());
         Bukkit.getScheduler().callSyncMethod(this, new Callable<>() {
             @Override
             public Object call() {

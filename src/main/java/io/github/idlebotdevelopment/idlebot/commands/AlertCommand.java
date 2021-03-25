@@ -61,6 +61,9 @@ public class AlertCommand implements IdleBotCommand {
             case "inventory":
                 dataKey = DataValue.INVENTORY_FULL_ALERT;
                 break;
+            case "advancement":
+                dataKey = DataValue.ADVANCEMENT_ALERT;
+                break;
             default:
                 return false;
         }
