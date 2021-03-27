@@ -24,6 +24,7 @@ public enum DataValue {
     DISCORD_ID("discordid"),
     IS_SET_AFK("setafk"),
     ADVANCEMENT_ALERT("advancementalert"),
+    ADVANCEMENT_DESIRED("advancementdesired"),
     DAMAGE_ALERT("damagealert"),
     DEATH_ALERT("deathalert"),
     EXPERIENCE_ALERT("xpalert"),

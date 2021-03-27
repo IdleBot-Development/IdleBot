@@ -17,13 +17,14 @@
 
 package io.github.idlebotdevelopment.idlebot.util.enums;
 
+import io.github.idlebotdevelopment.idlebot.commands.IdleBotTabCompleter;
 import lombok.Getter;
 
-@SuppressWarnings("SpellCheckingInspection")
+
 public enum CommandTabCompletion {
     AFKMODE(new String[]{"auto", "manual"}),
     AFKTIME(),
-    ALERT(new String[]{"damage", "death", "xlocation", "zlocation", "xp", "inventory"}, new String[]{"true", "false"}),
+    ALERT(new String[]{"damage", "death", "xlocation", "zlocation", "xp", "inventory", "advancement"}, new String[]{"true", "false"}),
     CHANNEL(new String[]{"public", "private"}),
     CLEARDATA(),
     LINK(),
@@ -31,7 +32,8 @@ public enum CommandTabCompletion {
     AFK(new String[]{"true", "false"}),
     UNLINK(),
     INFO(),
-    XPLEVEL();
+    XPLEVEL(),
+    ADVANCEMENT(IdleBotTabCompleter.advancements);
 
     @Getter final String[][] args;
 

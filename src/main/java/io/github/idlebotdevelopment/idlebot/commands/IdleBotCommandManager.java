@@ -46,6 +46,7 @@ public class IdleBotCommandManager implements CommandExecutor {
         idleBotCommands.add(new LocationCommand());
         idleBotCommands.add(new ClearDataCommand());
         idleBotCommands.add(new ViewSettingsCommand());
+        idleBotCommands.add(new AdvancementCommand());
     }
 
     @Override

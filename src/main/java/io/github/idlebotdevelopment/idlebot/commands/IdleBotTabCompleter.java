@@ -18,6 +18,9 @@
 package io.github.idlebotdevelopment.idlebot.commands;
 
 import io.github.idlebotdevelopment.idlebot.util.enums.CommandTabCompletion;
+import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
+import org.bukkit.advancement.Advancement;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -25,13 +28,24 @@ import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @SuppressWarnings("ConstantConditions")
 public class IdleBotTabCompleter implements TabCompleter {
+    public static String[] advancements;
+
+    public IdleBotTabCompleter() {
+        // Get list of all advancements for tab completion
+        Iterator<Advancement> iterator = Bukkit.advancementIterator();
+        ArrayList<String> advancementsList = new ArrayList<>();
+        while (iterator.hasNext()) {
+            NamespacedKey key = iterator.next().getKey();
+            advancementsList.add(key.getNamespace() + ":" + key.getKey());
+        }
+        advancements = advancementsList.toArray(new String[advancementsList.size()+2]);
+        advancements[advancements.length-2] = "all";
+        advancements[advancements.length-1] = "non-recipe";
+    }
 
     @Nullable
     @Override
