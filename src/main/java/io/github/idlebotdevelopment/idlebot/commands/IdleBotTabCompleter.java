@@ -35,6 +35,10 @@ public class IdleBotTabCompleter implements TabCompleter {
     public static String[] advancements;
 
     public IdleBotTabCompleter() {
+        populateAdvancementsArray();
+    }
+
+    public static void populateAdvancementsArray() {
         // Get list of all advancements for tab completion
         Iterator<Advancement> iterator = Bukkit.advancementIterator();
         ArrayList<String> advancementsList = new ArrayList<>();
