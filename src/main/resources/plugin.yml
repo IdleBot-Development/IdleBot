@@ -6,5 +6,5 @@ softdepend: [DiscordSRV]
 commands:
   idlebot:
     description: The main command to control and use this plugin
-    usage: /idlebot <afkmode|afktime|alert|channel|cleardata|link|location|afk|unlink|info|xplevel> [additional command arguments]
+    usage: /idlebot <advancement | afkmode | afktime | alert | channel | cleardata | link | location | afk | unlink | info | xplevel> [additional command arguments]
     aliases: ib

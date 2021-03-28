@@ -71,7 +71,7 @@ public class IdleBot extends JavaPlugin {
             scheduler.runTaskTimer(this, new IdleChecker(), 20L, 20L); // Execute the idle checker every 20 ticks (1 second)
             scheduler.runTaskTimer(this, eventManager, 20L, 20L); // Check for all extra events (events that don't have official Bukkit events) every 20 ticks (1 second)
             pluginManager.registerEvents(new OnMovement(), this); // Register movement event
-            pluginManager.registerEvents(new OnDamage(), this); // Register damage event
+            pluginManager.registerEvents(new OnDamage(), this); // Register damage events
             pluginManager.registerEvents(new OnDeath(), this); // Register death event
             pluginManager.registerEvents(new OnPlayerQuit(), this); // Register player quit event
             pluginManager.registerEvents(new OnPlayerJoin(), this); // Register player join event
