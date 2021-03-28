@@ -18,8 +18,8 @@
 package io.github.idlebotdevelopment.idlebot.commands;
 
 import io.github.idlebotdevelopment.idlebot.IdleBot;
-import io.github.idlebotdevelopment.idlebot.util.EventUtils;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
+import io.github.idlebotdevelopment.idlebot.util.IdleBotUtils;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
@@ -101,7 +101,7 @@ public class ClearDataCommand implements IdleBotCommand {
                 for (Player player : players) {
                     PersistentDataUtils.removeAllData(player);
                 }
-                EventUtils.saveListToDataFile(offlinePlayers, true);
+                IdleBotUtils.saveListToDataFile(offlinePlayers, true);
                 return new YesPrompt();
             } else {
                 return new NoPrompt();

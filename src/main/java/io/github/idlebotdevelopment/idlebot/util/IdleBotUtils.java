@@ -23,16 +23,20 @@ import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
 import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public class EventUtils {
+public class IdleBotUtils {
     // Check if a player is idle based on the player's settings and the time they have spent idle
     public static boolean isIdle(Player player) {
         int time = (IdleBot.idlePlayers.get(player) != null) ? IdleBot.idlePlayers.get(player) : -1;
@@ -83,5 +87,28 @@ public class EventUtils {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static boolean isInteger(String str) {
+        if (str.length() > 11) return false;
+        try {
+            BigInteger bigInt = new BigInteger(str);
+            return bigInt.bitCount() <= 32;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static String prettyPrintPlayerDesiredAdvancement(String inputAdvancementName) {
+        String advancementName = "";
+        if (inputAdvancementName != null) {
+            if (inputAdvancementName.startsWith("minecraft:recipes")) {
+                advancementName = "Recipe for ";
+            }
+            advancementName += Stream.of(inputAdvancementName.substring(inputAdvancementName.lastIndexOf("/") + 1).split("_")).map(StringUtils::capitalize).collect(Collectors.joining(" "));
+        } else {
+            advancementName = "Non-recipe";
+        }
+        return advancementName;
     }
 }

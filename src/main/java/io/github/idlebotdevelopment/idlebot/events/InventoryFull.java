@@ -18,7 +18,7 @@
 package io.github.idlebotdevelopment.idlebot.events;
 
 import io.github.idlebotdevelopment.idlebot.IdleBot;
-import io.github.idlebotdevelopment.idlebot.util.EventUtils;
+import io.github.idlebotdevelopment.idlebot.util.IdleBotUtils;
 import io.github.idlebotdevelopment.idlebot.util.IdleCheck;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
@@ -34,7 +34,7 @@ public class InventoryFull implements IdleCheck {
     public void check(Player player) {
         if (player.getInventory().firstEmpty() < 0 && !IdleBot.getEventManager().inventoryFullPlayers.contains(player)) {
             MessageHelper.sendMessage(player.getDisplayName() + " is idle and their inventory is full!", MessageLevel.INFO);
-            EventUtils.sendPlayerMessage(player, player.getDisplayName() + "'s inventory is full! ", player.getDisplayName() + "'s inventory is full! ");
+            IdleBotUtils.sendPlayerMessage(player, player.getDisplayName() + "'s inventory is full! ", player.getDisplayName() + "'s inventory is full! ");
             IdleBot.getEventManager().inventoryFullPlayers.add(player);
         }
     }

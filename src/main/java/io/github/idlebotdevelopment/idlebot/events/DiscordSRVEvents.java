@@ -10,8 +10,6 @@ import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
 import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import org.bukkit.entity.Player;
 
-import java.util.Objects;
-
 public class DiscordSRVEvents {
 
     private final IdleBot plugin;

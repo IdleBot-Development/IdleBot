@@ -18,7 +18,7 @@
 package io.github.idlebotdevelopment.idlebot.events;
 
 import io.github.idlebotdevelopment.idlebot.IdleBot;
-import io.github.idlebotdevelopment.idlebot.util.EventUtils;
+import io.github.idlebotdevelopment.idlebot.util.IdleBotUtils;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
@@ -57,7 +57,7 @@ public class OnPlayerJoin implements Listener {
             if (joinedPlayerUUID.equals(offlinePlayer)) {
                 offlinePlayers.remove(offlinePlayer);
                 PersistentDataUtils.removeAllData(e.getPlayer());
-                EventUtils.saveListToDataFile(offlinePlayers, false);
+                IdleBotUtils.saveListToDataFile(offlinePlayers, false);
                 break;
             }
         }

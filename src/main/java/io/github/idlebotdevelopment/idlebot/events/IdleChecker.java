@@ -18,7 +18,7 @@
 package io.github.idlebotdevelopment.idlebot.events;
 
 import io.github.idlebotdevelopment.idlebot.IdleBot;
-import io.github.idlebotdevelopment.idlebot.util.EventUtils;
+import io.github.idlebotdevelopment.idlebot.util.IdleBotUtils;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
 import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import org.bukkit.Bukkit;
@@ -33,14 +33,14 @@ public class IdleChecker implements Runnable {
                  * Is not already idle
                  * Is in the list of idle players (not in auto mode)
                  */
-                if (!EventUtils.isIdle(player) && IdleBot.idlePlayers.containsKey(player)) {
+                if (!IdleBotUtils.isIdle(player) && IdleBot.idlePlayers.containsKey(player)) {
                     IdleBot.idlePlayers.put(player, IdleBot.idlePlayers.get(player) + 1); // Increase by one
                 }
                 /* If the player:
                  * Is not already idle
                  * Has auto afk mode on
                  */
-                else if (!EventUtils.isIdle(player) && PersistentDataUtils.getBooleanData(player, DataValue.AUTO_AFK)) {
+                else if (!IdleBotUtils.isIdle(player) && PersistentDataUtils.getBooleanData(player, DataValue.AUTO_AFK)) {
                     IdleBot.idlePlayers.put(player, 0);
                 }
             }

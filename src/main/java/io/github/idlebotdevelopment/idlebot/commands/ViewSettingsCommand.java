@@ -19,6 +19,7 @@ package io.github.idlebotdevelopment.idlebot.commands;
 
 import io.github.idlebotdevelopment.idlebot.IdleBot;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
+import io.github.idlebotdevelopment.idlebot.util.IdleBotUtils;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
 import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
@@ -64,6 +65,9 @@ public class ViewSettingsCommand implements IdleBotCommand {
         int xpLevel = PersistentDataUtils.getIntData(player, DataValue.EXPERIENCE_LEVEL_DESIRED);
         player.sendMessage(ChatColor.AQUA + "Experience alert: " + xpAlert + (xpAlert ? (xpLevel == -1 ? " (no XP level set)" : " (" + xpLevel + ")") : ""));
         player.sendMessage(ChatColor.AQUA + "Inventory fill alert: " + PersistentDataUtils.getBooleanData(player, DataValue.INVENTORY_FULL_ALERT));
+        boolean advancementAlert = PersistentDataUtils.getBooleanData(player, DataValue.ADVANCEMENT_ALERT);
+        String advancementName = IdleBotUtils.prettyPrintPlayerDesiredAdvancement(PersistentDataUtils.getStringData(player, DataValue.ADVANCEMENT_DESIRED));
+        player.sendMessage(ChatColor.AQUA + "Advancement completed alert: " + advancementAlert + ((advancementAlert) ? " (" + advancementName + ")" : ""));
         return true;
     }
 }

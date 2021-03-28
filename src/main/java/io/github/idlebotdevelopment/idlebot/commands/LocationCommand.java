@@ -17,8 +17,8 @@
 
 package io.github.idlebotdevelopment.idlebot.commands;
 
-import io.github.idlebotdevelopment.idlebot.util.CommandUtils;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
+import io.github.idlebotdevelopment.idlebot.util.IdleBotUtils;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
 import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
@@ -42,7 +42,7 @@ public class LocationCommand implements IdleBotCommand {
         if (args.length < 3 || (!args[1].equalsIgnoreCase("x") && !args[1].equalsIgnoreCase("z"))) {
             return false;
         }
-        if (CommandUtils.isInteger(args[2]) && Integer.parseInt(args[2]) >= -50_000_000 && Integer.parseInt(args[2]) <= 50_000_000) {
+        if (IdleBotUtils.isInteger(args[2]) && Integer.parseInt(args[2]) >= -50_000_000 && Integer.parseInt(args[2]) <= 50_000_000) {
             int coord = Integer.parseInt(args[2]);
             if (args[1].equalsIgnoreCase("x")) {
                 if ((int) player.getLocation().getX() < coord) {

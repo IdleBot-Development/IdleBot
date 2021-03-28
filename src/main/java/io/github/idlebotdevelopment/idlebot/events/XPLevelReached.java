@@ -18,7 +18,7 @@
 package io.github.idlebotdevelopment.idlebot.events;
 
 import io.github.idlebotdevelopment.idlebot.IdleBot;
-import io.github.idlebotdevelopment.idlebot.util.EventUtils;
+import io.github.idlebotdevelopment.idlebot.util.IdleBotUtils;
 import io.github.idlebotdevelopment.idlebot.util.IdleCheck;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
@@ -38,7 +38,7 @@ public class XPLevelReached implements IdleCheck {
         if (levelDesired == -1) return;
         if (player.getLevel() >= levelDesired && !IdleBot.getEventManager().XPLevelReachedPlayers.contains(player)) {
             MessageHelper.sendMessage(player.getDisplayName() + " is idle and at the desired XP level!", MessageLevel.INFO);
-            EventUtils.sendPlayerMessage(player, player.getDisplayName() + " is at the desired XP level!", player.getDisplayName() + " reached the desired XP level!");
+            IdleBotUtils.sendPlayerMessage(player, player.getDisplayName() + " is at the desired XP level!", player.getDisplayName() + " reached the desired XP level!");
             IdleBot.getEventManager().XPLevelReachedPlayers.add(player);
         }
     }

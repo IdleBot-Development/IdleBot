@@ -18,8 +18,8 @@
 package io.github.idlebotdevelopment.idlebot.commands;
 
 import io.github.idlebotdevelopment.idlebot.IdleBot;
-import io.github.idlebotdevelopment.idlebot.util.EventUtils;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
+import io.github.idlebotdevelopment.idlebot.util.IdleBotUtils;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
 import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
@@ -54,7 +54,7 @@ public class SetAFKCommand implements IdleBotCommand {
             MessageHelper.sendMessage(player, "Set your afk status to " + PersistentDataUtils.getBooleanData(player, DataValue.IS_SET_AFK), MessageLevel.INFO);
         }
         PersistentDataUtils.setData(player, DataValue.AUTO_AFK, false);
-        EventUtils.clearPlayerIdleStats(player);
+        IdleBotUtils.clearPlayerIdleStats(player);
         return true;
     }
 }

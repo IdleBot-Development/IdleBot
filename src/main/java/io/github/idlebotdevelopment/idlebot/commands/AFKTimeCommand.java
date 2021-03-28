@@ -18,8 +18,8 @@
 package io.github.idlebotdevelopment.idlebot.commands;
 
 import io.github.idlebotdevelopment.idlebot.IdleBot;
-import io.github.idlebotdevelopment.idlebot.util.CommandUtils;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
+import io.github.idlebotdevelopment.idlebot.util.IdleBotUtils;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
 import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
@@ -43,7 +43,7 @@ public class AFKTimeCommand implements IdleBotCommand {
             MessageHelper.sendMessage(player, "You are not allowed to use auto AFK on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }
-        if (args.length >= 2 && CommandUtils.isInteger(args[1]) && Integer.parseInt(args[1]) >= IdleBot.getConfigManager().MINIMUM_IDLE_TIME && Integer.parseInt(args[1]) <= IdleBot.getConfigManager().MAXIMUM_IDLE_TIME) {
+        if (args.length >= 2 && IdleBotUtils.isInteger(args[1]) && Integer.parseInt(args[1]) >= IdleBot.getConfigManager().MINIMUM_IDLE_TIME && Integer.parseInt(args[1]) <= IdleBot.getConfigManager().MAXIMUM_IDLE_TIME) {
             PersistentDataUtils.setData(player, DataValue.AFK_TIME, Integer.parseInt(args[1]));
             MessageHelper.sendMessage(player, "Set your afktime to " + args[1], MessageLevel.INFO);
             return true;

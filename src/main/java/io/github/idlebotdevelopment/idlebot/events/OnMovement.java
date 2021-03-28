@@ -33,7 +33,7 @@
 
 package io.github.idlebotdevelopment.idlebot.events;
 
-import io.github.idlebotdevelopment.idlebot.util.EventUtils;
+import io.github.idlebotdevelopment.idlebot.util.IdleBotUtils;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
 import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import org.bukkit.Location;
@@ -57,7 +57,7 @@ public class OnMovement implements Listener {
             Player player = e.getPlayer();
 //            Messenger.sendMessage(player.getDisplayName() + " stopped being idle.", MessageLevel.INFO);
             if (!PersistentDataUtils.getBooleanData(player, DataValue.IS_SET_AFK))
-                EventUtils.clearPlayerIdleStats(player);
+                IdleBotUtils.clearPlayerIdleStats(player);
         }
     }
 

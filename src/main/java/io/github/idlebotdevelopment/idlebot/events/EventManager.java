@@ -17,7 +17,7 @@
 
 package io.github.idlebotdevelopment.idlebot.events;
 
-import io.github.idlebotdevelopment.idlebot.util.EventUtils;
+import io.github.idlebotdevelopment.idlebot.util.IdleBotUtils;
 import io.github.idlebotdevelopment.idlebot.util.IdleCheck;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
 import org.bukkit.Bukkit;
@@ -46,7 +46,7 @@ public class EventManager implements Runnable {
     public void run() {
         Bukkit.getOnlinePlayers().forEach(player ->
             idleChecks.forEach(check -> {
-                if (PersistentDataUtils.getBooleanData(player, check.getDataValue()) && EventUtils.isIdle(player))
+                if (PersistentDataUtils.getBooleanData(player, check.getDataValue()) && IdleBotUtils.isIdle(player))
                     check.check(player);
             })
         );

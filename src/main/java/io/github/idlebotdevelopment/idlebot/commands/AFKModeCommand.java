@@ -18,8 +18,8 @@
 package io.github.idlebotdevelopment.idlebot.commands;
 
 import io.github.idlebotdevelopment.idlebot.IdleBot;
-import io.github.idlebotdevelopment.idlebot.util.EventUtils;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
+import io.github.idlebotdevelopment.idlebot.util.IdleBotUtils;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
 import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
@@ -46,7 +46,7 @@ public class AFKModeCommand implements IdleBotCommand {
                 return true;
             }
             PersistentDataUtils.setData(player, DataValue.AUTO_AFK, false);
-            EventUtils.clearPlayerIdleStats(player);
+            IdleBotUtils.clearPlayerIdleStats(player);
             MessageHelper.sendMessage(player, "Set your afkmode to manual", MessageLevel.INFO);
             return true;
         } else if (args.length >= 2 && args[1].equalsIgnoreCase("auto")) {
