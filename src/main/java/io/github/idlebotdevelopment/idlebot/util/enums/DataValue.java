@@ -36,6 +36,7 @@ public enum DataValue {
     LOCATION_X_DIRECTION("locationxdir"), // e/w; example: player is at x = 100, wants alert x = 500, value = "e"
     LOCATION_Z_DIRECTION("locationzdir"), // s/n; example: player is at z = 100, wants alert z = -500, value = "n"
     INVENTORY_FULL_ALERT("inventoryalert"),
+    TOOL_BREAK_ALERT("toolbreakalert"),
     DIRECT_MESSAGE_MODE("dmmode");
 
     private final String key;

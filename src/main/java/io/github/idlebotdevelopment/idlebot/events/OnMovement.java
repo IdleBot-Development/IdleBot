@@ -55,7 +55,6 @@ public class OnMovement implements Listener {
             return;
         if (to.getPitch() != from.getPitch() || to.getYaw() != from.getYaw()) {
             Player player = e.getPlayer();
-//            Messenger.sendMessage(player.getDisplayName() + " stopped being idle.", MessageLevel.INFO);
             if (!PersistentDataUtils.getBooleanData(player, DataValue.IS_SET_AFK))
                 IdleBotUtils.clearPlayerIdleStats(player);
         }

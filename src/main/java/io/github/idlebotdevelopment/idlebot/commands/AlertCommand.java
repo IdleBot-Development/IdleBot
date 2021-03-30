@@ -33,7 +33,7 @@ public class AlertCommand implements IdleBotCommand {
 
     @Override
     public String getCommandUsage() {
-        return "/idlebot alert <damage | death | xlocation | zlocation | xp | inventory | advancement> <true | false>";
+        return "/idlebot alert <damage | death | xlocation | zlocation | xp | inventory | advancement | toolbreak> <true | false>";
     }
 
     @Override
@@ -63,6 +63,9 @@ public class AlertCommand implements IdleBotCommand {
                 break;
             case "advancement":
                 dataKey = DataValue.ADVANCEMENT_ALERT;
+                break;
+            case "toolbreak":
+                dataKey = DataValue.TOOL_BREAK_ALERT;
                 break;
             default:
                 return false;

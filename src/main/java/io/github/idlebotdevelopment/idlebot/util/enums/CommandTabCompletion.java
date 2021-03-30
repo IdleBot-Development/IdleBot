@@ -24,7 +24,7 @@ import lombok.Getter;
 public enum CommandTabCompletion {
     AFKMODE(new String[]{"auto", "manual"}),
     AFKTIME(),
-    ALERT(new String[]{"damage", "death", "xlocation", "zlocation", "xp", "inventory", "advancement"}, new String[]{"true", "false"}),
+    ALERT(new String[]{"damage", "death", "xlocation", "zlocation", "xp", "inventory", "advancement", "toolbreak"}, new String[]{"true", "false"}),
     CHANNEL(new String[]{"public", "private"}),
     CLEARDATA(),
     LINK(),

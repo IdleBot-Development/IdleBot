@@ -76,6 +76,7 @@ public class IdleBot extends JavaPlugin {
             pluginManager.registerEvents(new OnPlayerQuit(), this); // Register player quit event
             pluginManager.registerEvents(new OnPlayerJoin(), this); // Register player join event
             pluginManager.registerEvents(new OnAdvancementDone(), this); // Register player advancement done event
+            pluginManager.registerEvents(new OnItemBreak(), this); // Register item break event
             localVersion = this.getDescription().getVersion();
             new UpdateChecker(this).getVersion(version -> {
                 latestVersion = version;
