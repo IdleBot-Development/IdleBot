@@ -68,6 +68,7 @@ public class ViewSettingsCommand implements IdleBotCommand {
         boolean advancementAlert = PersistentDataUtils.getBooleanData(player, DataValue.ADVANCEMENT_ALERT);
         String advancementName = IdleBotUtils.prettyPrintPlayerDesiredAdvancement(PersistentDataUtils.getStringData(player, DataValue.ADVANCEMENT_DESIRED));
         player.sendMessage(ChatColor.AQUA + "Advancement completed alert: " + advancementAlert + ((advancementAlert) ? " (" + advancementName + ")" : ""));
+        player.sendMessage(ChatColor.AQUA + "Tool break alert: " + PersistentDataUtils.getBooleanData(player, DataValue.TOOL_BREAK_ALERT));
         return true;
     }
 }

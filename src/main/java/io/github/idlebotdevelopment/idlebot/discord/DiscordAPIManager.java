@@ -80,8 +80,9 @@ public class DiscordAPIManager {
 
     private void getChannel() {
         if (!config.PUBLIC_CHANNEL_MESSAGES_ENABLED) return;
-        if (bot.getTextChannelById(config.CHANNEL_ID) != null) {
-            channel = bot.getTextChannelById(config.CHANNEL_ID);
+        TextChannel nullableChannel = bot.getTextChannelById(config.CHANNEL_ID);
+        if (nullableChannel != null) {
+            channel = nullableChannel;
         } else {
             MessageHelper.sendMessage("Invalid Discord channel specified in config", MessageLevel.FATAL_ERROR);
             plugin.disablePlugin();
