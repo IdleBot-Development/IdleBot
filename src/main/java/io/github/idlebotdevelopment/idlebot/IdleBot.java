@@ -22,6 +22,7 @@ import github.scarsz.discordsrv.DiscordSRV;
 import io.github.idlebotdevelopment.idlebot.commands.IdleBotCommandManager;
 import io.github.idlebotdevelopment.idlebot.commands.IdleBotTabCompleter;
 import io.github.idlebotdevelopment.idlebot.discord.DiscordAPIManager;
+import io.github.idlebotdevelopment.idlebot.discord.DiscordSRVEvents;
 import io.github.idlebotdevelopment.idlebot.events.*;
 import io.github.idlebotdevelopment.idlebot.util.ConfigManager;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;

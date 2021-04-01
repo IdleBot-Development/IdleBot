@@ -28,10 +28,12 @@ import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class DiscordMessageEvent extends ListenerAdapter {
     @Override
-    public void onMessageReceived(MessageReceivedEvent event) {
+    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
+        if (IdleBot.getConfigManager().DISCORDSRV_MODE) return;
         if (event.getChannelType() == ChannelType.PRIVATE && !event.getAuthor().isBot()) {
             Message message = event.getMessage();
             MessageChannel channel = event.getChannel();

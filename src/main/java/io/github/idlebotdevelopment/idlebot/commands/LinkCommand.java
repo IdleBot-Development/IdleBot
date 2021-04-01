@@ -45,6 +45,10 @@ public class LinkCommand implements IdleBotCommand {
             MessageHelper.sendMessage(player, "Your account is already linked!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }
+        if (IdleBot.getConfigManager().DISCORDSRV_MODE) {
+            MessageHelper.sendMessage(player, "This server is using DiscordSRV to link accounts. Please run \"/discord link\" to link your account instead", MessageLevel.INCORRECT_COMMAND_USAGE);
+            return true;
+        }
         Random rng = new Random();
         String botName = IdleBot.getDiscordAPIManager().bot.getSelfUser().getAsTag();
         int code;

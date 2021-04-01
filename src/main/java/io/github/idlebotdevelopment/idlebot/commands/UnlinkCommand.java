@@ -17,6 +17,7 @@
 
 package io.github.idlebotdevelopment.idlebot.commands;
 
+import io.github.idlebotdevelopment.idlebot.IdleBot;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
@@ -39,6 +40,10 @@ public class UnlinkCommand implements IdleBotCommand {
     public boolean runCommand(Player player, String[] args) {
         if (PersistentDataUtils.getStringData(player, DataValue.DISCORD_ID) == null) { // If they are not linked
             MessageHelper.sendMessage(player, "Your account isn't linked so you can't unlink it!", MessageLevel.INCORRECT_COMMAND_USAGE);
+            return true;
+        }
+        if (IdleBot.getConfigManager().DISCORDSRV_MODE) {
+            MessageHelper.sendMessage(player, "This server is using DiscordSRV to link accounts. Please run \"/discord unlink\" to unlink your account instead", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }
         PersistentDataUtils.removeAllData(player);
