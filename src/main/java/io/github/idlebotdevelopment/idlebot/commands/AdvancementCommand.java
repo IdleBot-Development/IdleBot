@@ -47,7 +47,7 @@ public class AdvancementCommand implements IdleBotCommand {
             Iterator<Advancement> iterator = Bukkit.advancementIterator();
             while (iterator.hasNext()) {
                 NamespacedKey key = iterator.next().getKey();
-                if (args[1].equalsIgnoreCase(key.getNamespace() + ":" + key.getKey())) {
+                if (args[1].equalsIgnoreCase(key.getNamespace() + ":" + key.getKey()) || args[1].equalsIgnoreCase(key.getKey())) {
                     PersistentDataUtils.setData(player, DataValue.ADVANCEMENT_DESIRED, key.getNamespace() + ":" + key.getKey());
                     MessageHelper.sendMessage(player, "Set your desired advancement to " + key.getNamespace() + ":" + key.getKey(), MessageLevel.INFO);
                     return true;
