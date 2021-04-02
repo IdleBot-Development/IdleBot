@@ -63,39 +63,38 @@ public class IdleBot extends JavaPlugin {
             e.printStackTrace();
             disablePlugin();
         }
-        if (isEnabled()) {
-            BukkitScheduler scheduler = getServer().getScheduler();
-            PluginManager pluginManager = getServer().getPluginManager();
-            PluginCommand idleBotCommand = Objects.requireNonNull(this.getCommand("idlebot"));
-            idleBotCommand.setExecutor(new IdleBotCommandManager());
-            idleBotCommand.setTabCompleter(new IdleBotTabCompleter());
-            scheduler.runTaskTimer(this, new IdleChecker(), 20L, 20L); // Execute the idle checker every 20 ticks (1 second)
-            scheduler.runTaskTimer(this, eventManager, 20L, 20L); // Check for all extra events (events that don't have official Bukkit events) every 20 ticks (1 second)
-            pluginManager.registerEvents(new OnMovement(), this); // Register movement event
-            pluginManager.registerEvents(new OnDamage(), this); // Register damage events
-            pluginManager.registerEvents(new OnDeath(), this); // Register death event
-            pluginManager.registerEvents(new OnPlayerQuit(), this); // Register player quit event
-            pluginManager.registerEvents(new OnPlayerJoin(), this); // Register player join event
-            pluginManager.registerEvents(new OnAdvancementDone(), this); // Register player advancement done event
-            pluginManager.registerEvents(new OnItemBreak(), this); // Register item break event
-            localVersion = this.getDescription().getVersion();
-            new UpdateChecker(this).getVersion(version -> {
-                latestVersion = version;
-                if (localVersion.equals(latestVersion))
-                    MessageHelper.sendMessage("You are running the latest version! (" + localVersion + ")", MessageLevel.INFO);
-                else
-                    MessageHelper.sendMessage("You are running an outdated version! (You are running version " + localVersion + " but the latest version is " + latestVersion + ")\nGo to https://www.spigotmc.org/resources/idlebot-step-up-your-afk-game.88778/ to download a new version", MessageLevel.IMPORTANT);
-            });
-            // Load JDA
-            if (configManager.DISCORDSRV_MODE) {
-                MessageHelper.sendMessage("Connecting to DiscordSRV plugin", MessageLevel.INFO);
-                DiscordSRV.api.subscribe(new DiscordSRVEvents(this));
-            } else {
-                MessageHelper.sendMessage("Starting to load JDA", MessageLevel.INFO);
-                discordAPIManager = new DiscordAPIManager(this, false);
-                MessageHelper.sendMessage("Plugin successfully loaded", MessageLevel.INFO);
-            }
+        if (!isEnabled()) return;
+        BukkitScheduler scheduler = getServer().getScheduler();
+        PluginManager pluginManager = getServer().getPluginManager();
+        PluginCommand idleBotCommand = Objects.requireNonNull(this.getCommand("idlebot"));
+        idleBotCommand.setExecutor(new IdleBotCommandManager());
+        idleBotCommand.setTabCompleter(new IdleBotTabCompleter());
+        scheduler.runTaskTimer(this, new IdleChecker(), 20L, 20L); // Execute the idle checker every 20 ticks (1 second)
+        scheduler.runTaskTimer(this, eventManager, 20L, 20L); // Check for all extra events (events that don't have official Bukkit events) every 20 ticks (1 second)
+        pluginManager.registerEvents(new OnMovement(), this); // Register movement event
+        pluginManager.registerEvents(new OnDamage(), this); // Register damage events
+        pluginManager.registerEvents(new OnDeath(), this); // Register death event
+        pluginManager.registerEvents(new OnPlayerQuit(), this); // Register player quit event
+        pluginManager.registerEvents(new OnPlayerJoin(), this); // Register player join event
+        pluginManager.registerEvents(new OnAdvancementDone(), this); // Register player advancement done event
+        pluginManager.registerEvents(new OnItemBreak(), this); // Register item break event
+        localVersion = this.getDescription().getVersion();
+        new UpdateChecker(this).getVersion(version -> {
+            latestVersion = version;
+            if (localVersion.equals(latestVersion))
+                MessageHelper.sendMessage("You are running the latest version! (" + localVersion + ")", MessageLevel.INFO);
+            else
+                MessageHelper.sendMessage("You are running an outdated version! (You are running version " + localVersion + " but the latest version is " + latestVersion + ")\nGo to https://www.spigotmc.org/resources/idlebot-step-up-your-afk-game.88778/ to download a new version", MessageLevel.IMPORTANT);
+        });
+        // Load JDA
+        if (configManager.DISCORDSRV_MODE) {
+            MessageHelper.sendMessage("Connecting to DiscordSRV plugin", MessageLevel.INFO);
+            DiscordSRV.api.subscribe(new DiscordSRVEvents(this));
+        } else {
+            MessageHelper.sendMessage("Starting to load JDA", MessageLevel.INFO);
+            discordAPIManager = new DiscordAPIManager(this, false);
         }
+        if (isEnabled()) MessageHelper.sendMessage("Plugin successfully loaded", MessageLevel.INFO);
     }
 
     @Override
@@ -104,8 +103,6 @@ public class IdleBot extends JavaPlugin {
     }
 
     public void disablePlugin() {
-        // Bukkit.getPluginManager().disablePlugin(plugin);
-        // Bukkit.getScheduler().callSyncMethod(this, new DisablePlugin());
         Bukkit.getScheduler().callSyncMethod(this, new Callable<Object>() {
             @Override
             public Object call() {
