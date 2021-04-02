@@ -71,10 +71,17 @@ public class DiscordAPIManager {
     private void setActivity() {
         Presence presence = bot.getPresence();
         switch (config.ACTIVITY_TYPE.toUpperCase()) {
-            case "WATCHING" -> presence.setPresence(Activity.watching(config.ACTIVITY_MESSAGE), false);
-            case "PLAYING" -> presence.setPresence(Activity.playing(config.ACTIVITY_MESSAGE), false);
-            case "LISTENING" -> presence.setPresence(Activity.listening(config.ACTIVITY_MESSAGE), false);
-            default -> {}
+            case "WATCHING":
+                presence.setPresence(Activity.watching(config.ACTIVITY_MESSAGE), false);
+                break;
+            case "PLAYING":
+                presence.setPresence(Activity.playing(config.ACTIVITY_MESSAGE), false);
+                break;
+            case "LISTENING":
+                presence.setPresence(Activity.listening(config.ACTIVITY_MESSAGE), false);
+                break;
+            default:
+                break;
         }
     }
 

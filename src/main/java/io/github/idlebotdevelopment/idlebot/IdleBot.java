@@ -106,7 +106,7 @@ public class IdleBot extends JavaPlugin {
     public void disablePlugin() {
         // Bukkit.getPluginManager().disablePlugin(plugin);
         // Bukkit.getScheduler().callSyncMethod(this, new DisablePlugin());
-        Bukkit.getScheduler().callSyncMethod(this, new Callable<>() {
+        Bukkit.getScheduler().callSyncMethod(this, new Callable<Object>() {
             @Override
             public Object call() {
                 Bukkit.getPluginManager().disablePlugin(IdleBot.getPlugin());
