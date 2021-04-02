@@ -31,6 +31,7 @@ import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -58,10 +59,10 @@ public class IdleBot extends JavaPlugin {
         try {
             configManager = new ConfigManager(this);
         }
-        catch (IOException | ParseException e) {
+        catch (IOException | ParseException | InvalidConfigurationException e) {
             MessageHelper.sendMessage("Plugin configuration load failed! Plugin disabled. Try to fix the configuration file and try again or get support!", MessageLevel.FATAL_ERROR);
             e.printStackTrace();
-            disablePlugin();
+            disablePlugin(false);
         }
         if (!isEnabled()) return;
         BukkitScheduler scheduler = getServer().getScheduler();
@@ -88,13 +89,18 @@ public class IdleBot extends JavaPlugin {
         });
         // Load JDA
         if (configManager.DISCORDSRV_MODE) {
-            MessageHelper.sendMessage("Connecting to DiscordSRV plugin", MessageLevel.INFO);
-            DiscordSRV.api.subscribe(new DiscordSRVEvents(this));
+            MessageHelper.sendMessage("Attempting to connect to DiscordSRV plugin", MessageLevel.INFO);
+            if (DiscordSRV.getPlugin().isEnabled()) {
+                DiscordSRV.api.subscribe(new DiscordSRVEvents(this));
+            } else {
+                MessageHelper.sendMessage("DiscordSRV mode is enabled but the DiscordSRV plugin is not enabled. This could mean that it isn't installed or that something went wrong when loading it.", MessageLevel.FATAL_ERROR);
+                disablePlugin(false);
+            }
         } else {
             MessageHelper.sendMessage("Starting to load JDA", MessageLevel.INFO);
             discordAPIManager = new DiscordAPIManager(this, false);
+            if (isEnabled()) MessageHelper.sendMessage("Plugin successfully loaded", MessageLevel.INFO);
         }
-        if (isEnabled()) MessageHelper.sendMessage("Plugin successfully loaded", MessageLevel.INFO);
     }
 
     @Override
@@ -102,14 +108,18 @@ public class IdleBot extends JavaPlugin {
         MessageHelper.sendMessage("All data saved. Plugin safely closed!", MessageLevel.INFO);
     }
 
-    public void disablePlugin() {
-        Bukkit.getScheduler().callSyncMethod(this, new Callable<Object>() {
-            @Override
-            public Object call() {
-                Bukkit.getPluginManager().disablePlugin(IdleBot.getPlugin());
-                return this;
-            }
-        });
+    public void disablePlugin(boolean async) {
+        if (async) {
+            Bukkit.getScheduler().callSyncMethod(this, new Callable<Object>() {
+                @Override
+                public Object call() {
+                    Bukkit.getPluginManager().disablePlugin(IdleBot.getPlugin());
+                    return this;
+                }
+            });
+        } else {
+            Bukkit.getPluginManager().disablePlugin(this);
+        }
     }
 
     public void setDiscordAPIManager(DiscordAPIManager api) {

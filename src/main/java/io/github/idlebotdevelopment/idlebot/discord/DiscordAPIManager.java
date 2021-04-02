@@ -51,7 +51,7 @@ public class DiscordAPIManager {
             } catch (LoginException | InterruptedException e) {
                 MessageHelper.sendMessage("Failed to initialize JDA!", MessageLevel.FATAL_ERROR);
                 e.printStackTrace();
-                plugin.disablePlugin();
+                plugin.disablePlugin(true);
             }
         } else {
             try {
@@ -60,10 +60,11 @@ public class DiscordAPIManager {
                 bot.awaitReady();
                 getChannel();
                 MessageHelper.sendMessage("Successfully hooked into DiscordSRV plugin!", MessageLevel.INFO);
+                MessageHelper.sendMessage("Plugin successfully loaded", MessageLevel.INFO);
             } catch (LoginException | InterruptedException e) {
                 MessageHelper.sendMessage("Failed to initialize JDA from DiscordSRV's bot token!", MessageLevel.FATAL_ERROR);
                 e.printStackTrace();
-                plugin.disablePlugin();
+                plugin.disablePlugin(true);
             }
         }
     }
@@ -92,7 +93,7 @@ public class DiscordAPIManager {
             channel = nullableChannel;
         } else {
             MessageHelper.sendMessage("Invalid Discord channel specified in config", MessageLevel.FATAL_ERROR);
-            plugin.disablePlugin();
+            plugin.disablePlugin(true);
         }
     }
 

@@ -24,6 +24,7 @@ import github.scarsz.configuralize.DynamicConfig;
 import github.scarsz.configuralize.ParseException;
 import io.github.idlebotdevelopment.idlebot.IdleBot;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
+import org.bukkit.configuration.InvalidConfigurationException;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,7 +51,7 @@ public class ConfigManager {
     public final boolean MANUAL_AFK_ENABLED;
     public final boolean DISCORDSRV_MODE;
 
-    public ConfigManager(IdleBot plugin) throws IOException, ParseException {
+    public ConfigManager(IdleBot plugin) throws IOException, ParseException, InvalidConfigurationException {
         this.plugin = plugin;
         File configFile = new File(plugin.getDataFolder(), "config.yml");
         //noinspection ResultOfMethodCallIgnored
@@ -90,8 +91,8 @@ public class ConfigManager {
             invalidateConfig("channelID needs to be set in config.yml");
     }
 
-    private void invalidateConfig(String reason) {
+    private void invalidateConfig(String reason) throws InvalidConfigurationException {
         MessageHelper.sendMessage("Plugin configuration file invalid! " + reason, MessageLevel.FATAL_ERROR);
-        plugin.disablePlugin();
+        throw new InvalidConfigurationException();
     }
 }
