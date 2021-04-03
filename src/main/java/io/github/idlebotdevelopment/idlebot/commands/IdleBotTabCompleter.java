@@ -67,7 +67,12 @@ public class IdleBotTabCompleter implements TabCompleter {
             }
         }
         final List<String> finalCompletions = new ArrayList<>();
-        StringUtil.copyPartialMatches(args[args.length-1], completions, finalCompletions);
+        String lastArgument = args[args.length-1];
+
+        // Special for advancement command
+        if (args[0].equalsIgnoreCase("advancement"))
+            StringUtil.copyPartialMatches("minecraft:" + lastArgument, completions, finalCompletions);
+        StringUtil.copyPartialMatches(lastArgument, completions, finalCompletions);
         Collections.sort(finalCompletions);
         return finalCompletions;
     }
