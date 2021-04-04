@@ -8,4 +8,6 @@
 ## Minecraft <-> Discord Bot to alert players!
 This bot allows a player to be mentioned in Discord when they die if they have indicated they are AFK (away from keyboard) in Minecraft.
 
+[Read the wiki to learn more](https://github.com/IdleBot-Development/IdleBot/wiki)
+
 *Logo designed by [Reevak05](https://github.com/Reevak05)*
