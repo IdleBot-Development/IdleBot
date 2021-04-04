@@ -1,5 +1,5 @@
 # This is the configuration file for the IdleBot plugin!
-# More information and help can be found here(insert link)
+# More information and help can be found here: https://github.com/IdleBot-Development/IdleBot/wiki
 # Comments refer to the option BELOW them
 
 #    _____    _ _      ____        _
@@ -16,6 +16,13 @@ channelID: <Channel ID Here>
 # Do you want this plugin to rely on DiscordSRV for account linking? (Recommended if you are using DiscordSRV)
 discordSRV: false
 
+# Category ignored if discordSRV is true
+customBotActivity:
+  # The type of activity in the bot's Discord status | default: watching | options: [watching, listening, playing, none]
+  type: watching
+  # The second part of the bot's Discord status. For example, if this says "idle players" the bot's status could be "Watching idle players" | default: idle players
+  message: idle players
+
 messageChannels:
   # Should players be allowed to have alerts sent to a public channel | default: true
   publicChannelMessagesEnabled: true
@@ -23,13 +30,6 @@ messageChannels:
   privateChannelMessagesEnabled: true
   # The default message channel to set for players when they first link their account | default: public | options: [public, private]
   defaultMessageChannel: public
-
-# Category ignored if discordSRV is true
-customBotActivity:
-  # The type of activity in the bot's Discord status | default: watching | options: [watching, listening, playing, none]
-  type: watching
-  # The second part of the bot's Discord status. For example, if this says "idle players" the bot's status could be "Watching idle players" | default: idle players
-  message: idle players
 
 AFKMode:
   # Should players be allowed to go AFK just by standing still | default: true
@@ -40,7 +40,7 @@ AFKMode:
   defaultAFKMode: auto
 
 idleTime:
-  # (s) The default idle time for players who do not set their own | this must be between minimum and maximum idle time set below minimum of 5 seconds | default: 120
+  # (s) The default idle time for players who do not set their own | this must be between minimum and maximum idle time set below | default: 120
   defaultIdleTime: 120
   # (s) The minimum idle time a player can set for themself | you can set this to a minimum of 5 seconds | default: 20
   minimumIdleTime: 20
