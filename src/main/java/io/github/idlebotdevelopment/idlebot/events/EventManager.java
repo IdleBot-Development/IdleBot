@@ -35,13 +35,6 @@ public class EventManager implements Runnable {
 
     private final ArrayList<IdleCheck> idleChecks = new ArrayList<>();
 
-    public EventManager() {
-        idleChecks.add(new InventoryFull());
-        idleChecks.add(new XLocationReached());
-        idleChecks.add(new ZLocationReached());
-        idleChecks.add(new XPLevelReached());
-    }
-
     @Override
     public void run() {
         Bukkit.getOnlinePlayers().forEach(player ->
@@ -50,5 +43,9 @@ public class EventManager implements Runnable {
                     check.check(player);
             })
         );
+    }
+
+    public void registerCheck(IdleCheck check) {
+        idleChecks.add(check);
     }
 }

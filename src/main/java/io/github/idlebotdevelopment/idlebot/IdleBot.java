@@ -44,34 +44,40 @@ import java.util.concurrent.Callable;
 
 public class IdleBot extends JavaPlugin {
 
-    @Getter private static  ConfigManager configManager;
-    @Getter private static final EventManager eventManager = new EventManager();
     @Getter private static IdleBot plugin;
-    @Getter private static DiscordAPIManager discordAPIManager;
-    @Getter private static String localVersion;
-    @Getter private static String latestVersion;
+
+    @Getter private ConfigManager configManager;
+    @Getter private EventManager eventManager;
+    @Getter private DiscordAPIManager discordAPIManager;
+    @Getter private String localVersion;
+    @Getter private String latestVersion;
+
     public static final HashMap<Integer, Player> linkCodes = new HashMap<>();
     public static final HashMap<Player, Integer> idlePlayers = new HashMap<>();
 
     @Override
     public void onEnable() {
         plugin = this;
+        eventManager = new EventManager();
+
         try {
-            configManager = new ConfigManager(this);
-        }
-        catch (IOException | ParseException | InvalidConfigurationException e) {
+            configManager = new ConfigManager();
+        } catch (IOException | ParseException | InvalidConfigurationException e) {
             MessageHelper.sendMessage("Plugin configuration load failed! Plugin disabled. Try to fix the configuration file and try again or get support!", MessageLevel.FATAL_ERROR);
             e.printStackTrace();
             disablePlugin(false);
+            return;
         }
-        if (!isEnabled()) return;
+
+        PluginCommand idleBotCommand = Objects.requireNonNull(this.getCommand("idlebot"));
         BukkitScheduler scheduler = getServer().getScheduler();
         PluginManager pluginManager = getServer().getPluginManager();
-        PluginCommand idleBotCommand = Objects.requireNonNull(this.getCommand("idlebot"));
+
         idleBotCommand.setExecutor(new IdleBotCommandManager());
         idleBotCommand.setTabCompleter(new IdleBotTabCompleter());
         scheduler.runTaskTimer(this, new IdleChecker(), 20L, 20L); // Execute the idle checker every 20 ticks (1 second)
         scheduler.runTaskTimer(this, eventManager, 20L, 20L); // Check for all extra events (events that don't have official Bukkit events) every 20 ticks (1 second)
+
         pluginManager.registerEvents(new OnMovement(), this); // Register movement event
         pluginManager.registerEvents(new OnDamage(), this); // Register damage events
         pluginManager.registerEvents(new OnDeath(), this); // Register death event
@@ -79,6 +85,11 @@ public class IdleBot extends JavaPlugin {
         pluginManager.registerEvents(new OnPlayerJoin(), this); // Register player join event
         pluginManager.registerEvents(new OnAdvancementDone(), this); // Register player advancement done event
         pluginManager.registerEvents(new OnItemBreak(), this); // Register item break event
+
+        eventManager.registerCheck(new InventoryFull());
+        eventManager.registerCheck(new XLocationReached());
+        eventManager.registerCheck(new ZLocationReached());
+        eventManager.registerCheck(new XPLevelReached());
         localVersion = this.getDescription().getVersion();
         new UpdateChecker(this).getVersion(version -> {
             latestVersion = version;
