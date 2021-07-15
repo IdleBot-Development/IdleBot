@@ -18,7 +18,7 @@
 package io.github.idlebotdevelopment.idlebot.util;
 
 import io.github.idlebotdevelopment.idlebot.IdleBot;
-import io.github.idlebotdevelopment.idlebot.discord.DiscordAPIManager;
+import io.github.idlebotdevelopment.idlebot.events.EventManager;
 import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -39,7 +39,7 @@ import java.util.stream.Stream;
 public class IdleBotUtils {
     // Check if a player is idle based on the player's settings and the time they have spent idle
     public static boolean isIdle(Player player) {
-        int time = (IdleBot.idlePlayers.get(player) != null) ? IdleBot.idlePlayers.get(player) : -1;
+        int time = (IdleBot.getPlugin().getIdlePlayers().get(player) != null) ? IdleBot.getPlugin().getIdlePlayers().get(player) : -1;
         boolean autoAFK = PersistentDataUtils.getBooleanData(player, DataValue.AUTO_AFK);
         boolean setafk = PersistentDataUtils.getBooleanData(player, DataValue.IS_SET_AFK);
         int afktime = PersistentDataUtils.getIntData(player, DataValue.AFK_TIME);
@@ -53,24 +53,25 @@ public class IdleBotUtils {
             EmbedBuilder eb = new EmbedBuilder().setAuthor(player.getDisplayName(), null, "https://minotar.net/helm/" + player.getUniqueId())
                     .setTitle(message)
                     .setColor(Color.RED);
-            MessageBuilder mb = new MessageBuilder().append("<@!").append(discordID).append(">, ").append(previewMessage).setEmbed(eb.build());
+            MessageBuilder mb = new MessageBuilder().append("<@!").append(discordID).append(">, ").append(previewMessage).setEmbeds(eb.build());
             if (PersistentDataUtils.getBooleanData(player, DataValue.DIRECT_MESSAGE_MODE)) {
-                IdleBot.getDiscordAPIManager().bot.retrieveUserById(
+                IdleBot.getPlugin().getDiscordAPIManager().getJda().retrieveUserById(
                         Objects.requireNonNull(PersistentDataUtils.getStringData(player, DataValue.DISCORD_ID)), false)
                         .queue(user -> user.openPrivateChannel().queue(channel -> channel.sendMessage(mb.build()).queue()));
             } else {
-                DiscordAPIManager.channel.sendMessage(mb.build()).queue();
+                IdleBot.getPlugin().getDiscordAPIManager().getChannel().sendMessage(mb.build()).queue();
             }
         }
     }
 
     public static void clearPlayerIdleStats(Player player) {
-        IdleBot.idlePlayers.remove(player);
-        IdleBot.getEventManager().inventoryFullPlayers.remove(player);
-        IdleBot.getEventManager().damagedPlayers.remove(player);
-        IdleBot.getEventManager().locationReachedPlayersX.remove(player);
-        IdleBot.getEventManager().locationReachedPlayersZ.remove(player);
-        IdleBot.getEventManager().XPLevelReachedPlayers.remove(player);
+        IdleBot.getPlugin().getIdlePlayers().remove(player);
+        EventManager eventManager = IdleBot.getPlugin().getEventManager();
+        eventManager.inventoryFullPlayers.remove(player);
+        eventManager.damagedPlayers.remove(player);
+        eventManager.locationReachedPlayersX.remove(player);
+        eventManager.locationReachedPlayersZ.remove(player);
+        eventManager.XPLevelReachedPlayers.remove(player);
     }
 
     public static void saveListToDataFile(ArrayList<String> playerList, boolean append) {

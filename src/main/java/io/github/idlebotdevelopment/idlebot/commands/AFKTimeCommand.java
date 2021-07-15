@@ -18,10 +18,7 @@
 package io.github.idlebotdevelopment.idlebot.commands;
 
 import io.github.idlebotdevelopment.idlebot.IdleBot;
-import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
-import io.github.idlebotdevelopment.idlebot.util.IdleBotUtils;
-import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
-import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
+import io.github.idlebotdevelopment.idlebot.util.*;
 import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
@@ -34,16 +31,17 @@ public class AFKTimeCommand implements IdleBotCommand {
 
     @Override
     public String getCommandUsage() {
-        return "/idlebot afktime <time in seconds (your server's admin set the minimum and maximum afk time to " + IdleBot.getConfigManager().MINIMUM_IDLE_TIME + " and " + IdleBot.getConfigManager().MAXIMUM_IDLE_TIME + ")>";
+        return "/idlebot afktime <time in seconds (your server's admin set the minimum and maximum afk time to " + IdleBot.getPlugin().getConfigManager().MINIMUM_IDLE_TIME + " and " + IdleBot.getPlugin().getConfigManager().MAXIMUM_IDLE_TIME + ")>";
     }
 
     @Override
     public boolean runCommand(Player player, String[] args) {
-        if (!IdleBot.getConfigManager().AUTO_AFK_ENABLED) {
+        ConfigManager configManager = IdleBot.getPlugin().getConfigManager();
+        if (!configManager.AUTO_AFK_ENABLED) {
             MessageHelper.sendMessage(player, "You are not allowed to use auto AFK on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }
-        if (args.length >= 2 && IdleBotUtils.isInteger(args[1]) && Integer.parseInt(args[1]) >= IdleBot.getConfigManager().MINIMUM_IDLE_TIME && Integer.parseInt(args[1]) <= IdleBot.getConfigManager().MAXIMUM_IDLE_TIME) {
+        if (args.length >= 2 && IdleBotUtils.isInteger(args[1]) && Integer.parseInt(args[1]) >= configManager.MINIMUM_IDLE_TIME && Integer.parseInt(args[1]) <= configManager.MAXIMUM_IDLE_TIME) {
             PersistentDataUtils.setData(player, DataValue.AFK_TIME, Integer.parseInt(args[1]));
             MessageHelper.sendMessage(player, "Set your afktime to " + args[1], MessageLevel.INFO);
             return true;

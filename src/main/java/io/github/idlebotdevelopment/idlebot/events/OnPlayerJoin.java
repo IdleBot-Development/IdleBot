@@ -43,7 +43,7 @@ public class OnPlayerJoin implements Listener {
                 FileReader fileReader = new FileReader(IdleBot.getPlugin().getDataFolder() + "/OfflinePlayersWhoNeedToHaveTheirDataCleared.txt");
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
                 String rawFileData = bufferedReader.readLine();
-                offlinePlayers = new ArrayList<>(Arrays.asList(rawFileData.substring(0, rawFileData.length()-1).split(",")));
+                offlinePlayers = new ArrayList<>(Arrays.asList(rawFileData.substring(0, rawFileData.length() - 1).split(",")));
                 bufferedReader.close();
                 // Remove duplicates in ArrayList
                 offlinePlayers = (ArrayList<String>) offlinePlayers.stream().distinct().collect(Collectors.toList());
@@ -63,9 +63,9 @@ public class OnPlayerJoin implements Listener {
         }
 
         // Code to check for available update
-        if (e.getPlayer().isOp() && !IdleBot.getLocalVersion().equals(IdleBot.getLatestVersion())
-                && !(IdleBot.getLocalVersion() == null || IdleBot.getLatestVersion() == null)) {
-                MessageHelper.sendMessage(e.getPlayer(), "You are running an outdated version! (You are running version " + IdleBot.getLocalVersion() + " but the latest version is " + IdleBot.getLatestVersion() + ". Go to https://www.spigotmc.org/resources/idlebot-step-up-your-afk-game.88778/ to download a new version", MessageLevel.IMPORTANT);
+        if (e.getPlayer().isOp() && !IdleBot.getPlugin().getLocalVersion().equals(IdleBot.getPlugin().getLatestVersion())
+                && !(IdleBot.getPlugin().getLocalVersion() == null || IdleBot.getPlugin().getLatestVersion() == null)) {
+            MessageHelper.sendMessage(e.getPlayer(), "You are running an outdated version! (You are running version " + IdleBot.getPlugin().getLocalVersion() + " but the latest version is " + IdleBot.getPlugin().getLatestVersion() + ". Go to https://www.spigotmc.org/resources/idlebot-step-up-your-afk-game.88778/ to download a new version", MessageLevel.IMPORTANT);
         }
     }
 }

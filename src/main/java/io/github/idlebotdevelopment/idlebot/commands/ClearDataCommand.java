@@ -34,8 +34,8 @@ import java.util.Arrays;
 
 public class ClearDataCommand implements IdleBotCommand {
     private final ArrayList<Player> players = new ArrayList<>();
+    private final ArrayList<String> offlinePlayers = new ArrayList<>();
     private String warningMessage = "WARNING: this command will clear all your data associated with IdleBot, type \"y\" to continue or \"n\" to cancel.";
-    private ArrayList<String> offlinePlayers = new ArrayList<>();
 
     @Override
     public String getCommandName() {
@@ -67,8 +67,7 @@ public class ClearDataCommand implements IdleBotCommand {
                             offlinePlayers.add(offlinePlayer.getUniqueId().toString());
                         }
                     });
-                }
-                else {
+                } else {
                     MessageHelper.sendMessage(player, "Cannot find player \"" + args[1] + "\"", MessageLevel.INCORRECT_COMMAND_USAGE);
                     return true;
                 }
@@ -85,28 +84,6 @@ public class ClearDataCommand implements IdleBotCommand {
         Conversation conversation = factory.buildConversation(player);
         conversation.begin();
         return true;
-    }
-
-    private class WarningPrompt extends StringPrompt {
-        @NotNull
-        @Override
-        public String getPromptText(@NotNull ConversationContext conversationContext) {
-            return warningMessage;
-        }
-
-        @Nullable
-        @Override
-        public Prompt acceptInput(@NotNull ConversationContext conversationContext, @Nullable String s) {
-            if (s != null && (s.equalsIgnoreCase("y") || s.equalsIgnoreCase("yes"))) {
-                for (Player player : players) {
-                    PersistentDataUtils.removeAllData(player);
-                }
-                IdleBotUtils.saveListToDataFile(offlinePlayers, true);
-                return new YesPrompt();
-            } else {
-                return new NoPrompt();
-            }
-        }
     }
 
     private static class YesPrompt extends MessagePrompt {
@@ -134,6 +111,28 @@ public class ClearDataCommand implements IdleBotCommand {
         @Override
         public String getPromptText(@NotNull ConversationContext conversationContext) {
             return "Request to clear data cancelled.";
+        }
+    }
+
+    private class WarningPrompt extends StringPrompt {
+        @NotNull
+        @Override
+        public String getPromptText(@NotNull ConversationContext conversationContext) {
+            return warningMessage;
+        }
+
+        @Nullable
+        @Override
+        public Prompt acceptInput(@NotNull ConversationContext conversationContext, @Nullable String s) {
+            if (s != null && (s.equalsIgnoreCase("y") || s.equalsIgnoreCase("yes"))) {
+                for (Player player : players) {
+                    PersistentDataUtils.removeAllData(player);
+                }
+                IdleBotUtils.saveListToDataFile(offlinePlayers, true);
+                return new YesPrompt();
+            } else {
+                return new NoPrompt();
+            }
         }
     }
 }

@@ -39,7 +39,7 @@ public class SetAFKCommand implements IdleBotCommand {
 
     @Override
     public boolean runCommand(Player player, String[] args) {
-        if (!IdleBot.getConfigManager().MANUAL_AFK_ENABLED) {
+        if (!IdleBot.getPlugin().getConfigManager().MANUAL_AFK_ENABLED) {
             MessageHelper.sendMessage(player, "You are not allowed to use manual AFK on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }

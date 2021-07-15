@@ -26,6 +26,7 @@ public enum MessageLevel {
     IMPORTANT(ChatColor.GREEN);
 
     private final ChatColor color;
+
     MessageLevel(ChatColor color) {
         this.color = color;
     }

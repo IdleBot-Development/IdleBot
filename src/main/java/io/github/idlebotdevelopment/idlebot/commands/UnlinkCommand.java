@@ -42,7 +42,7 @@ public class UnlinkCommand implements IdleBotCommand {
             MessageHelper.sendMessage(player, "Your account isn't linked so you can't unlink it!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }
-        if (IdleBot.getConfigManager().DISCORDSRV_MODE) {
+        if (IdleBot.getPlugin().getConfigManager().DISCORDSRV_MODE) {
             MessageHelper.sendMessage(player, "This server is using DiscordSRV to link accounts. Please run \"/discord unlink\" to unlink your account instead", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }

@@ -46,9 +46,9 @@ public class IdleBotTabCompleter implements TabCompleter {
             NamespacedKey key = iterator.next().getKey();
             advancementsList.add(key.getNamespace() + ":" + key.getKey());
         }
-        advancements = advancementsList.toArray(new String[advancementsList.size()+2]);
-        advancements[advancements.length-2] = "all";
-        advancements[advancements.length-1] = "non-recipe";
+        advancements = advancementsList.toArray(new String[advancementsList.size() + 2]);
+        advancements[advancements.length - 2] = "all";
+        advancements[advancements.length - 1] = "non-recipe";
     }
 
     @Nullable
@@ -67,7 +67,7 @@ public class IdleBotTabCompleter implements TabCompleter {
             }
         }
         final List<String> finalCompletions = new ArrayList<>();
-        String lastArgument = args[args.length-1];
+        String lastArgument = args[args.length - 1];
 
         // Special for advancement command
         if (args[0].equalsIgnoreCase("advancement"))
