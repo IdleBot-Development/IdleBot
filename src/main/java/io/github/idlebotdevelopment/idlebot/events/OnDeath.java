@@ -29,6 +29,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class OnDeath implements Listener {
+    // Take player's location and return a clean string of coordinates
+    private static String locationCleanup(Location l) {
+        return "(" + Math.round(l.getX()) + ", " + Math.round(l.getY()) + ", " + Math.round(l.getZ()) + ")";
+    }
+
     // If player has died, send them a message
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
@@ -37,10 +42,5 @@ public class OnDeath implements Listener {
             MessageHelper.sendMessage(player.getDisplayName() + " is idle and dead!", MessageLevel.INFO);
             IdleBotUtils.sendPlayerMessage(player, player.getDisplayName() + " died at " + locationCleanup(player.getLocation()) + " (" + e.getDeathMessage() + ").", player.getDisplayName() + " died!");
         }
-    }
-
-    // Take player's location and return a clean string of coordinates
-    private static String locationCleanup(Location l) {
-        return "(" + Math.round(l.getX()) + ", " + Math.round(l.getY()) + ", " + Math.round(l.getZ()) + ")";
     }
 }

@@ -24,24 +24,18 @@ import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
+
 public class IdleChecker implements Runnable {
 
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (PersistentDataUtils.getStringData(player, DataValue.DISCORD_ID) != null) {
-                /* If the player:
-                 * Is not already idle
-                 * Is in the list of idle players (not in auto mode)
-                 */
-                if (!IdleBotUtils.isIdle(player) && IdleBot.idlePlayers.containsKey(player)) {
-                    IdleBot.idlePlayers.put(player, IdleBot.idlePlayers.get(player) + 1); // Increase by one
-                }
-                /* If the player:
-                 * Is not already idle
-                 * Has auto afk mode on
-                 */
-                else if (!IdleBotUtils.isIdle(player) && PersistentDataUtils.getBooleanData(player, DataValue.AUTO_AFK)) {
-                    IdleBot.idlePlayers.put(player, 0);
+                HashMap<Player, Integer> idlePlayers = IdleBot.getPlugin().getIdlePlayers();
+                if (!IdleBotUtils.isIdle(player) && idlePlayers.containsKey(player)) {
+                    idlePlayers.put(player, idlePlayers.get(player) + 1); // Increase by one
+                } else if (!IdleBotUtils.isIdle(player) && PersistentDataUtils.getBooleanData(player, DataValue.AUTO_AFK)) {
+                    idlePlayers.put(player, 0);
                 }
             }
         }

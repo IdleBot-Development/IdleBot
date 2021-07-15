@@ -32,10 +32,10 @@ public class InventoryFull implements IdleCheck {
     }
 
     public void check(Player player) {
-        if (player.getInventory().firstEmpty() < 0 && !IdleBot.getEventManager().inventoryFullPlayers.contains(player)) {
+        if (player.getInventory().firstEmpty() < 0 && !IdleBot.getPlugin().getEventManager().inventoryFullPlayers.contains(player)) {
             MessageHelper.sendMessage(player.getDisplayName() + " is idle and their inventory is full!", MessageLevel.INFO);
             IdleBotUtils.sendPlayerMessage(player, player.getDisplayName() + "'s inventory is full! ", player.getDisplayName() + "'s inventory is full! ");
-            IdleBot.getEventManager().inventoryFullPlayers.add(player);
+            IdleBot.getPlugin().getEventManager().inventoryFullPlayers.add(player);
         }
     }
 }

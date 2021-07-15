@@ -18,6 +18,7 @@
 package io.github.idlebotdevelopment.idlebot.commands;
 
 import io.github.idlebotdevelopment.idlebot.IdleBot;
+import io.github.idlebotdevelopment.idlebot.util.ConfigManager;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
@@ -39,8 +40,9 @@ public class ChannelCommand implements IdleBotCommand {
     @Override
     public boolean runCommand(Player player, String[] args) {
         if (args.length < 2) return false;
+        ConfigManager configManager = IdleBot.getPlugin().getConfigManager();
         if (args[1].equalsIgnoreCase("public")) {
-            if (!IdleBot.getConfigManager().PUBLIC_CHANNEL_MESSAGES_ENABLED) {
+            if (!configManager.PUBLIC_CHANNEL_MESSAGES_ENABLED) {
                 MessageHelper.sendMessage(player, "You are not allowed to use a public channel on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
                 return true;
             }
@@ -48,7 +50,7 @@ public class ChannelCommand implements IdleBotCommand {
             MessageHelper.sendMessage(player, "Set your alerts channel to public", MessageLevel.INFO);
             return true;
         } else if (args[1].equalsIgnoreCase("private")) {
-            if (!IdleBot.getConfigManager().PRIVATE_CHANNEL_MESSAGES_ENABLED) {
+            if (!configManager.PRIVATE_CHANNEL_MESSAGES_ENABLED) {
                 MessageHelper.sendMessage(player, "You are not allowed to use a private channel on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
                 return true;
             }

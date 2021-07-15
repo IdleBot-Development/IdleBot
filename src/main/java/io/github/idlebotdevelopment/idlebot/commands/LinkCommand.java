@@ -18,6 +18,7 @@
 package io.github.idlebotdevelopment.idlebot.commands;
 
 import io.github.idlebotdevelopment.idlebot.IdleBot;
+import io.github.idlebotdevelopment.idlebot.util.ConfigManager;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotCommand;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
@@ -45,23 +46,24 @@ public class LinkCommand implements IdleBotCommand {
             MessageHelper.sendMessage(player, "Your account is already linked!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }
-        if (IdleBot.getConfigManager().DISCORDSRV_MODE) {
+        ConfigManager configManager = IdleBot.getPlugin().getConfigManager();
+        if (configManager.DISCORDSRV_MODE) {
             MessageHelper.sendMessage(player, "This server is using DiscordSRV to link accounts. Please run \"/discord link\" to link your account instead", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }
         Random rng = new Random();
-        String botName = IdleBot.getDiscordAPIManager().bot.getSelfUser().getAsTag();
+        String botName = IdleBot.getPlugin().getDiscordAPIManager().getJda().getSelfUser().getAsTag();
         int code;
         do {
             code = rng.nextInt(999);
         } while (isDuplicateToken(code) || code < 100);
         MessageHelper.sendMessage(player, "Your link code is " + code + ". Send this code in a private message to " + botName + " to link your account.", MessageLevel.IMPORTANT);
-        IdleBot.linkCodes.put(code, player);
+        IdleBot.getPlugin().getLinkCodes().put(code, player);
         return true;
     }
 
     private boolean isDuplicateToken(int code) {
-        for (int eachCode : IdleBot.linkCodes.keySet()) {
+        for (int eachCode : IdleBot.getPlugin().getLinkCodes().keySet()) {
             if (eachCode == code) return true;
         }
         return false;

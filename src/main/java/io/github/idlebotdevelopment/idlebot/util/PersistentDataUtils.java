@@ -47,8 +47,7 @@ public class PersistentDataUtils {
         PersistentDataContainer data = player.getPersistentDataContainer();
         try {
             return data.get(new NamespacedKey(IdleBot.getPlugin(), key.key()), PersistentDataType.STRING);
-        }
-        catch (NullPointerException npe) {
+        } catch (NullPointerException npe) {
             return null;
         }
     }
@@ -58,8 +57,7 @@ public class PersistentDataUtils {
         PersistentDataContainer data = player.getPersistentDataContainer();
         try {
             return data.get(new NamespacedKey(IdleBot.getPlugin(), key.key()), PersistentDataType.INTEGER) == 1;
-        }
-        catch (NullPointerException npe) {
+        } catch (NullPointerException npe) {
             return false;
         }
     }
@@ -69,8 +67,7 @@ public class PersistentDataUtils {
         PersistentDataContainer data = player.getPersistentDataContainer();
         try {
             return data.get(new NamespacedKey(IdleBot.getPlugin(), key.key()), PersistentDataType.INTEGER);
-        }
-        catch (NullPointerException npe) {
+        } catch (NullPointerException npe) {
             return -1;
         }
     }

@@ -18,11 +18,9 @@
 package io.github.idlebotdevelopment.idlebot;
 
 import github.scarsz.configuralize.ParseException;
-import github.scarsz.discordsrv.DiscordSRV;
 import io.github.idlebotdevelopment.idlebot.commands.IdleBotCommandManager;
 import io.github.idlebotdevelopment.idlebot.commands.IdleBotTabCompleter;
 import io.github.idlebotdevelopment.idlebot.discord.DiscordAPIManager;
-import io.github.idlebotdevelopment.idlebot.discord.DiscordSRVEvents;
 import io.github.idlebotdevelopment.idlebot.events.*;
 import io.github.idlebotdevelopment.idlebot.util.ConfigManager;
 import io.github.idlebotdevelopment.idlebot.util.MessageHelper;
@@ -37,6 +35,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import javax.security.auth.login.LoginException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
@@ -44,34 +43,38 @@ import java.util.concurrent.Callable;
 
 public class IdleBot extends JavaPlugin {
 
-    @Getter private static  ConfigManager configManager;
-    @Getter private static final EventManager eventManager = new EventManager();
     @Getter private static IdleBot plugin;
-    @Getter private static DiscordAPIManager discordAPIManager;
-    @Getter private static String localVersion;
-    @Getter private static String latestVersion;
-    public static final HashMap<Integer, Player> linkCodes = new HashMap<>();
-    public static final HashMap<Player, Integer> idlePlayers = new HashMap<>();
+    @Getter private final HashMap<Integer, Player> linkCodes = new HashMap<>();
+    @Getter private final HashMap<Player, Integer> idlePlayers = new HashMap<>();
+    @Getter private ConfigManager configManager;
+    @Getter private EventManager eventManager;
+    @Getter private DiscordAPIManager discordAPIManager;
+    @Getter private String localVersion;
+    @Getter private String latestVersion;
 
     @Override
     public void onEnable() {
         plugin = this;
+        eventManager = new EventManager();
+
         try {
-            configManager = new ConfigManager(this);
-        }
-        catch (IOException | ParseException | InvalidConfigurationException e) {
+            configManager = new ConfigManager();
+        } catch (IOException | ParseException | InvalidConfigurationException e) {
             MessageHelper.sendMessage("Plugin configuration load failed! Plugin disabled. Try to fix the configuration file and try again or get support!", MessageLevel.FATAL_ERROR);
             e.printStackTrace();
-            disablePlugin(false);
+            disablePlugin();
+            return;
         }
-        if (!isEnabled()) return;
+
+        PluginCommand idleBotCommand = Objects.requireNonNull(this.getCommand("idlebot"));
         BukkitScheduler scheduler = getServer().getScheduler();
         PluginManager pluginManager = getServer().getPluginManager();
-        PluginCommand idleBotCommand = Objects.requireNonNull(this.getCommand("idlebot"));
+
         idleBotCommand.setExecutor(new IdleBotCommandManager());
         idleBotCommand.setTabCompleter(new IdleBotTabCompleter());
         scheduler.runTaskTimer(this, new IdleChecker(), 20L, 20L); // Execute the idle checker every 20 ticks (1 second)
         scheduler.runTaskTimer(this, eventManager, 20L, 20L); // Check for all extra events (events that don't have official Bukkit events) every 20 ticks (1 second)
+
         pluginManager.registerEvents(new OnMovement(), this); // Register movement event
         pluginManager.registerEvents(new OnDamage(), this); // Register damage events
         pluginManager.registerEvents(new OnDeath(), this); // Register death event
@@ -79,27 +82,28 @@ public class IdleBot extends JavaPlugin {
         pluginManager.registerEvents(new OnPlayerJoin(), this); // Register player join event
         pluginManager.registerEvents(new OnAdvancementDone(), this); // Register player advancement done event
         pluginManager.registerEvents(new OnItemBreak(), this); // Register item break event
+
+        eventManager.registerCheck(new InventoryFull());
+        eventManager.registerCheck(new XLocationReached());
+        eventManager.registerCheck(new ZLocationReached());
+        eventManager.registerCheck(new XPLevelReached());
+
         localVersion = this.getDescription().getVersion();
         new UpdateChecker(this).getVersion(version -> {
             latestVersion = version;
+            if (!plugin.isEnabled()) return;
             if (localVersion.equals(latestVersion))
                 MessageHelper.sendMessage("You are running the latest version! (" + localVersion + ")", MessageLevel.INFO);
             else
                 MessageHelper.sendMessage("You are running an outdated version! (You are running version " + localVersion + " but the latest version is " + latestVersion + ")\nGo to https://www.spigotmc.org/resources/idlebot-step-up-your-afk-game.88778/ to download a new version", MessageLevel.IMPORTANT);
         });
-        // Load JDA
-        if (configManager.DISCORDSRV_MODE) {
-            MessageHelper.sendMessage("Attempting to connect to DiscordSRV plugin", MessageLevel.INFO);
-            if (DiscordSRV.getPlugin().isEnabled()) {
-                DiscordSRV.api.subscribe(new DiscordSRVEvents(this));
-            } else {
-                MessageHelper.sendMessage("DiscordSRV mode is enabled but the DiscordSRV plugin is not enabled. This could mean that it isn't installed or that something went wrong when loading it.", MessageLevel.FATAL_ERROR);
-                disablePlugin(false);
-            }
-        } else {
-            MessageHelper.sendMessage("Starting to load JDA", MessageLevel.INFO);
-            discordAPIManager = new DiscordAPIManager(this, false);
-            if (isEnabled()) MessageHelper.sendMessage("Plugin successfully loaded", MessageLevel.INFO);
+
+        // Try to load JDA or connect to the DiscordSRV plugin
+        try {
+            discordAPIManager = new DiscordAPIManager();
+        } catch (LoginException | InterruptedException e) {
+            MessageHelper.sendMessage("Failed to load JDA or connect to DiscordSRV", MessageLevel.FATAL_ERROR);
+            disablePlugin();
         }
     }
 
@@ -122,8 +126,8 @@ public class IdleBot extends JavaPlugin {
         }
     }
 
-    public void setDiscordAPIManager(DiscordAPIManager api) {
-        discordAPIManager = api;
+    public void disablePlugin() {
+        disablePlugin(false);
     }
 }
 

@@ -49,7 +49,7 @@ public class ViewSettingsCommand implements IdleBotCommand {
             player.sendMessage(ChatColor.AQUA + "Account linked: false");
             return true;
         }
-        Objects.requireNonNull(IdleBot.getDiscordAPIManager().bot.retrieveUserById(discordID, false)).queue(u -> player.sendMessage(ChatColor.AQUA + "Account linked: true (" + u.getAsTag() + ")"));
+        Objects.requireNonNull(IdleBot.getPlugin().getDiscordAPIManager().getJda().retrieveUserById(discordID, false)).queue(u -> player.sendMessage(ChatColor.AQUA + "Account linked: true (" + u.getAsTag() + ")"));
         player.sendMessage(ChatColor.AQUA + "Message channel: " + (PersistentDataUtils.getBooleanData(player, DataValue.DIRECT_MESSAGE_MODE) ? "direct message" : "public channel"));
         player.sendMessage(ChatColor.AQUA + "AFK mode: " + (PersistentDataUtils.getBooleanData(player, DataValue.AUTO_AFK) ? "auto" : ("manual (Set AFK: " + PersistentDataUtils.getBooleanData(player, DataValue.IS_SET_AFK) + ")")));
         player.sendMessage(ChatColor.AQUA + "AFK time: " + PersistentDataUtils.getIntData(player, DataValue.AFK_TIME));

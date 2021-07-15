@@ -1,5 +1,5 @@
 name: IdleBot
-version: 1.2.0
+version: 1.2.1
 main: io.github.idlebotdevelopment.idlebot.IdleBot
 api-version: "1.16"
 softdepend: [DiscordSRV]

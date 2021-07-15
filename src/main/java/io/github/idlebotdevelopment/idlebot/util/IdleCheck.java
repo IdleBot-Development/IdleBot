@@ -22,5 +22,6 @@ import org.bukkit.entity.Player;
 
 public interface IdleCheck {
     DataValue getDataValue();
+
     void check(Player player);
 }

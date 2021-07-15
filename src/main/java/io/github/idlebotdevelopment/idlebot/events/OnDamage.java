@@ -64,10 +64,10 @@ public class OnDamage implements Listener {
     public void onEntityDamage(EntityDamageByEntityEvent e) {
         if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
-            if (IdleBotUtils.isIdle(player) && !IdleBot.getEventManager().damagedPlayers.contains(player) && PersistentDataUtils.getBooleanData(player, DataValue.DAMAGE_ALERT)) {
+            if (IdleBotUtils.isIdle(player) && !IdleBot.getPlugin().getEventManager().damagedPlayers.contains(player) && PersistentDataUtils.getBooleanData(player, DataValue.DAMAGE_ALERT)) {
                 MessageHelper.sendMessage(player.getDisplayName() + " is idle and taking damage!", MessageLevel.INFO);
                 IdleBotUtils.sendPlayerMessage(player, player.getDisplayName() + " is taking " + damageCauseDictionary.get(e.getCause().name()) + " damage from " + e.getDamager().getName() + ".", player.getDisplayName() + " is taking damage!");
-                IdleBot.getEventManager().damagedPlayers.add(player);
+                IdleBot.getPlugin().getEventManager().damagedPlayers.add(player);
             }
         }
     }
@@ -76,10 +76,10 @@ public class OnDamage implements Listener {
     public void onDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player) {
             Player player = (Player) e.getEntity();
-            if (IdleBotUtils.isIdle(player) && !IdleBot.getEventManager().damagedPlayers.contains(player) && PersistentDataUtils.getBooleanData(player, DataValue.DAMAGE_ALERT) && !typesOfDamageByEntities.contains(e.getCause().name())) {
+            if (IdleBotUtils.isIdle(player) && !IdleBot.getPlugin().getEventManager().damagedPlayers.contains(player) && PersistentDataUtils.getBooleanData(player, DataValue.DAMAGE_ALERT) && !typesOfDamageByEntities.contains(e.getCause().name())) {
                 MessageHelper.sendMessage(player.getDisplayName() + " is idle and taking damage!", MessageLevel.INFO);
                 IdleBotUtils.sendPlayerMessage(player, player.getDisplayName() + " is taking " + damageCauseDictionary.get(e.getCause().name()) + " damage.", player.getDisplayName() + " is taking damage!");
-                IdleBot.getEventManager().damagedPlayers.add(player);
+                IdleBot.getPlugin().getEventManager().damagedPlayers.add(player);
             }
         }
     }

@@ -29,6 +29,7 @@ import java.util.function.Consumer;
 
 public class UpdateChecker {
 
+    private static final String UPDATE_URL = "https://api.spigotmc.org/legacy/update.php?resource=88778";
     private final IdleBot plugin;
 
     public UpdateChecker(IdleBot plugin) {
@@ -37,7 +38,7 @@ public class UpdateChecker {
 
     public void getVersion(final Consumer<String> consumer) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            try (InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource=88778").openStream(); Scanner scanner = new Scanner(inputStream)) {
+            try (InputStream inputStream = new URL(UPDATE_URL).openStream(); Scanner scanner = new Scanner(inputStream)) {
                 if (scanner.hasNext()) {
                     consumer.accept(scanner.next());
                 }
