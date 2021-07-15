@@ -84,6 +84,8 @@ public class DiscordAPIManager implements Listener {
                 case "listening":
                     jda.getPresence().setPresence(Activity.listening(configManager.ACTIVITY_MESSAGE), false);
                     break;
+                default:
+                    break;
             }
             TextChannel nullableChannel = jda.getTextChannelById(configManager.CHANNEL_ID);
             if (configManager.PUBLIC_CHANNEL_MESSAGES_ENABLED && nullableChannel != null)
