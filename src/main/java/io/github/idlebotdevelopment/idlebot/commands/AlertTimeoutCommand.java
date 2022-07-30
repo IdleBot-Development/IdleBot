@@ -39,14 +39,15 @@ public class AlertTimeoutCommand implements IdleBotCommand {
         ConfigManager configManager = IdleBot.getPlugin().getConfigManager();
         if (!configManager.ALERT_AUTO_TIMEOUT_ENABLED) {
             MessageHelper.sendMessage(player, "You are not allowed to change your auto alert timeout settings on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
+            PersistentDataUtils.removeData(player, DataValue.ALERT_REPEAT_TIMEOUT);
             return true;
         }
-        if (args.length >= 2 && IdleBotUtils.isInteger(args[1]) && Integer.parseInt(args[1]) >= configManager.MINIMUM_ALERT_REPEAT_TIMEOUT && Integer.parseInt(args[1]) <= configManager.MAXIMUM_ALERT_REPEAT_TIMEOUT) {
+        if (args.length >= 2 && IdleBotUtils.isInteger(args[1]) && (Integer.parseInt(args[1]) == 0 || (Integer.parseInt(args[1]) >= configManager.MINIMUM_ALERT_REPEAT_TIMEOUT && Integer.parseInt(args[1]) <= configManager.MAXIMUM_ALERT_REPEAT_TIMEOUT))) {
             PersistentDataUtils.setData(player, DataValue.ALERT_REPEAT_TIMEOUT, Integer.parseInt(args[1]));
             MessageHelper.sendMessage(player, "Set your auto alert timeout to " + args[1], MessageLevel.INFO);
             return true;
         } else if (args.length >= 2 && IdleBotUtils.isInteger(args[1])) {
-            MessageHelper.sendMessage(player, "Your auto alert timeout must be between " + configManager.MINIMUM_ALERT_REPEAT_TIMEOUT + " and " + configManager.MAXIMUM_ALERT_REPEAT_TIMEOUT + " seconds!", MessageLevel.INCORRECT_COMMAND_USAGE);
+            MessageHelper.sendMessage(player, "Your auto alert timeout must be between " + configManager.MINIMUM_ALERT_REPEAT_TIMEOUT + " and " + configManager.MAXIMUM_ALERT_REPEAT_TIMEOUT + " seconds, or 0 to disable the timeout!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }
         return false;

@@ -53,6 +53,7 @@ public class ViewSettingsCommand implements IdleBotCommand {
         player.sendMessage(ChatColor.AQUA + "Message channel: " + (PersistentDataUtils.getBooleanData(player, DataValue.DIRECT_MESSAGE_MODE) ? "direct message" : "public channel"));
         player.sendMessage(ChatColor.AQUA + "AFK mode: " + (PersistentDataUtils.getBooleanData(player, DataValue.AUTO_AFK) ? "auto" : ("manual (Set AFK: " + PersistentDataUtils.getBooleanData(player, DataValue.IS_SET_AFK) + ")")));
         player.sendMessage(ChatColor.AQUA + "AFK time: " + PersistentDataUtils.getIntData(player, DataValue.AFK_TIME));
+        player.sendMessage(ChatColor.AQUA + "Alert repeat timeout: " + PersistentDataUtils.getIntData(player, DataValue.ALERT_REPEAT_TIMEOUT));
         player.sendMessage(ChatColor.AQUA + "Damage alert: " + PersistentDataUtils.getBooleanData(player, DataValue.DAMAGE_ALERT));
         player.sendMessage(ChatColor.AQUA + "Death alert: " + PersistentDataUtils.getBooleanData(player, DataValue.DEATH_ALERT));
         boolean locationAlertX = PersistentDataUtils.getBooleanData(player, DataValue.LOCATION_ALERT_X);

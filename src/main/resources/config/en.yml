@@ -53,6 +53,7 @@ alertRepeatTimeout:
   # (s) The default time between alerts for players who do not set their own | this must be between minimum and maximum alert repeat timeout set below | default: 20
   defaultAlertRepeatTimeout: 20
   # (s) The minimum time between alerts a players can set for themselves | you can set this to a minimum of 5 seconds | default: 10
+  # Users will be able to set their time to 0 regardless of what you set here. This disables alerts from repeating for the player.
   minimumAlertRepeatTimeout: 10
   # (s) The maximum time between alerts a players can set for themselves | you can set this to a maximum of 86400 seconds (1 day) | default: 120
   maximumAlertRepeatTimeout: 120

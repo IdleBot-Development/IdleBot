@@ -37,6 +37,7 @@ public class IdleBotCommandManager implements CommandExecutor {
         // Add /idlebot commands to list of commands
         idleBotCommands.add(new AFKModeCommand());
         idleBotCommands.add(new AFKTimeCommand());
+        idleBotCommands.add(new AlertTimeoutCommand());
         idleBotCommands.add(new AlertCommand());
         idleBotCommands.add(new LinkCommand());
         idleBotCommands.add(new SetAFKCommand());

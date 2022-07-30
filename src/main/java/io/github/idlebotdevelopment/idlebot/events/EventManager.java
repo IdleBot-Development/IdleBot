@@ -52,7 +52,9 @@ public class EventManager implements Runnable {
         // Remove players from alerted lists if their alert timeout has been reached
         for (HashMap<Player, Integer> map : alertedLists) {
             for (Player player : map.keySet()) {
-                if (map.get(player) >= PersistentDataUtils.getIntData(player, DataValue.ALERT_REPEAT_TIMEOUT)) {
+                map.put(player, map.get(player) + 1); // Increment the timeout tracker
+                int timeout = PersistentDataUtils.getIntData(player, DataValue.ALERT_REPEAT_TIMEOUT);
+                if (timeout > 0 && map.get(player) >= timeout) {
                     map.remove(player);
                 }
             }
