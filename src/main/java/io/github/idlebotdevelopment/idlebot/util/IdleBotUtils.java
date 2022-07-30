@@ -72,7 +72,6 @@ public class IdleBotUtils {
         eventManager.locationReachedPlayersX.remove(player);
         eventManager.locationReachedPlayersZ.remove(player);
         eventManager.XPLevelReachedPlayers.remove(player);
-        eventManager.idlePlayersAlertTimeout.put(player, 0);
     }
 
     public static void saveListToDataFile(ArrayList<String> playerList, boolean append) {

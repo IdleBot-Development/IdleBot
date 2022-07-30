@@ -36,10 +36,10 @@ public class XPLevelReached implements IdleCheck {
     public void check(Player player) {
         int levelDesired = PersistentDataUtils.getIntData(player, DataValue.EXPERIENCE_LEVEL_DESIRED);
         if (levelDesired == -1) return;
-        if (player.getLevel() >= levelDesired && !IdleBot.getPlugin().getEventManager().XPLevelReachedPlayers.contains(player)) {
+        if (player.getLevel() >= levelDesired && !IdleBot.getPlugin().getEventManager().XPLevelReachedPlayers.containsKey(player)) {
             MessageHelper.sendMessage(player.getDisplayName() + " is idle and at the desired XP level!", MessageLevel.INFO);
             IdleBotUtils.sendPlayerMessage(player, player.getDisplayName() + " is at the desired XP level!", player.getDisplayName() + " reached the desired XP level!");
-            IdleBot.getPlugin().getEventManager().XPLevelReachedPlayers.add(player);
+            IdleBot.getPlugin().getEventManager().XPLevelReachedPlayers.put(player, 0);
         }
     }
 }

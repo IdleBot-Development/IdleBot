@@ -29,35 +29,41 @@ import java.util.HashMap;
 
 public class EventManager implements Runnable {
     // Lists to store the players who have already been pinged
-    public final ArrayList<Player> inventoryFullPlayers = new ArrayList<>();
-    public final ArrayList<Player> locationReachedPlayersX = new ArrayList<>();
-    public final ArrayList<Player> locationReachedPlayersZ = new ArrayList<>();
-    public final ArrayList<Player> damagedPlayers = new ArrayList<>();
-    public final ArrayList<Player> XPLevelReachedPlayers = new ArrayList<>();
+    public final HashMap<Player, Integer> inventoryFullPlayers = new HashMap<>();
+    public final HashMap<Player, Integer> locationReachedPlayersX = new HashMap<>();
+    public final HashMap<Player, Integer> locationReachedPlayersZ = new HashMap<>();
+    public final HashMap<Player, Integer> damagedPlayers = new HashMap<>();
+    public final HashMap<Player, Integer> XPLevelReachedPlayers = new HashMap<>();
 
-    public final HashMap<Player, Integer> idlePlayersAlertTimeout = new HashMap<>();
+    public final ArrayList<HashMap<Player, Integer>> alertedLists = new ArrayList<>();
 
     private final ArrayList<IdleCheck> idleChecks = new ArrayList<>();
+
+    public EventManager() {
+        alertedLists.add(inventoryFullPlayers);
+        alertedLists.add(locationReachedPlayersX);
+        alertedLists.add(locationReachedPlayersZ);
+        alertedLists.add(damagedPlayers);
+        alertedLists.add(XPLevelReachedPlayers);
+    }
 
     @Override
     public void run() {
         // Remove players from alerted lists if their alert timeout has been reached
-        for (Player player : idlePlayersAlertTimeout.keySet()) {
-            int timeout = PersistentDataUtils.getIntData(player, DataValue.ALERT_REPEAT_TIMEOUT);
-            if (timeout > 0 && timeout <= idlePlayersAlertTimeout.get(player))
-                IdleBotUtils.clearPlayerIdleStats(player);
-            else if (timeout > 0)
-                idlePlayersAlertTimeout.put(player, idlePlayersAlertTimeout.get(player) + 1);
-            else
-                idlePlayersAlertTimeout.remove(player);
+        for (HashMap<Player, Integer> map : alertedLists) {
+            for (Player player : map.keySet()) {
+                if (map.get(player) >= PersistentDataUtils.getIntData(player, DataValue.ALERT_REPEAT_TIMEOUT)) {
+                    map.remove(player);
+                }
+            }
         }
 
         // Check extra events
-        Bukkit.getOnlinePlayers().forEach(player ->
-            idleChecks.forEach(check -> {
-                if (PersistentDataUtils.getBooleanData(player, check.getDataValue()) && IdleBotUtils.isIdle(player))
-                    check.check(player);
-            })
+        Bukkit.getOnlinePlayers().forEach(player -> // TODO: aren't streams slower? Why is this a stream?
+                idleChecks.forEach(check -> {
+                    if (PersistentDataUtils.getBooleanData(player, check.getDataValue()) && IdleBotUtils.isIdle(player))
+                        check.check(player);
+                })
         );
     }
 

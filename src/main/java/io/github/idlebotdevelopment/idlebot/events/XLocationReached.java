@@ -39,11 +39,11 @@ public class XLocationReached implements IdleCheck {
         String direction = PersistentDataUtils.getStringData(player, DataValue.LOCATION_X_DIRECTION);
         int desiredLocation = PersistentDataUtils.getIntData(player, DataValue.LOCATION_X_DESIRED);
         double playerLocation = player.getLocation().getX();
-        if (direction != null && !IdleBot.getPlugin().getEventManager().locationReachedPlayersX.contains(player) && ((direction.equals("e") && playerLocation >= desiredLocation) || (direction.equals("w") && playerLocation <= desiredLocation))) {
+        if (direction != null && !IdleBot.getPlugin().getEventManager().locationReachedPlayersX.containsKey(player) && ((direction.equals("e") && playerLocation >= desiredLocation) || (direction.equals("w") && playerLocation <= desiredLocation))) {
             Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_PURPLE + "[IdleBot] " + ChatColor.AQUA + player.getDisplayName() + " is idle and reached the desired X coordinate!");
             MessageHelper.sendMessage(player.getDisplayName() + " is idle and reached the desired Z coordinate!", MessageLevel.INFO);
             IdleBotUtils.sendPlayerMessage(player, player.getDisplayName() + " has reached the desired X coordinate!", player.getDisplayName() + " reached the desired location!");
-            IdleBot.getPlugin().getEventManager().locationReachedPlayersX.add(player);
+            IdleBot.getPlugin().getEventManager().locationReachedPlayersX.put(player, 0);
         }
     }
 }

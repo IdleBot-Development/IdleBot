@@ -37,10 +37,10 @@ public class ZLocationReached implements IdleCheck {
         String direction = PersistentDataUtils.getStringData(player, DataValue.LOCATION_Z_DIRECTION);
         int desiredLocation = PersistentDataUtils.getIntData(player, DataValue.LOCATION_Z_DESIRED);
         double playerLocation = player.getLocation().getZ();
-        if (direction != null && !IdleBot.getPlugin().getEventManager().locationReachedPlayersZ.contains(player) && ((direction.equals("s") && playerLocation >= desiredLocation) || (direction.equals("n") && playerLocation <= desiredLocation))) {
+        if (direction != null && !IdleBot.getPlugin().getEventManager().locationReachedPlayersZ.containsKey(player) && ((direction.equals("s") && playerLocation >= desiredLocation) || (direction.equals("n") && playerLocation <= desiredLocation))) {
             MessageHelper.sendMessage(player.getDisplayName() + " is idle and reached the desired Z coordinate!", MessageLevel.INFO);
             IdleBotUtils.sendPlayerMessage(player, player.getDisplayName() + " has reached the desired Z coordinate!", player.getDisplayName() + " reached the desired location!");
-            IdleBot.getPlugin().getEventManager().locationReachedPlayersZ.add(player);
+            IdleBot.getPlugin().getEventManager().locationReachedPlayersZ.put(player, 0);
         }
     }
 }
