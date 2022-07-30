@@ -36,13 +36,23 @@ AFKMode:
   autoAFKEnabled: true
   # Should players be allowed to go AFK by typing a command | default: true
   manualAFKEnabled: true
+    # Should players be allowed to have alerts repeated without becoming AFK again | default: false
+  alertAutoTimeoutEnabled: false
   # The default mode for players to go AFK | default: auto | options: [auto, manual]
   defaultAFKMode: auto
 
 idleTime:
   # (s) The default idle time for players who do not set their own | this must be between minimum and maximum idle time set below | default: 120
   defaultIdleTime: 120
-  # (s) The minimum idle time a player can set for themself | you can set this to a minimum of 5 seconds | default: 20
+  # (s) The minimum idle time a players can set for themselves | you can set this to a minimum of 5 seconds | default: 20
   minimumIdleTime: 20
-  # (s) The maximum idle time a player can set for themself | you can set this to a maximum of 86400 seconds (1 day) | default: 600
+  # (s) The maximum idle time a players can set for themselves | you can set this to a maximum of 86400 seconds (1 day) | default: 600
   maximumIdleTime: 600
+
+alertRepeatTimeout:
+  # (s) The default time between alerts for players who do not set their own | this must be between minimum and maximum alert repeat timeout set below | default: 20
+  defaultAlertRepeatTimeout: 20
+  # (s) The minimum time between alerts a players can set for themselves | you can set this to a minimum of 5 seconds | default: 10
+  minimumAlertRepeatTimeout: 10
+  # (s) The maximum time between alerts a players can set for themselves | you can set this to a maximum of 86400 seconds (1 day) | default: 120
+  maximumAlertRepeatTimeout: 120

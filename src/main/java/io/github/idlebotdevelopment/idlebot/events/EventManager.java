@@ -20,10 +20,12 @@ package io.github.idlebotdevelopment.idlebot.events;
 import io.github.idlebotdevelopment.idlebot.util.IdleBotUtils;
 import io.github.idlebotdevelopment.idlebot.util.IdleCheck;
 import io.github.idlebotdevelopment.idlebot.util.PersistentDataUtils;
+import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class EventManager implements Runnable {
     // Lists to store the players who have already been pinged
@@ -33,10 +35,24 @@ public class EventManager implements Runnable {
     public final ArrayList<Player> damagedPlayers = new ArrayList<>();
     public final ArrayList<Player> XPLevelReachedPlayers = new ArrayList<>();
 
+    public final HashMap<Player, Integer> idlePlayersAlertTimeout = new HashMap<>();
+
     private final ArrayList<IdleCheck> idleChecks = new ArrayList<>();
 
     @Override
     public void run() {
+        // Remove players from alerted lists if their alert timeout has been reached
+        for (Player player : idlePlayersAlertTimeout.keySet()) {
+            int timeout = PersistentDataUtils.getIntData(player, DataValue.ALERT_REPEAT_TIMEOUT);
+            if (timeout > 0 && timeout <= idlePlayersAlertTimeout.get(player))
+                IdleBotUtils.clearPlayerIdleStats(player);
+            else if (timeout > 0)
+                idlePlayersAlertTimeout.put(player, idlePlayersAlertTimeout.get(player) + 1);
+            else
+                idlePlayersAlertTimeout.remove(player);
+        }
+
+        // Check extra events
         Bukkit.getOnlinePlayers().forEach(player ->
             idleChecks.forEach(check -> {
                 if (PersistentDataUtils.getBooleanData(player, check.getDataValue()) && IdleBotUtils.isIdle(player))

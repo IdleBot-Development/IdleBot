@@ -23,30 +23,30 @@ import io.github.idlebotdevelopment.idlebot.util.enums.DataValue;
 import io.github.idlebotdevelopment.idlebot.util.enums.MessageLevel;
 import org.bukkit.entity.Player;
 
-public class AFKTimeCommand implements IdleBotCommand {
+public class AlertTimeoutCommand implements IdleBotCommand {
     @Override
     public String getCommandName() {
-        return "afktime";
+        return "alerttimeout";
     }
 
     @Override
     public String getCommandUsage() {
-        return "/idlebot afktime <time in seconds (your server's admin set the minimum and maximum afk time to " + IdleBot.getPlugin().getConfigManager().MINIMUM_IDLE_TIME + " and " + IdleBot.getPlugin().getConfigManager().MAXIMUM_IDLE_TIME + ")>";
+        return "/idlebot alerttimeout [seconds (0 for false)]";
     }
 
     @Override
     public boolean runCommand(Player player, String[] args) {
         ConfigManager configManager = IdleBot.getPlugin().getConfigManager();
-        if (!configManager.AUTO_AFK_ENABLED) {
-            MessageHelper.sendMessage(player, "You are not allowed to use auto AFK on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
+        if (!configManager.ALERT_AUTO_TIMEOUT_ENABLED) {
+            MessageHelper.sendMessage(player, "You are not allowed to change your auto alert timeout settings on this server!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }
-        if (args.length >= 2 && IdleBotUtils.isInteger(args[1]) && Integer.parseInt(args[1]) >= configManager.MINIMUM_IDLE_TIME && Integer.parseInt(args[1]) <= configManager.MAXIMUM_IDLE_TIME) {
-            PersistentDataUtils.setData(player, DataValue.AFK_TIME, Integer.parseInt(args[1]));
-            MessageHelper.sendMessage(player, "Set your afktime to " + args[1], MessageLevel.INFO);
+        if (args.length >= 2 && IdleBotUtils.isInteger(args[1]) && Integer.parseInt(args[1]) >= configManager.MINIMUM_ALERT_REPEAT_TIMEOUT && Integer.parseInt(args[1]) <= configManager.MAXIMUM_ALERT_REPEAT_TIMEOUT) {
+            PersistentDataUtils.setData(player, DataValue.ALERT_REPEAT_TIMEOUT, Integer.parseInt(args[1]));
+            MessageHelper.sendMessage(player, "Set your auto alert timeout to " + args[1], MessageLevel.INFO);
             return true;
         } else if (args.length >= 2 && IdleBotUtils.isInteger(args[1])) {
-            MessageHelper.sendMessage(player, "Your afktime must be between " + configManager.MINIMUM_IDLE_TIME + " and " + configManager.MAXIMUM_IDLE_TIME + " seconds!", MessageLevel.INCORRECT_COMMAND_USAGE);
+            MessageHelper.sendMessage(player, "Your auto alert timeout must be between " + configManager.MINIMUM_ALERT_REPEAT_TIMEOUT + " and " + configManager.MAXIMUM_ALERT_REPEAT_TIMEOUT + " seconds!", MessageLevel.INCORRECT_COMMAND_USAGE);
             return true;
         }
         return false;

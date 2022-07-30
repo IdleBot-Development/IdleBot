@@ -42,10 +42,16 @@ public class ConfigManager {
     public int MINIMUM_IDLE_TIME;
     public int MAXIMUM_IDLE_TIME;
 
+    public int DEFAULT_ALERT_REPEAT_TIMEOUT;
+    public int MINIMUM_ALERT_REPEAT_TIMEOUT;
+    public int MAXIMUM_ALERT_REPEAT_TIMEOUT;
+
     public boolean PUBLIC_CHANNEL_MESSAGES_ENABLED;
     public boolean PRIVATE_CHANNEL_MESSAGES_ENABLED;
     public boolean AUTO_AFK_ENABLED;
     public boolean MANUAL_AFK_ENABLED;
+
+    public boolean ALERT_AUTO_TIMEOUT_ENABLED;
     public boolean DISCORDSRV_MODE;
 
     public ConfigManager() throws IOException, ParseException, InvalidConfigurationException {
@@ -64,6 +70,7 @@ public class ConfigManager {
         loadBotInfo();
         loadAFKSettings();
         loadIdleTimeSettings();
+        loadAlertRepeatTimeoutSettings();
     }
 
     private void loadMiscellaneousSettings() {
@@ -84,6 +91,7 @@ public class ConfigManager {
     private void loadAFKSettings() throws InvalidConfigurationException {
         AUTO_AFK_ENABLED = config.getBooleanElse("AFKMode.autoAFKEnabled", true);
         MANUAL_AFK_ENABLED = config.getBooleanElse("AFKMode.manualAFKEnabled", true);
+        ALERT_AUTO_TIMEOUT_ENABLED = config.getBooleanElse("AFKMode.alertAutoTimeoutEnabled", false);
         DEFAULT_AFK_MODE = config.getStringElse("AFKMode.defaultAFKMode", "auto");
         if ((DEFAULT_AFK_MODE.equals("auto") && !AUTO_AFK_ENABLED) || (DEFAULT_AFK_MODE.equals("manual") && !MANUAL_AFK_ENABLED) || !(DEFAULT_AFK_MODE.equals("auto") || DEFAULT_AFK_MODE.equals("manual")))
             invalidateConfig("AFKMode settings invalid");
@@ -101,8 +109,16 @@ public class ConfigManager {
         MAXIMUM_IDLE_TIME = config.getIntElse("idleTime.maximumIdleTime", 120);
         MINIMUM_IDLE_TIME = config.getIntElse("idleTime.minimumIdleTime", 20);
         DEFAULT_IDLE_TIME = config.getIntElse("idleTime.defaultIdleTime", 600);
-        if (MAXIMUM_IDLE_TIME <= MINIMUM_IDLE_TIME || DEFAULT_IDLE_TIME < MINIMUM_IDLE_TIME || DEFAULT_IDLE_TIME > MAXIMUM_IDLE_TIME)
+        if (MAXIMUM_IDLE_TIME < MINIMUM_IDLE_TIME || DEFAULT_IDLE_TIME < MINIMUM_IDLE_TIME || DEFAULT_IDLE_TIME > MAXIMUM_IDLE_TIME)
             invalidateConfig("idleTimes are invalid");
+    }
+
+    private void loadAlertRepeatTimeoutSettings() throws InvalidConfigurationException {
+        MAXIMUM_ALERT_REPEAT_TIMEOUT = config.getIntElse("alertRepeatTimeout.maximumAlertRepeatTimeout", 120);
+        MINIMUM_ALERT_REPEAT_TIMEOUT = config.getIntElse("alertRepeatTimeout.minimumAlertRepeatTimeout", 10);
+        DEFAULT_ALERT_REPEAT_TIMEOUT = config.getIntElse("alertRepeatTimeout.defaultAlertRepeatTimeout", 20);
+        if (MAXIMUM_ALERT_REPEAT_TIMEOUT < MINIMUM_ALERT_REPEAT_TIMEOUT || DEFAULT_ALERT_REPEAT_TIMEOUT < MINIMUM_ALERT_REPEAT_TIMEOUT || DEFAULT_ALERT_REPEAT_TIMEOUT > MAXIMUM_ALERT_REPEAT_TIMEOUT)
+            invalidateConfig("alertRepeatTimeouts are invalid");
     }
 
     private void invalidateConfig(String reason) throws InvalidConfigurationException {
